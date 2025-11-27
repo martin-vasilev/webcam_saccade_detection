@@ -7,38 +7,35 @@ dat<- read_csv('data/webcam_data.zip')
 d<- subset(dat, sub==11 & Trial_Id==60)
 d<- d %>% filter(el_pupil>0 & conf>0)
 
-d$hz<- 1/(d$time_diff/1000) 
-# d<- d %>% mutate(hz2 = hz + dplyr::lag(hz))
-
-
 ### IV-T:
 
 deg_x<- 0.0187
 deg_y<- 0.0192
 
-# Eyelink:
-
-# take x position vector
+# Get pixel coordinates:
 x= d$el_x 
-time= d$time_diff[2:length(d$time_diff)]
-time= time/1000
+y= d$el_y
 
-# calculate difference to next sample:
-diff<- diff(x, 1)
+# get time
+t= d$time_start/1000 # turn into seconds
 
-# get absolute value of differences:
-diff_a<- abs(diff)
-
-diff_deg<- diff_a*deg_x
-diff_deg/time
+# 1. pixel vectors:
+x_px<- diff(x, 1)
+y_px<- diff(y, 1)
 
 
-# vel[2:(length(x)-1)] <- abs(1000/2*(x[3:(length(x))] - x[1:(length(x)-2)])/deg)
-# 
-# 
-# temp$sacc_peak<- max(abs(vel))
-# temp$sacc_vel<- mean(abs(vel))
-# temp$sacc_ampl<- abs((x[length(x)]- x[1])/deg)
+# 2. Convert vectors to degree per visual angle:
+x_deg<- x_px*deg_x
+y_deg<- y_px*deg_y
 
+# 3. calculate magnitude of movement in x, y:
+d_t<- diff(t,1)
+
+# 4. Calculate vector velocities in deg/s
+v_x<- x_deg/d_t
+v_y<- y_deg/d_t
+
+# 5. calculate magnitude of movement in x, y:
+m<- sqrt(v_x^2+ v_y^2)
 
 
