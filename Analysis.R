@@ -42,7 +42,7 @@ m<- sqrt(v_x^2+ v_y^2)
 d$vel_mag <- c(NA, m)   
 
 # 7. Velocity-threshold
-v_thr <- 20   
+v_thr <- 50   
 
 # 8. Classify the point as saccade point
 d$is_saccade <- d$vel_mag >= v_thr   # TRUE = saccade, FALSE = non-saccade
@@ -55,6 +55,7 @@ abline(h = v_thr, lty = 2)
 # All trials:
 dat_all <- dat %>%
   filter(el_pupil > 0, conf > 0) %>%
+  filter(x> 0 & x < 1920 & y>0 & y<1080)%>%
   group_by(sub, Trial_Id) %>%
   arrange(time_start, .by_group = TRUE) %>%
   mutate(
@@ -83,4 +84,35 @@ dat_all <- dat %>%
     is_saccade = vel_mag >= v_thr
   ) %>%
   ungroup()
+
+
+fix_data<- dat_all %>% 
+  filter(!is.na(is_saccade))%>%
+  group_by(sub, Task_Name, Trial_Id)%>%
+  mutate(fixation_group = cumsum(
+    is_saccade != lag(is_saccade, default = TRUE) &
+      is_saccade == FALSE
+  ))%>%
+  filter(is_saccade==F)
+
+fix_data2<- fix_data %>%
+  group_by(sub, Task_Name, Trial_Id, fixation_group)%>%
+  summarise(start_time= min(time_start), 
+            end_time= max(time_start),
+            fix_dur= end_time- start_time,
+            x= mean(x), 
+            y= mean(y),
+            avg_vel= mean(vel_mag),
+            n_samples= n()) %>%
+            filter(n_samples>1)
+
+length(which(fix_data2$fix_dur==0))/nrow(fix_data2)
+
+mean(fix_data2$fix_dur)
+sd(fix_data2$fix_dur)
+  
+  
+  
+
+
 
