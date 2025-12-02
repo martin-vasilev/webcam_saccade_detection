@@ -1,4 +1,4 @@
-
+library(dplyr)
 library(readr)
 
 dat<- read_csv('data/webcam_data.zip')
@@ -28,7 +28,7 @@ y_px<- diff(y, 1)
 x_deg<- x_px*deg_x
 y_deg<- y_px*deg_y
 
-# 3. calculate magnitude of movement in x, y:
+# 3. Time difference between consecutive samples (in seconds):
 d_t<- diff(t,1)
 
 # 4. Calculate vector velocities in deg/s
@@ -38,4 +38,49 @@ v_y<- y_deg/d_t
 # 5. calculate magnitude of movement in x, y:
 m<- sqrt(v_x^2+ v_y^2)
 
+# 6. Velocity magnitude in deg/s
+d$vel_mag <- c(NA, m)   
+
+# 7. Velocity-threshold
+v_thr <- 20   
+
+# 8. Classify the point as saccade point
+d$is_saccade <- d$vel_mag >= v_thr   # TRUE = saccade, FALSE = non-saccade
+
+# 9. Plot
+plot(t, c(NA, m), type = "l",
+     xlab = "Time (s)", ylab = "Velocity (deg/s)")
+abline(h = v_thr, lty = 2)  
+
+# All trials:
+dat_all <- dat %>%
+  filter(el_pupil > 0, conf > 0) %>%
+  group_by(sub, Trial_Id) %>%
+  arrange(time_start, .by_group = TRUE) %>%
+  mutate(
+    # Time in seconds
+    t_sec = time_start / 1000,
+    
+    # Pixel vectors
+    x_px = c(NA, diff(el_x)),
+    y_px = c(NA, diff(el_y)),
+    
+    # Convert vectors to degree per visual angle
+    x_deg = x_px * deg_x,
+    y_deg = y_px * deg_y,
+    
+    # Time difference in sec
+    dt = c(NA, diff(t_sec)),
+    
+    # Calculate vector velocities in deg/s
+    v_x = x_deg / dt,
+    v_y = y_deg / dt,
+    
+    # Magnitude of movement in x, y
+    vel_mag = sqrt(v_x^2 + v_y^2),
+    
+    # Saccade classification
+    is_saccade = vel_mag >= v_thr
+  ) %>%
+  ungroup()
 
