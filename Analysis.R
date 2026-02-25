@@ -7,8 +7,7 @@ rm(list= ls())
 dat <- readr::read_csv('data/webcam_data_ground_truth.csv')
 
 # Clean data:
-dat<- dat%>%
-  filter (conf>0 & el_pupil>0)# remove blinks:
+dat<- subset(dat,conf>0 & el_pupil>0)# remove blinks:
 
 
 library(TTR)
@@ -24,17 +23,79 @@ dat<- dat%>%
   group_by(sub, Trial_Id) %>%
   mutate(x_ma= SMA(x, n=5), 
          y_ma= SMA(y, n=5),
-         x_sg= sgolayfilt(x = x, p = 5, n = 23))%>%
+         x_sg= sgolayfilt(x = x, p = 5, n = 23),
+         y_sg= sgolayfilt(x = x, p = 5, n = 23),
+         x_median5 = runmed(x, k = 5),
+         y_median5 = runmed(x, k = 5))%>%
   ungroup()
 
-d<- subset(dat, sub==11 & Trial_Id==60)
+d<- subset(dat, sub==6 & Trial_Id==102)
 #d<- d[1:100,]
 
+library(eyemovements)
+
+raw<- d%>%
+  transmute(time = time_start, x = x, y = y,
+            sub= sub,Trial_Id= Trial_Id)
+raw_fix<- DetectFixations(raw, method = "I-VT",
+                  vel_threshold = 50, min_fix_dur = 50)
+
+raw_fix$x_m<- 'x'
+
+raw_ma<- d%>%
+  transmute(time = time_start, x = x_ma, y = y_ma,
+            sub= sub,Trial_Id= Trial_Id)
+raw_ma_fix<- DetectFixations(raw_ma, method = "I-VT",
+                          vel_threshold = 50, min_fix_dur = 50)
+
+raw_ma_fix$x_m<- 'x_ma'
+
+raw_med<- d%>%
+  transmute(time = time_start, x = x_median5, y = y_median5,
+            sub= sub,Trial_Id= Trial_Id)
+raw_med_fix<- DetectFixations(raw_med, method = "I-VT",
+                             vel_threshold = 50, min_fix_dur = 50)
+
+raw_med_fix$x_m<- 'x_median5'
+
+raw_el<- d%>%
+  transmute(time = time_start, x = el_x, y = el_y,
+            sub= sub, Trial_Id= Trial_Id)
+
+raw_el_fix<- DetectFixations(raw_el, method = "I-VT",
+                              vel_threshold = 50, min_fix_dur = 50)
+
+raw_el_fix$x_m<- 'el_x'
+
+
+raw_sg<- d%>%
+  transmute(time = time_start, x = x_sg, y = y_sg,
+            sub= sub, Trial_Id= Trial_Id)
+
+raw_sg_fix<- DetectFixations(raw_sg, method = "I-VT",
+                             vel_threshold = 50, min_fix_dur = 50)
+
+raw_sg_fix$x_m<- 'x_sg'
+
+
+
+fix<- rbind(raw_fix, raw_ma_fix, raw_med_fix, raw_el_fix, raw_sg_fix)
+
+fix<- fix%>% group_by(x_m)%>%
+  mutate(xmin= min(x), xmax= max(x))
+
 d %>% 
-  pivot_longer(cols = c(x, x_sg, x_ma), names_to = 'x_m',
+  pivot_longer(cols = c(el_x,x,x_ma, x_median5, x_sg), names_to = 'x_m',
                values_to = 'x_val')%>%
   ggplot(aes(x= time_start, y= x_val, colour= x_m))+
-  geom_line()
+  geom_line()+theme_classic()+
+  geom_rect(
+    data = fix,
+    aes(xmin = fix_start, xmax = fix_end,
+        ymin = xmin, ymax = xmax, fill= x_m), alpha = 0.5,
+    inherit.aes = FALSE) +
+  facet_wrap(~x_m, nrow=  5)
+
 
 
 
