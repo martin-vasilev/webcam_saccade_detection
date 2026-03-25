@@ -237,9 +237,6 @@ ggplot(best_data, aes(x = log(fix_dur), fill = smoothing)) +
 
 
 
-
-
-
 # I-DT
 
 I_DT_results <- data.frame()
@@ -378,3 +375,85 @@ ggplot(IDT_table, aes(x = factor(min_dur), y = mean_acc, fill = factor(disp_thre
     panel.grid.major.x = element_blank()
   )
 
+
+# The binned graph
+
+binned_dat <- I_VT_results %>%
+  dplyr::filter(!is.na(acc), !is.na(.data$fix_dur)) %>%
+  dplyr::mutate(
+    dur_bin = cut(
+      .data$fix_dur,
+      breaks = seq(0, 1000, by = 25),
+      include.lowest = TRUE
+    )
+  )
+
+binned_summary <- binned_dat %>%
+  group_by(smoothing, dur_bin) %>%
+  summarise(
+    mean_acc = mean(acc, na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  )
+
+binned_summary <- binned_summary %>%
+  mutate(
+    dur_mid = as.numeric(sub("\\((.+),(.+)\\]", "\\1", dur_bin)) + 12.5
+  )
+
+ggplot(binned_summary, aes(x = dur_mid, y = mean_acc)) +
+  geom_line(color = "steelblue") +
+  geom_point(size = 1, color = "steelblue") +
+  facet_wrap(~ smoothing) +
+  labs(
+    x = "Fixation duration (ms)",
+    y = "Accuracy",
+    title = " I-VT fixation accuracy as a function of fixation duration (25 ms bins)"
+  ) +
+  theme_bw()
+
+
+
+IDT_binned_dat <- I_DT_results %>%
+  dplyr::filter(!is.na(acc), !is.na(fix_dur), fix_dur >= 0, fix_dur <= 1000) %>%
+  dplyr::mutate(
+    dur_mid = floor(fix_dur / 25) * 25 + 12.5
+  )
+
+IDT_binned_summary <- IDT_binned_dat %>%
+  dplyr::group_by(smoothing, dur_mid) %>%
+  dplyr::summarise(
+    mean_acc = mean(acc, na.rm = TRUE),
+    n = dplyr::n(),
+    .groups = "drop"
+  ) %>%
+  dplyr::filter(n >= 5)
+
+IDT_binned_summary$smoothing <- factor(
+  IDT_binned_summary$smoothing,
+  levels = c("el", "raw", "ma", "median", "sg")
+)
+
+ggplot(IDT_binned_summary, aes(x = dur_mid, y = mean_acc)) +
+  geom_line(color = "steelblue", linewidth = 0.8) +
+  geom_point(size = 1, color = "steelblue") +
+  facet_wrap(~ smoothing, ncol = 3) +
+  labs(
+    x = "Fixation duration (ms)",
+    y = "Accuracy",
+    title = "I-DT fixation accuracy as a function of fixation duration (25 ms bins)"
+  ) +
+  theme_bw() 
+
+# Save the results
+write.csv(I_VT_results, "I_VT_results.csv", row.names = FALSE)
+write.csv(I_DT_results, "I_DT_results.csv", row.names = FALSE)
+
+library(writexl)
+write_xlsx(
+  list(
+    IVT_summary = IVT_table,
+    IDT_summary = IDT_table
+  ),
+  "eye_tracking_summary.xlsx"
+)  
