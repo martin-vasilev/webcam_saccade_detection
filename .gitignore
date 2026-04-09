@@ -3,4 +3,23 @@
 .RData
 .Ruserdata
 
+data/webcam_data_ground_truth.csvdata/webcam_data.csv
+data/webcam_data.zip
+data/webcam_with_groundtruth.rds
+data/webcam_with_groundtruth.csv
+.DS_Store
+data/.DS_Store
+data/.Rapp.history
+data/webcam_data.csv
+data/webcam_data.zip
+data/webcam_with_groundtruth.csv
+data/webcam_with_groundtruth.rds
+data/webcam_data_ground_truth.csv
+.DS_Store
+data/.DS_Store
+data/.Rapp.history
+data/webcam_data.csv
+data/webcam_data.zip
+data/webcam_with_groundtruth.csv
+data/webcam_with_groundtruth.rds
 data/webcam_data_ground_truth.csv

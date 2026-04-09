@@ -32,11 +32,11 @@ dat<- dat%>%
 
 smooth_methods <-  c("el", "raw", "ma", "median", "sg")
 
-vel_thresholds <- c(30, 50, 70)
+vel_thresholds <- seq(20, 70, by = 5)
 
 min_durations <- c(50, 100)
 
-disp_thresholds <- c(2, 3, 4, 6, 8)  
+disp_thresholds <- seq(1, 8, by = 0.5)
 
 get_xy <- function(data, smooth){
   
@@ -140,7 +140,52 @@ I_VT_results %>%
 
 
 
-# Plot
+####### I-VT summary table and visualization #######
+
+# Aggregate fixation-level results into parameter-level summaries
+IVT_table <- I_VT_results %>%
+  group_by(smoothing, min_dur, vel_threshold) %>%
+  summarise(
+    mean_acc = mean(acc, na.rm = TRUE),
+    sd_acc   = sd(acc, na.rm = TRUE),
+    n        = sum(!is.na(acc)),
+    se_acc   = sd_acc / sqrt(n),
+    .groups = "drop"
+  )
+IVT_table$smoothing <- factor(
+  IVT_table$smoothing,
+  levels = c("el", "raw", "ma", "median", "sg")
+)
+
+# Create grouped bar plot
+ggplot(IVT_table, aes(x = factor(min_dur), y = mean_acc, fill = factor(vel_threshold))) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+  geom_errorbar(
+    aes(ymin = mean_acc - se_acc, ymax = mean_acc + se_acc),
+    position = position_dodge(width = 0.8),
+    width = 0.2
+  ) +
+  facet_wrap(~ smoothing) +
+  labs(
+    x = "Fixation duration (ms)",
+    y = "Accuracy",
+    fill = "Velocity threshold",
+    title = "I-VT accuracy across fixation durations and velocity thresholds"
+  ) +
+  theme_bw() +
+  theme(
+    strip.background = element_rect(fill = "white"),
+    panel.grid.major.x = element_blank()
+  )
+
+
+
+
+
+
+
+
+# Plot(best parameter)
 I_VT_results <- I_VT_results %>%
   mutate(param_combo = paste("vel=", vel_threshold, ", dur=", min_dur))
 
@@ -189,86 +234,6 @@ ggplot(best_data, aes(x = log(fix_dur), fill = smoothing)) +
   theme_minimal() +
   theme(legend.position = "none")  
 
-
-
-# Visualise mean accuracy for each parameter combination
-ggplot(param_summary,
-       aes(x = interaction(vel_threshold, min_dur),
-           y = M_acc,
-           fill = smoothing)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  facet_wrap(~ smoothing) +
-  labs(
-    x = "Parameter combination (vel_threshold, min_dur)",
-    y = "Mean accuracy"
-  )
-
-# I-DT
-I_DT_results <- data.frame()
-
-for(s in smooth_methods){
-  
-  for(disp in disp_thresholds){
-    
-    for(d in min_durations){
-      
-      cat("Running I-DT:", s, disp, d, "\n")
-      
-      temp <- dat %>%
-        group_by(sub, Trial_Id) %>%
-        group_modify(~ {
-          
-          df <- get_xy(.x, s)
-          
-          res <- tryCatch(
-            DetectFixations(
-              data = df,
-              method = "I-DT",
-              window_threshold = 100,
-              disp_threshold = disp,
-              min_fix_dur = d
-            ),
-            error = function(e) NULL
-          )
-          
-          # If the return is not a data.frame, give an empty data.frame
-          if (is.null(res) || !is.data.frame(res) || nrow(res) == 0) {
-            return(data.frame())
-          }
-          
-          return(res)
-        }) %>%
-        ungroup() %>%
-        mutate(method = "I-DT",
-               smoothing = s,
-               disp_threshold = disp,
-               min_dur = d)
-      
-      I_DT_results <- bind_rows(I_DT_results, temp)
-    }
-  }
-}
-
-# Calculate fixation accuracy for I-DT results
-I_DT_results$acc <- NA
-
-for(i in 1:nrow(I_DT_results)){
-  
-  sub_i <- I_DT_results$sub[i]
-  trial_i <- I_DT_results$Trial_Id[i]
-  smooth_i <- I_DT_results$smoothing[i]
-  
-  df <- dat %>%
-    dplyr::filter(sub == sub_i,
-                  Trial_Id == trial_i) %>%
-    get_xy(smooth_i)
-  
-  nrows <- which(df$time >= I_DT_results$fix_start[i] &
-                   df$time <= I_DT_results$fix_end[i])
-  
-  I_DT_results$acc[i] <- (length(which(df[nrows,"GT"] == "fixation")) /
-                            length(nrows)) * 100
-}
 
 
 
@@ -372,18 +337,123 @@ ggplot(best_data_IDT, aes(x = log(fix_dur), fill = smoothing)) +
   theme_minimal() +
   theme(legend.position = "none")
 
+####### I-DT summary table and visualization #######
 
+# Aggregate fixation-level results into parameter-level summaries
+IDT_table <- I_DT_results %>%
+  group_by(smoothing, min_dur, disp_threshold) %>%
+  summarise(
+    mean_acc = mean(acc, na.rm = TRUE),
+    sd_acc   = sd(acc, na.rm = TRUE),
+    n        = sum(!is.na(acc)),
+    se_acc   = sd_acc / sqrt(n),
+    .groups = "drop"
+  )
+IDT_table$smoothing <- factor(
+  IDT_table$smoothing,
+  levels = c("el", "raw", "ma", "median", "sg")
+)
 
-# Visualise mean accuracy for each parameter combination
-ggplot(param_summary_IDT,
-       aes(x = interaction(disp_threshold, min_dur),
-           y = M_acc,
-           fill = smoothing)) +
-  geom_bar(stat = "identity", position = "dodge") +
+# Create grouped bar plot
+ggplot(IDT_table, aes(x = factor(min_dur), y = mean_acc, fill = factor(disp_threshold))) +
+  geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+  geom_errorbar(
+    aes(ymin = mean_acc - se_acc, ymax = mean_acc + se_acc),
+    position = position_dodge(width = 0.8),
+    width = 0.2
+  ) +
   facet_wrap(~ smoothing) +
   labs(
-    x = "Parameter combination (dispersion threshold, min duration)",
-    y = "Mean accuracy"
+    x = "Fixation duration (ms)",
+    y = "Accuracy",
+    fill = "Dispersion threshold",
+    title = "I-DT accuracy across fixation durations and dispersion thresholds"
+  ) +
+  theme_bw() +
+  theme(
+    strip.background = element_rect(fill = "white"),
+    panel.grid.major.x = element_blank()
   )
 
 
+# The binned graph
+
+binned_dat <- I_VT_results %>%
+  dplyr::filter(!is.na(acc), !is.na(.data$fix_dur)) %>%
+  dplyr::mutate(
+    dur_bin = cut(
+      .data$fix_dur,
+      breaks = seq(0, 1000, by = 25),
+      include.lowest = TRUE
+    )
+  )
+
+binned_summary <- binned_dat %>%
+  group_by(smoothing, dur_bin) %>%
+  summarise(
+    mean_acc = mean(acc, na.rm = TRUE),
+    n = n(),
+    .groups = "drop"
+  )
+
+binned_summary <- binned_summary %>%
+  mutate(
+    dur_mid = as.numeric(sub("\\((.+),(.+)\\]", "\\1", dur_bin)) + 12.5
+  )
+
+ggplot(binned_summary, aes(x = dur_mid, y = mean_acc)) +
+  geom_line(color = "steelblue") +
+  geom_point(size = 1, color = "steelblue") +
+  facet_wrap(~ smoothing) +
+  labs(
+    x = "Fixation duration (ms)",
+    y = "Accuracy",
+    title = " I-VT fixation accuracy as a function of fixation duration (25 ms bins)"
+  ) +
+  theme_bw()
+
+
+
+IDT_binned_dat <- I_DT_results %>%
+  dplyr::filter(!is.na(acc), !is.na(fix_dur), fix_dur >= 0, fix_dur <= 1000) %>%
+  dplyr::mutate(
+    dur_mid = floor(fix_dur / 25) * 25 + 12.5
+  )
+
+IDT_binned_summary <- IDT_binned_dat %>%
+  dplyr::group_by(smoothing, dur_mid) %>%
+  dplyr::summarise(
+    mean_acc = mean(acc, na.rm = TRUE),
+    n = dplyr::n(),
+    .groups = "drop"
+  ) %>%
+  dplyr::filter(n >= 5)
+
+IDT_binned_summary$smoothing <- factor(
+  IDT_binned_summary$smoothing,
+  levels = c("el", "raw", "ma", "median", "sg")
+)
+
+ggplot(IDT_binned_summary, aes(x = dur_mid, y = mean_acc)) +
+  geom_line(color = "steelblue", linewidth = 0.8) +
+  geom_point(size = 1, color = "steelblue") +
+  facet_wrap(~ smoothing, ncol = 3) +
+  labs(
+    x = "Fixation duration (ms)",
+    y = "Accuracy",
+    title = "I-DT fixation accuracy as a function of fixation duration (25 ms bins)"
+  ) +
+  theme_bw() 
+
+# Save the results
+write.csv(I_VT_results, "I_VT_results.csv", row.names = FALSE)
+write.csv(I_DT_results, "I_DT_results.csv", row.names = FALSE)
+
+library(writexl)
+write_xlsx(
+  list(
+    IVT_summary = IVT_table,
+    IDT_summary = IDT_table
+  ),
+  "eye_tracking_summary.xlsx"
+)  
