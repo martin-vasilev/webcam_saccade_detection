@@ -16,3 +16,4 @@ dat<- rbind(sub11, sub13, sub14)
 # need to map blinks to labels
 
 write.csv(dat,'data/manual_ground_truth.csv')
+
