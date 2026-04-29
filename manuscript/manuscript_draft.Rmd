@@ -1,0 +1,74 @@
+---
+title: "Manuscript_draft"
+output: html_document
+date: "2026-04-29"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(readr)
+library(here)
+library(tidyverse)
+```
+
+## Introduction
+
+## Method
+
+### Dataset
+
+```{r, include= F }
+
+dat <- read_csv(here("data/manual_labels", "webdata_manual_labels.csv"))
+
+n_before_blinks<- nrow(dat)
+
+# Clean data:
+dat<- subset(dat,conf>0 & el_pupil>0)# remove blinks:
+
+n_after_blinks<- nrow(dat)
+
+blink_loss<- n_after_blinks/ n_before_blinks
+
+labels<- read_csv(here("data", "manual_ground_truth.csv"))
+
+n_fixations<- length(which(labels$label=="fixation"))
+n_saccades<- length(which(labels$label=="saccade"))
+n_pso<- length(which(labels$label=="pso"))
+n_unclear<- length(which(labels$label=="unclear"))
+
+```
+
+The data contained `r n_before_blinks` raw sample observatations. After blinks were removed, `r n_after_blinks` remained (`r round(blink_loss*100,2)` %). The data manually labelled ground truth contained `r n_fixations` fixations, `r n_saccades` saccades, `r n_pso` PSOs, and `r n_unclear` unclear events (noise). 
+
+
+```{r}
+labels %>% 
+  filter(label!= 'pso'& label!= 'unclear')%>%
+  group_by(label)%>%
+  ggplot(aes(x= label, y= duration, fill= label))+
+  geom_violin(alpha= 0.4)+
+  geom_boxplot(width= 0.1)+
+  #facet_wrap(~label, scales = "free_y")+
+  theme_bw(18)
+```
+
+
+### Saccade Detection algorithms
+
+#### I-VT
+#### I-DT
+#### Engbert & Kliegl, 2003 [EK03]
+#### Machine learning algorithm
+#### Others...
+
+
+### Sample Smoothing methods
+
+Raw, Mean filter, Median filter, Savitsky-Golay, Others? 
+
+
+## Results
+
+
