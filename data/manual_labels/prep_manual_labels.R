@@ -3,7 +3,7 @@ rm(list= ls())
 
 # subject numbers to process:
 
-subs<- c(11,13,14,18,19)
+subs<- c(11,13,14,18,19,20)
 dat<- NULL
 library(readr)
 
