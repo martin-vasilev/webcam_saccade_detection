@@ -10,6 +10,16 @@ knitr::opts_chunk$set(echo = TRUE)
 library(readr)
 library(here)
 library(tidyverse)
+library(eyemovements)  
+library(mltools)
+library(dplyr)
+library(ggplot2)
+library(eyemovements)
+library(data.table)
+library(patchwork)
+library(signal)
+
+
 ```
 
 ## Introduction
@@ -45,12 +55,10 @@ The data contained `r n_before_blinks` raw sample observatations. After blinks w
 
 ```{r}
 labels %>% 
-  filter(label!= 'pso'& label!= 'unclear')%>%
-  group_by(label)%>%
-  ggplot(aes(x= label, y= duration, fill= label))+
-  geom_violin(alpha= 0.4)+
-  geom_boxplot(width= 0.1)+
-  #facet_wrap(~label, scales = "free_y")+
+  dplyr::filter(!label %in% c("pso", "unclear")) %>%
+  ggplot(aes(x = label, y = duration, fill = label)) +
+  geom_violin(alpha = 0.4) +
+  geom_boxplot(width = 0.1) +
   theme_bw(18)
 ```
 
@@ -58,8 +66,1002 @@ labels %>%
 ### Saccade Detection algorithms
 
 #### I-VT
+
+Fixation detection
+
+The velocity-threshold identification algorithm (I-VT) was used to detect fixations and saccades from the webcam gaze samples. I-VT classifies eye-movement events based on the point-to-point velocity of gaze samples. In the present analysis, I-VT was implemented using the `IVT()` function from the `eyemovements` package.  A range of velocity thresholds was tested from 20 to 70 deg/s in steps of 5 deg/s. with the minimum fixation duration set to 50 ms. For fixation detection, `IVT()` was run with `return_saccades = FALSE`. The detected fixation intervals were then converted from event-level output to sample-level labels by joining each detected fixation back to the original time series using `fix_start` and `fix_end`. For evaluation, human-labelled fixation samples were coded as 1 and all other samples were coded as 0. The algorithm output was coded in the same binary format, and performance was assessed using the Matthews correlation coefficient (MCC) across all subjects and trials.
+
+For fixation detection, I-VT showed relatively weak but above-zero agreement with the human labels across all tested velocity thresholds. MCC increased from 0.113 at 20 deg/s to a maximum of 0.148 at 50 deg/s, before slightly decreasing at higher thresholds. This suggests that, for the cleaned webcam data, a velocity threshold around 50 deg/s provided the best trade-off for fixation detection within the tested range. However, the overall MCC values remained low, indicating limited sample-level agreement between I-VT fixation labels and the human-labelled ground truth.
+
+```{r}
+# IVT-fixation
+
+# Define velocity thresholds to test
+vel_thresholds <- seq(20, 70, by = 5)
+
+# Get all subject-trial combinations
+trial_list <- dat %>%
+  distinct(sub, Trial_Id)
+
+# Loop over each velocity threshold
+ivt_fixation_results <- lapply(vel_thresholds, function(v) {
+
+  all_d2 <- list()
+
+  for(i in 1:nrow(trial_list)) {
+
+    # Select one trial
+    d <- subset(
+      dat,
+      sub == trial_list$sub[i] &
+        Trial_Id == trial_list$Trial_Id[i]
+    )
+
+    # Keep required columns
+    d <- d %>%
+      transmute(
+        x = x,
+        y = y,
+        time = time_start,
+        GT = ground_truth
+      )
+
+    # Skip very short trials
+    if(nrow(d) < 5) next
+
+    # Smooth gaze samples
+    d <- SmoothSamples(d, method = "Mean", window_size = 3)
+
+    # Run IVT fixation detection
+    algo_IVT <- IVT(
+      data = d,
+      vel_threshold = v,
+      min_fix_dur = 50,
+      return_saccades = FALSE,
+      dva_x = 0.01865554,
+      dva_y = 0.01919689
+    )
+
+    # Convert detected fixations to sample-level labels
+    if(nrow(algo_IVT) == 0) {
+
+      d_IVT <- d %>%
+        mutate(algo_state = "none") %>%
+        select(x, y, time, GT, algo_state)
+
+    } else {
+
+      d_IVT <- d %>%
+        left_join(
+          algo_IVT %>%
+            transmute(
+              fix_start,
+              fix_end,
+              algo_state = "fixation"
+            ),
+          join_by(
+            between(time, fix_start, fix_end)
+          )
+        ) %>%
+        mutate(
+          algo_state = ifelse(
+            is.na(algo_state),
+            "none",
+            algo_state
+          )
+        ) %>%
+        select(x, y, time, GT, algo_state)
+    }
+
+    # Combine algorithm labels with ground truth
+    d2 <- d
+    d2$IVT <- d_IVT$algo_state
+
+    # Convert labels to binary fixation classes
+    d2 <- d2 %>%
+      mutate(
+        GT_bin = ifelse(GT == "fixation", 1, 0),
+        IVT_bin = ifelse(IVT == "fixation", 1, 0)
+      )
+
+    all_d2[[i]] <- d2
+  }
+
+  # Combine all trials for this threshold
+  all_d2 <- bind_rows(all_d2)
+
+  # Calculate MCC
+  data.frame(
+    method = "IVT",
+    event = "fixation",
+    vel_threshold = v,
+    MCC = mcc(
+      actuals = all_d2$GT_bin,
+      preds = all_d2$IVT_bin
+    )
+  )
+})
+
+# Combine results across thresholds
+ivt_fixation_results <- bind_rows(ivt_fixation_results)
+
+print(ivt_fixation_results)
+
+# Plot MCC across velocity thresholds
+ggplot(ivt_fixation_results, aes(x = vel_threshold, y = MCC)) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 3) +
+  labs(
+    title = "IVT Fixation MCC Across Velocity Thresholds",
+    x = "Velocity threshold",
+    y = "Fixation MCC"
+  ) +
+  theme_classic(base_size = 14)
+```
+Saccade detection
+
+The same I-VT procedure was also used to detect saccades from the cleaned webcam gaze samples. The cleaned and smoothed gaze coordinates were analysed using the `IVT()` function with the same velocity-threshold range, from 20 to 70 deg/s in steps of 5 deg/s. For saccade detection, the algorithm was run with `return_saccades = TRUE`, while retaining the same minimum fixation duration setting of 50 ms and the package’s default minimum saccade amplitude criterion. Detected saccade intervals were mapped back to sample-level labels using `sacc_start` and `sacc_end`. For evaluation, human-labelled saccade samples were coded as 1 and all other samples were coded as 0. The I-VT output was converted into the same binary format, and MCC was calculated across all subjects and trials.
+
+Saccade detection performance was substantially poorer than fixation detection. The highest MCC was observed at the lowest tested velocity threshold, 20 deg/s, with an MCC of 0.035. As the velocity threshold increased, MCC decreased progressively, reaching values close to zero and becoming slightly negative at higher thresholds. This pattern suggests that higher velocity thresholds caused I-VT to miss more saccade samples, while lower thresholds still produced only very weak agreement with the human labels. Overall, I-VT showed poor sample-level discrimination between saccade and non-saccade samples in the cleaned webcam data.
+
+```{r}
+# IVT-saccade
+
+# Loop over each velocity threshold
+ivt_saccade_results <- lapply(vel_thresholds, function(v) {
+
+  all_d2 <- list()
+
+  for(i in 1:nrow(trial_list)) {
+
+    # Select one trial
+    d <- subset(
+      dat,
+      sub == trial_list$sub[i] &
+        Trial_Id == trial_list$Trial_Id[i]
+    )
+
+    # Keep required columns
+    d <- d %>%
+      transmute(
+        x = x,
+        y = y,
+        time = time_start,
+        GT = ground_truth
+      )
+
+    # Skip very short trials
+    if(nrow(d) < 5) next
+
+    # Smooth gaze samples
+    d <- SmoothSamples(d, method = "Mean", window_size = 3)
+
+    # Run IVT saccade detection
+    algo_IVT <- IVT(
+      data = d,
+      vel_threshold = v,
+      min_fix_dur = 50,
+      return_saccades = TRUE,
+      dva_x = 0.01865554,
+      dva_y = 0.01919689
+    )
+
+    # Convert detected saccades to sample-level labels
+    if(nrow(algo_IVT) == 0) {
+
+      d_IVT <- d %>%
+        mutate(algo_state = "none") %>%
+        select(x, y, time, GT, algo_state)
+
+    } else {
+
+      d_IVT <- d %>%
+        left_join(
+          algo_IVT %>%
+            transmute(
+              sacc_start,
+              sacc_end,
+              algo_state = "saccade"
+            ),
+          join_by(
+            between(time, sacc_start, sacc_end)
+          )
+        ) %>%
+        mutate(
+          algo_state = ifelse(
+            is.na(algo_state),
+            "none",
+            algo_state
+          )
+        ) %>%
+        select(x, y, time, GT, algo_state)
+    }
+
+    # Combine algorithm labels with ground truth
+    d2 <- d
+    d2$IVT <- d_IVT$algo_state
+
+    # Convert labels to binary saccade classes
+    d2 <- d2 %>%
+      mutate(
+        GT_bin = ifelse(GT == "saccade", 1, 0),
+        IVT_bin = ifelse(IVT == "saccade", 1, 0)
+      )
+
+    all_d2[[i]] <- d2
+  }
+
+  # Combine all trials for this threshold
+  all_d2 <- bind_rows(all_d2)
+
+  # Calculate MCC
+  data.frame(
+    method = "IVT",
+    event = "saccade",
+    vel_threshold = v,
+    MCC = mcc(
+      actuals = all_d2$GT_bin,
+      preds = all_d2$IVT_bin
+    )
+  )
+})
+
+# Combine results across thresholds
+ivt_saccade_results <- bind_rows(ivt_saccade_results)
+
+print(ivt_saccade_results)
+
+# Plot MCC across velocity thresholds
+ggplot(ivt_saccade_results, aes(x = vel_threshold, y = MCC)) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 3) +
+  labs(
+    title = "IVT Saccade MCC Across Velocity Thresholds",
+    x = "Velocity threshold",
+    y = "Saccade MCC"
+  ) +
+  theme_classic(base_size = 14)
+```
+
+
+
 #### I-DT
+
+
+The dispersion-threshold identification algorithm (I-DT) was also used to detect eye-movement events. Unlike I-VT, which classifies eye movements based on velocity, I-DT identifies fixations based on the spatial dispersion of gaze samples within a temporal window. The basic assumption is that gaze samples belonging to a fixation should remain spatially close to each other, whereas larger dispersion indicates movement between fixation locations. In the present analysis, I-DT was implemented using the `IDT()` function from the `eyemovements` package and applied to the cleaned webcam gaze samples. Before detection, gaze coordinates were smoothed using a three-sample moving average window. Dispersion thresholds from 1 to 8 degrees were tested in steps of 0.5 degrees, and the temporal window threshold was set to 50 ms. Detected fixation intervals were converted to sample-level labels by mapping each event back to the original time series using `fix_start` and `fix_end`. Human-labelled fixation samples were coded as 1 and all other samples as 0, and the algorithm output was coded in the same way. Performance was evaluated using the Matthews correlation coefficient (MCC) across all subjects and trials.
+
+For fixation detection, I-DT achieved its highest MCC at the lowest tested dispersion threshold. The best performance was observed at a dispersion threshold of 1 degree, with an MCC of 0.185. MCC decreased as the dispersion threshold increased, falling to 0.015 at 8 degrees. This indicates that, in the cleaned webcam data, stricter dispersion thresholds produced better agreement with the human-labelled fixation ground truth. However, the overall MCC values remained low, suggesting that I-DT provided only limited sample-level agreement with the human annotations.
+```{r}
+# IDT-fixation
+
+# Define dispersion thresholds to test
+disp_thresholds <- seq(1, 8, by = 0.5)
+
+# Get all subject-trial combinations
+trial_list <- dat %>%
+  distinct(sub, Trial_Id)
+
+# Loop over each dispersion threshold
+idt_fixation_results <- lapply(disp_thresholds, function(disp) {
+  
+  all_d2 <- list()
+  
+  for(i in 1:nrow(trial_list)) {
+    
+    # Select one trial
+    d <- subset(
+      dat,
+      sub == trial_list$sub[i] &
+        Trial_Id == trial_list$Trial_Id[i]
+    )
+    
+    # Keep required columns
+    d <- d %>%
+      transmute(
+        x = x,
+        y = y,
+        time = time_start,
+        GT = ground_truth
+      )
+    
+    # Skip very short trials
+    if(nrow(d) < 5) next
+    
+    # Smooth gaze samples
+    d <- SmoothSamples(d, method = "Mean", window_size = 3)
+    
+    # Run IDT fixation detection
+    algo_IDT <- IDT(
+      data = d,
+      disp_threshold = disp,
+      window_threshold = 50,
+      dva_x = 0.01865554,
+      dva_y = 0.01919689
+    )
+    
+    # Convert detected fixations to sample-level labels
+    if(nrow(algo_IDT) == 0) {
+      
+      d_IDT <- d %>%
+        mutate(algo_state = "none") %>%
+        select(x, y, time, GT, algo_state)
+      
+    } else {
+      
+      d_IDT <- d %>%
+        left_join(
+          algo_IDT %>%
+            transmute(
+              fix_start,
+              fix_end,
+              algo_state = "fixation"
+            ),
+          join_by(
+            between(time, fix_start, fix_end)
+          )
+        ) %>%
+        mutate(
+          algo_state = ifelse(
+            is.na(algo_state),
+            "none",
+            algo_state
+          )
+        ) %>%
+        select(x, y, time, GT, algo_state)
+    }
+    
+    # Combine algorithm labels with ground truth
+    d2 <- d
+    d2$IDT <- d_IDT$algo_state
+    
+    # Convert labels to binary fixation classes
+    d2 <- d2 %>%
+      mutate(
+        GT_bin = ifelse(GT == "fixation", 1, 0),
+        IDT_bin = ifelse(IDT == "fixation", 1, 0)
+      )
+    
+    all_d2[[i]] <- d2
+  }
+  
+  # Combine all trials for this threshold
+  all_d2 <- bind_rows(all_d2)
+  
+  # Calculate MCC
+  data.frame(
+    method = "IDT",
+    event = "fixation",
+    disp_threshold = disp,
+    MCC = mcc(
+      actuals = all_d2$GT_bin,
+      preds = all_d2$IDT_bin
+    )
+  )
+})
+
+# Combine results across thresholds
+idt_fixation_results <- bind_rows(idt_fixation_results)
+
+print(idt_fixation_results)
+
+# Plot MCC across dispersion thresholds
+ggplot(idt_fixation_results, aes(x = disp_threshold, y = MCC)) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 3) +
+  labs(
+    title = "IDT Fixation MCC Across Dispersion Thresholds",
+    x = "Dispersion threshold",
+    y = "Fixation MCC"
+  ) +
+  theme_classic(base_size = 14)
+```
+For saccade detection, the same I-DT procedure was applied to the cleaned webcam gaze samples, using the same range of dispersion thresholds from 1 to 8 degrees in steps of 0.5 degrees and a temporal window threshold of 50 ms. The algorithm was run with `return_saccades = TRUE`, and the detected saccade intervals were converted to sample-level labels using `sacc_start` and `sacc_end`. Human-labelled saccade samples were coded as 1 and all other samples as 0, and the algorithm output was coded in the same binary format. Performance was evaluated using MCC across all subjects and trials.
+
+I-DT saccade detection showed the highest performance at a dispersion threshold of 1.5 degrees, with an MCC of 0.119. Performance was slightly lower at 1 degree (MCC = 0.112) and decreased steadily as the dispersion threshold increased, reaching an MCC of 0.007 at 8 degrees. This indicates that lower dispersion thresholds produced better sample-level agreement with the human-labelled saccade ground truth. However, the overall MCC values were low, suggesting that I-DT had limited ability to distinguish saccade from non-saccade samples in the cleaned webcam data.
+```{r}
+# IDT-saccade
+idt_saccade_results <- lapply(disp_thresholds, function(disp) {
+  
+  all_d2 <- list()
+  
+  for(i in 1:nrow(trial_list)) {
+    
+    # Select one subject-trial
+    d <- subset(
+      dat,
+      sub == trial_list$sub[i] &
+        Trial_Id == trial_list$Trial_Id[i]
+    )
+    
+    # Keep required columns
+    d <- d %>%
+      transmute(
+        x = x,
+        y = y,
+        time = time_start,
+        GT = ground_truth
+      )
+    
+    # Skip very short trials
+    if(nrow(d) < 5) next
+    
+    # Smooth webcam gaze samples
+    d <- SmoothSamples(d, method = "Mean", window_size = 3)
+    
+    # Run IDT and return saccades
+    algo_IDT <- tryCatch(
+      {
+        IDT(
+          data = d,
+          disp_threshold = disp,
+          window_threshold = 50,
+          return_saccades = TRUE,
+          dva_x = 0.01865554,
+          dva_y = 0.01919689
+        )
+      },
+      error = function(e) {
+        return(NULL)
+      }
+    )
+    
+    # Skip trials where IDT failed
+    if(is.null(algo_IDT)) {
+      next
+    }
+    
+    # Convert detected saccades to sample-level labels
+    if(nrow(algo_IDT) == 0) {
+      
+      d_IDT <- d %>%
+        mutate(algo_state = "none") %>%
+        select(x, y, time, GT, algo_state)
+      
+    } else {
+      
+      d_IDT <- d %>%
+        left_join(
+          algo_IDT %>%
+            transmute(
+              sacc_start,
+              sacc_end,
+              algo_state = "saccade"
+            ),
+          join_by(
+            between(time, sacc_start, sacc_end)
+          )
+        ) %>%
+        mutate(
+          algo_state = ifelse(
+            is.na(algo_state),
+            "none",
+            algo_state
+          )
+        ) %>%
+        select(x, y, time, GT, algo_state)
+    }
+    
+    # Combine algorithm labels with ground truth
+    d2 <- d
+    d2$IDT <- d_IDT$algo_state
+    
+    # Convert labels to binary saccade classes
+    d2 <- d2 %>%
+      mutate(
+        GT_bin = ifelse(GT == "saccade", 1, 0),
+        IDT_bin = ifelse(IDT == "saccade", 1, 0)
+      )
+    
+    all_d2[[length(all_d2) + 1]] <- d2
+  }
+  
+  # Combine all trials for this parameter value
+  all_d2 <- bind_rows(all_d2)
+  
+  # Calculate MCC
+  data.frame(
+    method = "IDT",
+    event = "saccade",
+    disp_threshold = disp,
+    MCC = mcc(
+      actuals = all_d2$GT_bin,
+      preds = all_d2$IDT_bin
+    )
+  )
+})
+
+idt_saccade_results <- bind_rows(idt_saccade_results)
+
+print(idt_saccade_results)
+
+# Plot MCC across dispersion thresholds
+ggplot(idt_saccade_results, aes(x = disp_threshold, y = MCC)) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 3) +
+  labs(
+    title = "IDT Saccade MCC Across Dispersion Thresholds",
+    x = "Dispersion threshold",
+    y = "Saccade MCC"
+  ) +
+  theme_classic(base_size = 14)
+
+```
+
+
+
 #### Engbert & Kliegl, 2003 [EK03]
+
+This algorithm, originally proposed by Engbert and Kliegl (2003), was also applied to the webcam gaze samples. This method is fundamentally a velocity-based saccade detection algorithm: it identifies saccades using an adaptive velocity threshold, with the threshold controlled by the lambda parameter, and treats the intervals between detected saccades as fixations. This is consistent with the implementation documentation, which describes the method as detecting fixations by first applying the Engbert and Kliegl saccade detection algorithm and then classifying the periods between saccades as fixations. In the present analysis, the method was implemented using the `EngbertKliegl03()` function from the `eyemovements` package. Before detection, gaze coordinates were smoothed using a three-sample moving average window. Lambda values from 2 to 15 were tested, and the minimum fixation duration was set to 50 ms. For fixation detection, the algorithm was run with `return_saccades = FALSE`. Detected fixation intervals were converted to sample-level labels by mapping each event back to the original time series using `fix_start` and `fix_end`. Human-labelled fixation samples were coded as 1 and all other samples as 0, and the algorithm output was coded in the same binary format. Performance was evaluated using the Matthews correlation coefficient (MCC) across all subjects and trials.
+
+For fixation detection, the Engbert and Kliegl algorithm showed its best performance at a relatively low lambda value. The highest MCC was observed at lambda = 3, with an MCC of 0.271. Performance was slightly lower at lambda = 2 (MCC = 0.235) and gradually decreased as lambda increased, reaching an MCC of 0.095 at lambda = 15. This pattern suggests that lower lambda values provided better agreement with the human-labelled fixation ground truth in the cleaned webcam data, whereas higher lambda values were more conservative and produced poorer sample-level agreement. Overall, the Engbert and Kliegl method performed better than the I-VT and I-DT fixation settings tested here, although the MCC values still indicated only limited-to-moderate agreement with the human annotations.
+```{r}
+# EK03-fixation
+
+# Define lambda values to test
+lambdas <- 2:15
+
+# Get all subject-trial combinations
+trial_list <- dat %>%
+  distinct(sub, Trial_Id)
+
+# Loop over each lambda value
+ek_lambda_results <- lapply(lambdas, function(l) {
+
+  all_d2 <- list()
+
+  for(i in 1:nrow(trial_list)) {
+
+    # Select one trial
+    d <- subset(
+      dat,
+      sub == trial_list$sub[i] &
+        Trial_Id == trial_list$Trial_Id[i]
+    )
+
+    # Keep required columns
+    d <- d %>%
+      transmute(
+        x = x,
+        y = y,
+        time = time_start,
+        GT = ground_truth
+      )
+
+    # Skip very short trials
+    if(nrow(d) < 5) next
+
+    # Smooth gaze samples
+    d <- SmoothSamples(d, method = "Mean", window_size = 3)
+
+    # Run EK03 fixation detection
+    algo_EK <- EngbertKliegl03(
+      data = d,
+      lambda = l,
+      min_fix_dur = 50,
+      return_saccades = FALSE,
+      dva_x = 0.01865554,
+      dva_y = 0.01919689
+    )
+
+    # Convert detected fixations to sample-level labels
+    d_EK <- d %>%
+      left_join(
+        algo_EK %>%
+          transmute(
+            fix_start,
+            fix_end,
+            algo_state = "fixation"
+          ),
+        join_by(
+          between(time, fix_start, fix_end)
+        )
+      ) %>%
+      mutate(
+        algo_state = ifelse(
+          is.na(algo_state),
+          "none",
+          algo_state
+        )
+      ) %>%
+      select(x, y, time, GT, algo_state)
+
+    # Combine algorithm labels with ground truth
+    d2 <- d
+    d2$EK <- d_EK$algo_state
+
+    # Convert labels to binary fixation classes
+    d2 <- d2 %>%
+      mutate(
+        GT_bin = ifelse(GT == "fixation", 1, 0),
+        EK_bin = ifelse(EK == "fixation", 1, 0)
+      )
+
+    all_d2[[i]] <- d2
+  }
+
+  # Combine all trials for this lambda value
+  all_d2 <- bind_rows(all_d2)
+
+  # Calculate MCC
+  data.frame(
+    lambda = l,
+    EK_MCC = mcc(
+      actuals = all_d2$GT_bin,
+      preds = all_d2$EK_bin
+    )
+  )
+})
+
+# Combine results across lambda values
+ek_lambda_results <- bind_rows(ek_lambda_results)
+
+print(ek_lambda_results)
+
+# Plot MCC across lambda values
+ggplot(ek_lambda_results, aes(x = lambda, y = EK_MCC)) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 3) +
+  labs(
+    title = "EK03 Fixation MCC Across Lambda Values",
+    x = "Lambda",
+    y = "MCC"
+  ) +
+  theme_classic(base_size = 14)
+```
+
+For saccade detection, the same Engbert and Kliegl procedure was applied to the cleaned webcam gaze samples, using lambda values from 2 to 15 and a minimum fixation duration of 50 ms. The algorithm was run with `return_saccades = TRUE`, and detected saccade intervals were converted to sample-level labels using `sacc_start` and `sacc_end`. Human-labelled saccade samples were coded as 1 and all other samples as 0, and the algorithm output was coded in the same binary format. Performance was evaluated using the Matthews correlation coefficient (MCC) across all subjects and trials.
+
+For saccade detection, the Engbert and Kliegl algorithm showed its highest performance at the lowest tested lambda value. The best MCC was observed at lambda = 2 (MCC = 0.181). Performance then decreased steadily as lambda increased, falling to 0.028 at lambda = 15. This pattern suggests that lower lambda values were more suitable for detecting saccades in the cleaned webcam data, whereas higher lambda values made the algorithm more conservative and likely led to under-detection of saccades. Although the Engbert and Kliegl algorithm performed better than I-VT and I-DT for saccade detection, the MCC values remained relatively low, indicating limited sample-level agreement with the human-labelled saccade ground truth.
+
+```{r}
+# EK03-saccade
+
+# Define lambda values to test
+lambdas <- 2:15
+
+# Get all subject-trial combinations
+trial_list <- dat %>%
+  distinct(sub, Trial_Id)
+
+# Loop over each lambda value
+ek_lambda_saccade_results <- lapply(lambdas, function(l) {
+
+  all_d2 <- list()
+
+  for(i in 1:nrow(trial_list)) {
+
+    # Select one trial
+    d <- subset(
+      dat,
+      sub == trial_list$sub[i] &
+        Trial_Id == trial_list$Trial_Id[i]
+    )
+
+    # Keep required columns
+    d <- d %>%
+      transmute(
+        x = x,
+        y = y,
+        time = time_start,
+        GT = ground_truth
+      )
+
+    # Skip very short trials
+    if(nrow(d) < 5) next
+
+    # Smooth gaze samples
+    d <- SmoothSamples(d, method = "Mean", window_size = 3)
+
+    # Run EK03 saccade detection
+    algo_EK <- EngbertKliegl03(
+      data = d,
+      lambda = l,
+      min_fix_dur = 50,
+      return_saccades = TRUE,
+      dva_x = 0.01865554,
+      dva_y = 0.01919689
+    )
+
+    # Convert detected saccades to sample-level labels
+    if(nrow(algo_EK) == 0) {
+
+      d_EK <- d %>%
+        mutate(algo_state = "none") %>%
+        select(x, y, time, GT, algo_state)
+
+    } else {
+
+      d_EK <- d %>%
+        left_join(
+          algo_EK %>%
+            transmute(
+              sacc_start,
+              sacc_end,
+              algo_state = "saccade"
+            ),
+          join_by(
+            between(time, sacc_start, sacc_end)
+          )
+        ) %>%
+        mutate(
+          algo_state = ifelse(
+            is.na(algo_state),
+            "none",
+            algo_state
+          )
+        ) %>%
+        select(x, y, time, GT, algo_state)
+    }
+
+    # Combine algorithm labels with ground truth
+    d2 <- d
+    d2$EK <- d_EK$algo_state
+
+    # Convert labels to binary saccade classes
+    d2 <- d2 %>%
+      mutate(
+        GT_bin = ifelse(GT == "saccade", 1, 0),
+        EK_bin = ifelse(EK == "saccade", 1, 0)
+      )
+
+    all_d2[[i]] <- d2
+  }
+
+  # Combine all trials for this lambda value
+  all_d2 <- bind_rows(all_d2)
+
+  # Calculate MCC
+  data.frame(
+    lambda = l,
+    EK_saccade_MCC = mcc(
+      actuals = all_d2$GT_bin,
+      preds = all_d2$EK_bin
+    )
+  )
+})
+
+# Combine results across lambda values
+ek_lambda_saccade_results <- bind_rows(ek_lambda_saccade_results)
+
+print(ek_lambda_saccade_results)
+
+# Plot MCC across lambda values
+ggplot(ek_lambda_saccade_results, aes(x = lambda, y = EK_saccade_MCC)) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 3) +
+  labs(
+    title = "EK03 Saccade MCC Across Lambda Values",
+    x = "Lambda",
+    y = "Saccade MCC"
+  ) +
+  theme_classic(base_size = 14)
+```
+
+#### IHMM
+
+The iterative hidden Markov model (IHMM) was also applied to the cleaned webcam gaze samples for fixation detection. The method was implemented using the `IHMM()` function from the `eyemovements` package. As in the other analyses, gaze coordinates were first smoothed using a three-sample moving average window. The algorithm was applied separately to each subject and trial, with the minimum fixation duration set to 50 ms. For fixation detection, IHMM() was run with `return_saccades = FALSE`. The fixation intervals returned by the algorithm were then converted to sample-level labels by mapping each detected event back to the original time series using `fix_start` and `fix_end`. Human-labelled fixation samples were coded as 1 and all other samples as 0, and the IHMM output was coded in the same binary format. Performance was evaluated using the Matthews correlation coefficient (MCC) across all subjects and trials.
+
+For fixation detection, IHMM achieved an MCC of 0.157 on the cleaned webcam data. The model convergence messages printed during the analysis indicated that the hidden Markov model successfully converged for individual trials. However, the resulting MCC suggests that IHMM provided only limited sample-level agreement with the human-labelled fixation ground truth. Its performance was lower than the best Engbert and Kliegl fixation result, but broadly comparable to the lower-performing threshold-based methods tested on the cleaned dataset.
+```{r}
+# IHMM-fixation
+
+# Get all subject-trial combinations
+trial_list <- dat %>%
+  distinct(sub, Trial_Id)
+
+# Run IHMM across all trials
+ihmm_fixation_results <- lapply(1, function(x) {
+  
+  all_d2 <- list()
+  
+  for(i in 1:nrow(trial_list)) {
+    
+    # Select one trial
+    d <- subset(
+      dat,
+      sub == trial_list$sub[i] &
+        Trial_Id == trial_list$Trial_Id[i]
+    )
+    
+    # Keep required columns
+    d <- d %>%
+      transmute(
+        x = x,
+        y = y,
+        time = time_start,
+        GT = ground_truth
+      )
+    
+    # Skip very short trials
+    if(nrow(d) < 5) next
+    
+    # Smooth gaze samples
+    d <- SmoothSamples(d, method = "Mean", window_size = 3)
+    
+    # Run IHMM fixation detection
+    algo_IHMM <- IHMM(
+      data = d,
+      min_fix_dur = 50,
+      return_saccades = FALSE,
+      dva_x = 0.01865554,
+      dva_y = 0.01919689
+    )
+    
+    # Convert detected fixations to sample-level labels
+    if(nrow(algo_IHMM) == 0) {
+      
+      d_IHMM <- d %>%
+        mutate(algo_state = "none") %>%
+        select(x, y, time, GT, algo_state)
+      
+    } else {
+      
+      d_IHMM <- d %>%
+        left_join(
+          algo_IHMM %>%
+            transmute(
+              fix_start,
+              fix_end,
+              algo_state = "fixation"
+            ),
+          join_by(
+            between(time, fix_start, fix_end)
+          )
+        ) %>%
+        mutate(
+          algo_state = ifelse(
+            is.na(algo_state),
+            "none",
+            algo_state
+          )
+        ) %>%
+        select(x, y, time, GT, algo_state)
+    }
+    
+    # Combine algorithm labels with ground truth
+    d2 <- d
+    d2$IHMM <- d_IHMM$algo_state
+    
+    # Convert labels to binary fixation classes
+    d2 <- d2 %>%
+      mutate(
+        GT_bin = ifelse(GT == "fixation", 1, 0),
+        IHMM_bin = ifelse(IHMM == "fixation", 1, 0)
+      )
+    
+    all_d2[[i]] <- d2
+  }
+  
+  # Combine all trials
+  all_d2 <- bind_rows(all_d2)
+  
+  # Calculate MCC
+  data.frame(
+    method = "IHMM",
+    event = "fixation",
+    MCC = mcc(
+      actuals = all_d2$GT_bin,
+      preds = all_d2$IHMM_bin
+    )
+  )
+})
+
+# Combine results
+ihmm_fixation_results <- bind_rows(ihmm_fixation_results)
+
+print(ihmm_fixation_results)
+```
+For saccade detection, the same IHMM procedure was applied to the webcam gaze samples. The algorithm was run with `return_saccades = TRUE`, with the minimum fixation duration set to 50 ms. Detected saccade intervals were converted to sample-level labels using `sacc_start` and `sacc_end`. Human-labelled saccade samples were coded as 1 and all other samples as 0, and the IHMM output was coded in the same binary format. Performance was evaluated using the Matthews correlation coefficient (MCC) across all subjects and trials.
+
+For saccade detection, IHMM achieved an MCC of 0.027 on the cleaned webcam data. Although the model convergence messages indicated that the hidden Markov model successfully converged for individual trials, the resulting MCC was close to zero. This suggests that IHMM provided very limited sample-level discrimination between saccade and non-saccade samples. The poor performance is consistent with the general difficulty of detecting short reading-related saccades from low-sampling-rate webcam gaze data.
+
+```{r}
+# IHMM-saccade
+
+# Run IHMM across all trials
+ihmm_saccade_results <- lapply(1, function(x) {
+  
+  all_d2 <- list()
+  
+  for(i in 1:nrow(trial_list)) {
+    
+    # Select one trial
+    d <- subset(
+      dat,
+      sub == trial_list$sub[i] &
+        Trial_Id == trial_list$Trial_Id[i]
+    )
+    
+    # Keep required columns
+    d <- d %>%
+      transmute(
+        x = x,
+        y = y,
+        time = time_start,
+        GT = ground_truth
+      )
+    
+    # Skip very short trials
+    if(nrow(d) < 5) next
+    
+    # Smooth gaze samples
+    d <- SmoothSamples(d, method = "Mean", window_size = 3)
+    
+    # Run IHMM saccade detection
+    algo_IHMM <- IHMM(
+      data = d,
+      min_fix_dur = 50,
+      return_saccades = TRUE,
+      dva_x = 0.01865554,
+      dva_y = 0.01919689
+    )
+    
+    # Convert detected saccades to sample-level labels
+    if(nrow(algo_IHMM) == 0) {
+      
+      d_IHMM <- d %>%
+        mutate(algo_state = "none") %>%
+        select(x, y, time, GT, algo_state)
+      
+    } else {
+      
+      d_IHMM <- d %>%
+        left_join(
+          algo_IHMM %>%
+            transmute(
+              sacc_start,
+              sacc_end,
+              algo_state = "saccade"
+            ),
+          join_by(
+            between(time, sacc_start, sacc_end)
+          )
+        ) %>%
+        mutate(
+          algo_state = ifelse(
+            is.na(algo_state),
+            "none",
+            algo_state
+          )
+        ) %>%
+        select(x, y, time, GT, algo_state)
+    }
+    
+    # Combine algorithm labels with ground truth
+    d2 <- d
+    d2$IHMM <- d_IHMM$algo_state
+    
+    # Convert labels to binary saccade classes
+    d2 <- d2 %>%
+      mutate(
+        GT_bin = ifelse(GT == "saccade", 1, 0),
+        IHMM_bin = ifelse(IHMM == "saccade", 1, 0)
+      )
+    
+    all_d2[[i]] <- d2
+  }
+  
+  # Combine all trials
+  all_d2 <- bind_rows(all_d2)
+  
+  # Calculate MCC
+  data.frame(
+    method = "IHMM",
+    event = "saccade",
+    MCC = mcc(
+      actuals = all_d2$GT_bin,
+      preds = all_d2$IHMM_bin
+    )
+  )
+})
+
+# Combine results
+ihmm_saccade_results <- bind_rows(ihmm_saccade_results)
+
+print(ihmm_saccade_results)
+```
+
+
 #### Machine learning algorithm
 #### Others...
 
@@ -69,6 +1071,894 @@ labels %>%
 Raw, Mean filter, Median filter, Savitsky-Golay, Others? 
 
 
+Four versions of the webcam gaze signal were compared to examine how different smoothing methods affected event detection performance. The raw version used the original webcam x- and y-coordinates without additional smoothing, providing a baseline for comparison. The moving-average smoothing method applied a three-sample mean window to the gaze coordinates. This method reduces short-term sample-to-sample noise by replacing each gaze sample with the local average of neighbouring samples. Because the webcam data were sampled at 60 Hz, a three-sample window corresponds to a short temporal window and avoids excessive temporal smoothing. The median smoothing method also used a three-sample window, but each value was replaced by the local median rather than the local mean. This makes the median filter less sensitive to brief outlier samples or sudden spikes in the webcam signal. Finally, Savitzky–Golay smoothing was applied using a fifth-order polynomial and a 23-sample window. This method smooths the gaze trajectory while attempting to preserve the overall shape of the signal, such as local rises and falls in position.
+
+For both IVT and IDT, each smoothing method was applied separately to the webcam gaze samples before event detection. The resulting smoothed or unsmoothed coordinates were then used as input to the corresponding algorithm. IVT was tested across velocity thresholds from 20 to 70 deg/s, while IDT was tested across dispersion thresholds from 1 to 8 degrees. For IDT, the temporal window threshold was fixed at 50 ms. For both algorithms, fixation and saccade detection were evaluated separately. Detected event intervals were converted back to sample-level labels and compared with the human-labelled ground truth using the Matthews correlation coefficient (MCC).
+
+```{r}
+
+# Setup for IVT and IDT
+
+# Smoothing methods
+smooth_methods <- c("raw", "ma", "median", "sg")
+
+# IVT parameters
+vel_thresholds <- seq(20, 70, by = 5)
+min_fix_dur <- 50
+
+# IDT parameters
+disp_thresholds <- seq(1, 8, by = 0.5)
+window_threshold <- 50
+
+# Get all subject-trial combinations
+trial_list <- dat %>%
+  distinct(sub, Trial_Id)
+
+# Select x/y coordinates and apply smoothing temporarily
+get_xy <- function(data, smooth){
+  
+  d <- data %>%
+    dplyr::transmute(
+      x = x,
+      y = y,
+      time = time_start,
+      GT = ground_truth
+    ) %>%
+    dplyr::filter(!is.na(x), !is.na(y))
+  
+  if(nrow(d) < 5) {
+    return(d)
+  }
+  
+  if(smooth == "raw") {
+    
+    return(d)
+    
+  } else if(smooth == "ma") {
+    
+    d <- eyemovements::SmoothSamples(
+      d,
+      method = "Mean",
+      window_size = 3
+    )
+    
+  } else if(smooth == "median") {
+    
+    d <- eyemovements::SmoothSamples(
+      d,
+      method = "Median",
+      window_size = 3
+    )
+    
+  } else if(smooth == "sg") {
+    
+    if(nrow(d) >= 23) {
+      d$x <- signal::sgolayfilt(d$x, p = 5, n = 23)
+      d$y <- signal::sgolayfilt(d$y, p = 5, n = 23)
+    }
+  }
+  
+  return(d)
+}
+
+```
+
+IVT-Fixation
+
+```{r}
+
+# IVT-fixation
+
+ivt_fixation_results <- lapply(smooth_methods, function(s) {
+  
+  lapply(vel_thresholds, function(v) {
+    
+    cat("Running IVT fixation:", s, v, min_fix_dur, "\n")
+    
+    all_d2 <- list()
+    
+    for(i in 1:nrow(trial_list)) {
+      
+      # Select one trial
+      df0 <- subset(
+        dat,
+        sub == trial_list$sub[i] &
+          Trial_Id == trial_list$Trial_Id[i]
+      )
+      
+      # Apply selected smoothing method
+      d <- get_xy(df0, s)
+      
+      # Skip very short trials
+      if(nrow(d) < 5) next
+      
+      # Run IVT fixation detection
+      algo_IVT <- tryCatch(
+        {
+          eyemovements::IVT(
+            data = d,
+            vel_threshold = v,
+            min_fix_dur = min_fix_dur,
+            return_saccades = FALSE,
+            dva_x = 0.01865554,
+            dva_y = 0.01919689
+          )
+        },
+        error = function(e) {
+          message("IVT fixation error: ", e$message)
+          return(NULL)
+        }
+      )
+      
+      # Convert detected fixations to sample-level labels
+      if(is.null(algo_IVT) || nrow(algo_IVT) == 0) {
+        
+        d_IVT <- d %>%
+          mutate(algo_state = "none")
+        
+      } else {
+        
+        d_IVT <- d %>%
+          left_join(
+            algo_IVT %>%
+              transmute(
+                fix_start,
+                fix_end,
+                algo_state = "fixation"
+              ),
+            join_by(
+              between(time, fix_start, fix_end)
+            )
+          ) %>%
+          mutate(
+            algo_state = ifelse(
+              is.na(algo_state),
+              "none",
+              algo_state
+            )
+          )
+      }
+      
+      # Combine algorithm labels with ground truth
+      d2 <- d
+      d2$IVT <- d_IVT$algo_state
+      
+      # Convert labels to binary fixation classes
+      d2 <- d2 %>%
+        mutate(
+          GT_bin = ifelse(GT == "fixation", 1, 0),
+          IVT_bin = ifelse(IVT == "fixation", 1, 0)
+        )
+      
+      all_d2[[length(all_d2) + 1]] <- d2
+    }
+    
+    # Combine all trials
+    all_d2 <- bind_rows(all_d2)
+    
+    # Calculate MCC
+    data.frame(
+      method = "IVT",
+      event = "fixation",
+      smoothing = s,
+      vel_threshold = v,
+      min_fix_dur = min_fix_dur,
+      MCC = mltools::mcc(
+        actuals = all_d2$GT_bin,
+        preds = all_d2$IVT_bin
+      )
+    )
+  })
+})
+
+ivt_fixation_results <- bind_rows(unlist(ivt_fixation_results, recursive = FALSE))
+
+print(ivt_fixation_results)
+
+ggplot(
+  ivt_fixation_results,
+  aes(x = vel_threshold, y = MCC, colour = smoothing)
+) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 2) +
+  labs(
+    title = "IVT Fixation MCC Across Velocity Thresholds",
+    x = "Velocity threshold",
+    y = "Fixation MCC",
+    colour = "Smoothing"
+  ) +
+  theme_classic(base_size = 14)
+```
+IVT-Saccade
+```{r}
+# IVT-saccade
+
+ivt_saccade_results <- lapply(smooth_methods, function(s) {
+  
+  lapply(vel_thresholds, function(v) {
+    
+    cat("Running IVT saccade:", s, v, min_fix_dur, "\n")
+    
+    all_d2 <- list()
+    
+    for(i in 1:nrow(trial_list)) {
+      
+      # Select one trial
+      df0 <- subset(
+        dat,
+        sub == trial_list$sub[i] &
+          Trial_Id == trial_list$Trial_Id[i]
+      )
+      
+      # Apply selected smoothing method
+      d <- get_xy(df0, s)
+      
+      # Skip very short trials
+      if(nrow(d) < 5) next
+      
+      # Run IVT saccade detection
+      algo_IVT <- tryCatch(
+        {
+          eyemovements::IVT(
+            data = d,
+            vel_threshold = v,
+            min_fix_dur = min_fix_dur,
+            return_saccades = TRUE,
+            dva_x = 0.01865554,
+            dva_y = 0.01919689
+          )
+        },
+        error = function(e) {
+          message("IVT saccade error: ", e$message)
+          return(NULL)
+        }
+      )
+      
+      # Convert detected saccades to sample-level labels
+      if(is.null(algo_IVT) || nrow(algo_IVT) == 0) {
+        
+        d_IVT <- d %>%
+          mutate(algo_state = "none")
+        
+      } else {
+        
+        d_IVT <- d %>%
+          left_join(
+            algo_IVT %>%
+              transmute(
+                sacc_start,
+                sacc_end,
+                algo_state = "saccade"
+              ),
+            join_by(
+              between(time, sacc_start, sacc_end)
+            )
+          ) %>%
+          mutate(
+            algo_state = ifelse(
+              is.na(algo_state),
+              "none",
+              algo_state
+            )
+          )
+      }
+      
+      # Combine algorithm labels with ground truth
+      d2 <- d
+      d2$IVT <- d_IVT$algo_state
+      
+      # Convert labels to binary saccade classes
+      d2 <- d2 %>%
+        mutate(
+          GT_bin = ifelse(GT == "saccade", 1, 0),
+          IVT_bin = ifelse(IVT == "saccade", 1, 0)
+        )
+      
+      all_d2[[length(all_d2) + 1]] <- d2
+    }
+    
+    # Combine all trials
+    all_d2 <- bind_rows(all_d2)
+    
+    # Calculate MCC
+    data.frame(
+      method = "IVT",
+      event = "saccade",
+      smoothing = s,
+      vel_threshold = v,
+      min_fix_dur = min_fix_dur,
+      MCC = mltools::mcc(
+        actuals = all_d2$GT_bin,
+        preds = all_d2$IVT_bin
+      )
+    )
+  })
+})
+
+ivt_saccade_results <- bind_rows(unlist(ivt_saccade_results, recursive = FALSE))
+
+print(ivt_saccade_results)
+
+ggplot(
+  ivt_saccade_results,
+  aes(x = vel_threshold, y = MCC, colour = smoothing)
+) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 2) +
+  labs(
+    title = "IVT Saccade MCC Across Velocity Thresholds",
+    x = "Velocity threshold",
+    y = "Saccade MCC",
+    colour = "Smoothing"
+  ) +
+  theme_classic(base_size = 14)
+```
+IDT-Fixation
+```{r}
+# IDT-fixation
+idt_fixation_results <- lapply(smooth_methods, function(s) {
+  
+  lapply(disp_thresholds, function(disp) {
+    
+    cat("Running IDT fixation:", s, disp, window_threshold, "\n")
+    
+    all_d2 <- list()
+    
+    for(i in 1:nrow(trial_list)) {
+      
+      # Select one trial
+      df0 <- subset(
+        dat,
+        sub == trial_list$sub[i] &
+          Trial_Id == trial_list$Trial_Id[i]
+      )
+      
+      # Apply selected smoothing method
+      d <- get_xy(df0, s)
+      
+      # Skip very short trials
+      if(nrow(d) < 5) next
+      
+      # Run IDT fixation detection
+      algo_IDT <- tryCatch(
+        {
+          eyemovements::IDT(
+            data = d,
+            disp_threshold = disp,
+            window_threshold = window_threshold,
+            return_saccades = FALSE,
+            dva_x = 0.01865554,
+            dva_y = 0.01919689
+          )
+        },
+        error = function(e) {
+          message("IDT fixation error: ", e$message)
+          return(NULL)
+        }
+      )
+      
+      # Convert detected fixations to sample-level labels
+      if(is.null(algo_IDT) || nrow(algo_IDT) == 0) {
+        
+        d_IDT <- d %>%
+          mutate(algo_state = "none")
+        
+      } else {
+        
+        d_IDT <- d %>%
+          left_join(
+            algo_IDT %>%
+              transmute(
+                fix_start,
+                fix_end,
+                algo_state = "fixation"
+              ),
+            join_by(
+              between(time, fix_start, fix_end)
+            )
+          ) %>%
+          mutate(
+            algo_state = ifelse(
+              is.na(algo_state),
+              "none",
+              algo_state
+            )
+          )
+      }
+      
+      # Combine algorithm labels with ground truth
+      d2 <- d
+      d2$IDT <- d_IDT$algo_state
+      
+      # Convert labels to binary fixation classes
+      d2 <- d2 %>%
+        mutate(
+          GT_bin = ifelse(GT == "fixation", 1, 0),
+          IDT_bin = ifelse(IDT == "fixation", 1, 0)
+        )
+      
+      all_d2[[length(all_d2) + 1]] <- d2
+    }
+    
+    # Combine all trials
+    all_d2 <- bind_rows(all_d2)
+    
+    # Calculate MCC
+    data.frame(
+      method = "IDT",
+      event = "fixation",
+      smoothing = s,
+      disp_threshold = disp,
+      window_threshold = window_threshold,
+      MCC = mltools::mcc(
+        actuals = all_d2$GT_bin,
+        preds = all_d2$IDT_bin
+      )
+    )
+  })
+})
+
+idt_fixation_results <- bind_rows(unlist(idt_fixation_results, recursive = FALSE))
+
+print(idt_fixation_results)
+
+ggplot(
+  idt_fixation_results,
+  aes(x = disp_threshold, y = MCC, colour = smoothing)
+) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 2) +
+  labs(
+    title = "IDT Fixation MCC Across Dispersion Thresholds",
+    x = "Dispersion threshold",
+    y = "Fixation MCC",
+    colour = "Smoothing"
+  ) +
+  theme_classic(base_size = 14)
+```
+
+IDT-Saccade
+```{r}
+
+# IDT-saccade
+idt_saccade_results <- lapply(smooth_methods, function(s) {
+  
+  lapply(disp_thresholds, function(disp) {
+    
+    cat("Running IDT saccade:", s, disp, window_threshold, "\n")
+    
+    all_d2 <- list()
+    
+    for(i in 1:nrow(trial_list)) {
+      
+      # Select one trial
+      df0 <- subset(
+        dat,
+        sub == trial_list$sub[i] &
+          Trial_Id == trial_list$Trial_Id[i]
+      )
+      
+      # Apply selected smoothing method
+      d <- get_xy(df0, s)
+      
+      # Skip very short trials
+      if(nrow(d) < 5) next
+      
+      # Run IDT saccade detection
+      algo_IDT <- tryCatch(
+        {
+          eyemovements::IDT(
+            data = d,
+            disp_threshold = disp,
+            window_threshold = window_threshold,
+            return_saccades = TRUE,
+            dva_x = 0.01865554,
+            dva_y = 0.01919689
+          )
+        },
+        error = function(e) {
+          message("IDT saccade error: ", e$message)
+          return(NULL)
+        }
+      )
+      
+      # Convert detected saccades to sample-level labels
+      if(is.null(algo_IDT) || nrow(algo_IDT) == 0) {
+        
+        d_IDT <- d %>%
+          mutate(algo_state = "none")
+        
+      } else {
+        
+        d_IDT <- d %>%
+          left_join(
+            algo_IDT %>%
+              transmute(
+                sacc_start,
+                sacc_end,
+                algo_state = "saccade"
+              ),
+            join_by(
+              between(time, sacc_start, sacc_end)
+            )
+          ) %>%
+          mutate(
+            algo_state = ifelse(
+              is.na(algo_state),
+              "none",
+              algo_state
+            )
+          )
+      }
+      
+      # Combine algorithm labels with ground truth
+      d2 <- d
+      d2$IDT <- d_IDT$algo_state
+      
+      # Convert labels to binary saccade classes
+      d2 <- d2 %>%
+        mutate(
+          GT_bin = ifelse(GT == "saccade", 1, 0),
+          IDT_bin = ifelse(IDT == "saccade", 1, 0)
+        )
+      
+      all_d2[[length(all_d2) + 1]] <- d2
+    }
+    
+    # Combine all trials
+    all_d2 <- bind_rows(all_d2)
+    
+    # Calculate MCC
+    data.frame(
+      method = "IDT",
+      event = "saccade",
+      smoothing = s,
+      disp_threshold = disp,
+      window_threshold = window_threshold,
+      MCC = mltools::mcc(
+        actuals = all_d2$GT_bin,
+        preds = all_d2$IDT_bin
+      )
+    )
+  })
+})
+
+idt_saccade_results <- bind_rows(unlist(idt_saccade_results, recursive = FALSE))
+
+print(idt_saccade_results)
+
+ggplot(
+  idt_saccade_results,
+  aes(x = disp_threshold, y = MCC, colour = smoothing)
+) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 2) +
+  labs(
+    title = "IDT Saccade MCC Across Dispersion Thresholds",
+    x = "Dispersion threshold",
+    y = "Saccade MCC",
+    colour = "Smoothing"
+  ) +
+  theme_classic(base_size = 14)
+ 
+```
+
+
 ## Results
+
+This figure illustrates the fixation detection results for one representative trial, comparing the human-labelled ground truth with the outputs from IVT, IDT, EK, and IHMM. The upper panel shows the x- and y-position traces from the EyeLink and webcam recordings over trial time. The webcam signal is visibly noisier and less aligned with the EyeLink signal, especially in the x-coordinate, which may contribute to discrepancies in algorithmic event detection. The lower panel shows fixation intervals detected by each method. Overall, the algorithms capture some of the major fixation periods present in the ground truth, but the temporal boundaries often differ. IVT and IDT tend to produce longer fixation intervals and sometimes merge neighbouring ground-truth fixations, whereas EK appears to produce shorter and more fragmented fixation intervals. IHMM produces fixation intervals that are broadly aligned with the ground truth in some parts of the trial, but it also extends several fixations beyond the manually labelled boundaries. These differences illustrate why sample-level agreement remains limited: even when an algorithm detects events in approximately the correct regions, small shifts in onset and offset times can substantially reduce MCC.
+
+```{r}
+
+# Plot fixation detections for one trial
+# GT + IVT + IDT + EK + IHMM
+
+
+selected_sub <- 11
+selected_trial <- 114
+
+d0 <- subset(
+  dat,
+  sub == selected_sub &
+    Trial_Id == selected_trial
+)
+
+# Webcam data for algorithms
+d <- d0 %>%
+  transmute(
+    x = x,
+    y = y,
+    time = time_start,
+    GT = ground_truth
+  )
+
+# EyeLink data only for trace plot
+d_el <- d0 %>%
+  transmute(
+    x = el_x,
+    y = el_y,
+    time = time_start,
+    GT = ground_truth
+  )
+
+# Smooth both traces
+d <- SmoothSamples(d, method = "Mean", window_size = 3)
+d_el <- SmoothSamples(d_el, method = "Mean", window_size = 3)
+
+
+# IVT fixation detection
+algo_IVT <- IVT(
+  data = d,
+  vel_threshold = 50,
+  min_fix_dur = 50,
+  return_saccades = FALSE,
+  dva_x = 0.01865554,
+  dva_y = 0.01919689
+)
+
+if(nrow(algo_IVT) == 0) {
+  
+  d_IVT <- d %>%
+    mutate(algo_state = "none") %>%
+    select(x, y, time, GT, algo_state)
+  
+} else {
+  
+  d_IVT <- d %>%
+    left_join(
+      algo_IVT %>%
+        transmute(
+          fix_start,
+          fix_end,
+          algo_state = "fixation"
+        ),
+      join_by(
+        between(time, fix_start, fix_end)
+      )
+    ) %>%
+    mutate(
+      algo_state = ifelse(is.na(algo_state), "none", algo_state)
+    ) %>%
+    select(x, y, time, GT, algo_state)
+}
+
+
+# IDT fixation detection
+algo_IDT <- IDT(
+  data = d,
+  disp_threshold = 1,
+  window_threshold = 50,
+  dva_x = 0.01865554,
+  dva_y = 0.01919689
+)
+
+if(nrow(algo_IDT) == 0) {
+  
+  d_IDT <- d %>%
+    mutate(algo_state = "none") %>%
+    select(x, y, time, GT, algo_state)
+  
+} else {
+  
+  d_IDT <- d %>%
+    left_join(
+      algo_IDT %>%
+        transmute(
+          fix_start,
+          fix_end,
+          algo_state = "fixation"
+        ),
+      join_by(
+        between(time, fix_start, fix_end)
+      )
+    ) %>%
+    mutate(
+      algo_state = ifelse(is.na(algo_state), "none", algo_state)
+    ) %>%
+    select(x, y, time, GT, algo_state)
+}
+
+
+# EK03 fixation detection
+algo_EK <- EngbertKliegl03(
+  data = d,
+  lambda = 3,
+  min_fix_dur = 50,
+  return_saccades = FALSE,
+  dva_x = 0.01865554,
+  dva_y = 0.01919689
+)
+
+if(nrow(algo_EK) == 0) {
+  
+  d_EK <- d %>%
+    mutate(algo_state = "none") %>%
+    select(x, y, time, GT, algo_state)
+  
+} else {
+  
+  d_EK <- d %>%
+    left_join(
+      algo_EK %>%
+        transmute(
+          fix_start,
+          fix_end,
+          algo_state = "fixation"
+        ),
+      join_by(
+        between(time, fix_start, fix_end)
+      )
+    ) %>%
+    mutate(
+      algo_state = ifelse(is.na(algo_state), "none", algo_state)
+    ) %>%
+    select(x, y, time, GT, algo_state)
+}
+
+
+# IHMM fixation detection
+algo_IHMM <- IHMM(
+  data = d,
+  min_fix_dur = 50,
+  return_saccades = FALSE,
+  dva_x = 0.01865554,
+  dva_y = 0.01919689
+)
+
+if(nrow(algo_IHMM) == 0) {
+  
+  d_IHMM <- d %>%
+    mutate(algo_state = "none") %>%
+    select(x, y, time, GT, algo_state)
+  
+} else {
+  
+  d_IHMM <- d %>%
+    left_join(
+      algo_IHMM %>%
+        transmute(
+          fix_start,
+          fix_end,
+          algo_state = "fixation"
+        ),
+      join_by(
+        between(time, fix_start, fix_end)
+      )
+    ) %>%
+    mutate(
+      algo_state = ifelse(is.na(algo_state), "none", algo_state)
+    ) %>%
+    select(x, y, time, GT, algo_state)
+}
+
+
+# Combine detected states
+d2 <- d
+d2$IVT <- d_IVT$algo_state
+d2$IDT <- d_IDT$algo_state
+d2$EK <- d_EK$algo_state
+d2$IHMM <- d_IHMM$algo_state
+
+
+# Prepare trace data
+trace_dat_w <- d %>%
+  select(time, x, y) %>%
+  pivot_longer(
+    cols = c(x, y),
+    names_to = "signal",
+    values_to = "position"
+  ) %>%
+  mutate(tracker = "Webcam")
+
+trace_dat_el <- d_el %>%
+  select(time, x, y) %>%
+  pivot_longer(
+    cols = c(x, y),
+    names_to = "signal",
+    values_to = "position"
+  ) %>%
+  mutate(tracker = "EyeLink")
+
+trace_dat <- bind_rows(trace_dat_w, trace_dat_el)
+
+P_trace <- ggplot(
+  trace_dat,
+  aes(
+    x = time,
+    y = position,
+    colour = tracker,
+    linetype = signal
+  )
+) +
+  geom_line(linewidth = 0.5, alpha = 0.8) +
+  labs(
+    x = NULL,
+    y = "Position (px)",
+    colour = "Tracker",
+    linetype = "Signal"
+  ) +
+  theme_classic(base_size = 14) +
+  theme(
+    legend.position = "top",
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+
+
+# Prepare event data
+state_dat <- d2 %>%
+  select(time, GT, IVT, IDT, EK, IHMM) %>%
+  mutate(
+    GT = ifelse(GT == "fixation", "fixation", "none")
+  ) %>%
+  pivot_longer(
+    cols = c(GT, IVT, IDT, EK, IHMM),
+    names_to = "source",
+    values_to = "state"
+  ) %>%
+  mutate(
+    source = factor(
+      source,
+      levels = c("IHMM", "EK", "IDT", "IVT", "GT")
+    )
+  )
+
+
+# Convert continuous fixation states into events
+event_dat <- state_dat %>%
+  arrange(source, time) %>%
+  group_by(source) %>%
+  mutate(
+    event = data.table::rleid(state)
+  ) %>%
+  group_by(source, event, state) %>%
+  summarise(
+    start = min(time, na.rm = TRUE),
+    end = max(time, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  filter(state == "fixation") %>%
+  mutate(
+    source_num = as.numeric(source),
+    ymin = source_num - 0.35,
+    ymax = source_num + 0.35
+  )
+
+P_events <- ggplot(event_dat) +
+  geom_rect(
+    aes(
+      xmin = start,
+      xmax = end,
+      ymin = ymin,
+      ymax = ymax,
+      fill = source
+    ),
+    colour = "black",
+    linewidth = 0.25,
+    alpha = 0.85
+  ) +
+  scale_y_continuous(
+    breaks = seq_along(levels(event_dat$source)),
+    labels = levels(event_dat$source),
+    limits = c(0.5, length(levels(event_dat$source)) + 0.5)
+  ) +
+  labs(
+    x = "Trial time",
+    y = NULL,
+    fill = NULL
+  ) +
+  theme_classic(base_size = 14) +
+  theme(
+    axis.text.y = element_text(face = "bold"),
+    legend.position = "none"
+  )
+
+# Combine trace and event plots
+P_trace / P_events +
+  plot_layout(
+    heights = c(3, 1.5)
+  )
+```
+
 
 
