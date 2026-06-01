@@ -84,7 +84,7 @@ trial_list <- dat %>%
   distinct(sub, Trial_Id)
 
 # Loop over each velocity threshold
-ivt_fixation_results <- lapply(vel_thresholds, function(v) {
+ivt_fixation_results_mean <- lapply(vel_thresholds, function(v) {
 
   all_d2 <- list()
 
@@ -183,12 +183,12 @@ ivt_fixation_results <- lapply(vel_thresholds, function(v) {
 })
 
 # Combine results across thresholds
-ivt_fixation_results <- bind_rows(ivt_fixation_results)
+ivt_fixation_results_mean <- bind_rows(ivt_fixation_results_mean)
 
-print(ivt_fixation_results)
+print(ivt_fixation_results_mean)
 
 # Plot MCC across velocity thresholds
-ggplot(ivt_fixation_results, aes(x = vel_threshold, y = MCC)) +
+ggplot(ivt_fixation_results_mean, aes(x = vel_threshold, y = MCC)) +
   geom_line(linewidth = 0.8) +
   geom_point(size = 3) +
   labs(
@@ -208,7 +208,7 @@ Saccade detection performance was substantially poorer than fixation detection. 
 # IVT-saccade
 
 # Loop over each velocity threshold
-ivt_saccade_results <- lapply(vel_thresholds, function(v) {
+ivt_saccade_results_mean <- lapply(vel_thresholds, function(v) {
 
   all_d2 <- list()
 
@@ -307,12 +307,12 @@ ivt_saccade_results <- lapply(vel_thresholds, function(v) {
 })
 
 # Combine results across thresholds
-ivt_saccade_results <- bind_rows(ivt_saccade_results)
+ivt_saccade_results_mean <- bind_rows(ivt_saccade_results_mean)
 
-print(ivt_saccade_results)
+print(ivt_saccade_results_mean)
 
 # Plot MCC across velocity thresholds
-ggplot(ivt_saccade_results, aes(x = vel_threshold, y = MCC)) +
+ggplot(ivt_saccade_results_mean, aes(x = vel_threshold, y = MCC)) +
   geom_line(linewidth = 0.8) +
   geom_point(size = 3) +
   labs(
@@ -342,7 +342,7 @@ trial_list <- dat %>%
   distinct(sub, Trial_Id)
 
 # Loop over each dispersion threshold
-idt_fixation_results <- lapply(disp_thresholds, function(disp) {
+idt_fixation_results_mean <- lapply(disp_thresholds, function(disp) {
   
   all_d2 <- list()
   
@@ -440,12 +440,12 @@ idt_fixation_results <- lapply(disp_thresholds, function(disp) {
 })
 
 # Combine results across thresholds
-idt_fixation_results <- bind_rows(idt_fixation_results)
+idt_fixation_results_mean <- bind_rows(idt_fixation_results_mean)
 
-print(idt_fixation_results)
+print(idt_fixation_results_mean)
 
 # Plot MCC across dispersion thresholds
-ggplot(idt_fixation_results, aes(x = disp_threshold, y = MCC)) +
+ggplot(idt_fixation_results_mean, aes(x = disp_threshold, y = MCC)) +
   geom_line(linewidth = 0.8) +
   geom_point(size = 3) +
   labs(
@@ -460,7 +460,7 @@ For saccade detection, the same I-DT procedure was applied to the cleaned webcam
 I-DT saccade detection showed the highest performance at a dispersion threshold of 1.5 degrees, with an MCC of 0.119. Performance was slightly lower at 1 degree (MCC = 0.112) and decreased steadily as the dispersion threshold increased, reaching an MCC of 0.007 at 8 degrees. This indicates that lower dispersion thresholds produced better sample-level agreement with the human-labelled saccade ground truth. However, the overall MCC values were low, suggesting that I-DT had limited ability to distinguish saccade from non-saccade samples in the cleaned webcam data.
 ```{r}
 # IDT-saccade
-idt_saccade_results <- lapply(disp_thresholds, function(disp) {
+idt_saccade_results_mean <- lapply(disp_thresholds, function(disp) {
   
   all_d2 <- list()
   
@@ -570,12 +570,12 @@ idt_saccade_results <- lapply(disp_thresholds, function(disp) {
   )
 })
 
-idt_saccade_results <- bind_rows(idt_saccade_results)
+idt_saccade_results_mean <- bind_rows(idt_saccade_results_mean)
 
-print(idt_saccade_results)
+print(idt_saccade_results_mean)
 
 # Plot MCC across dispersion thresholds
-ggplot(idt_saccade_results, aes(x = disp_threshold, y = MCC)) +
+ggplot(idt_saccade_results_mean, aes(x = disp_threshold, y = MCC)) +
   geom_line(linewidth = 0.8) +
   geom_point(size = 3) +
   labs(
@@ -605,7 +605,7 @@ trial_list <- dat %>%
   distinct(sub, Trial_Id)
 
 # Loop over each lambda value
-ek_lambda_results <- lapply(lambdas, function(l) {
+ek_lambda_results_mean <- lapply(lambdas, function(l) {
 
   all_d2 <- list()
 
@@ -693,12 +693,12 @@ ek_lambda_results <- lapply(lambdas, function(l) {
 })
 
 # Combine results across lambda values
-ek_lambda_results <- bind_rows(ek_lambda_results)
+ek_lambda_results_mean<- bind_rows(ek_lambda_results_mean)
 
-print(ek_lambda_results)
+print(ek_lambda_results_mean )
 
 # Plot MCC across lambda values
-ggplot(ek_lambda_results, aes(x = lambda, y = EK_MCC)) +
+ggplot(ek_lambda_results_mean, aes(x = lambda, y = EK_MCC)) +
   geom_line(linewidth = 0.8) +
   geom_point(size = 3) +
   labs(
@@ -724,7 +724,7 @@ trial_list <- dat %>%
   distinct(sub, Trial_Id)
 
 # Loop over each lambda value
-ek_lambda_saccade_results <- lapply(lambdas, function(l) {
+ek_lambda_saccade_results_mean <- lapply(lambdas, function(l) {
 
   all_d2 <- list()
 
@@ -821,12 +821,12 @@ ek_lambda_saccade_results <- lapply(lambdas, function(l) {
 })
 
 # Combine results across lambda values
-ek_lambda_saccade_results <- bind_rows(ek_lambda_saccade_results)
+ek_lambda_saccade_results_mean <- bind_rows(ek_lambda_saccade_results_mean)
 
-print(ek_lambda_saccade_results)
+print(ek_lambda_saccade_results_mean)
 
 # Plot MCC across lambda values
-ggplot(ek_lambda_saccade_results, aes(x = lambda, y = EK_saccade_MCC)) +
+ggplot(ek_lambda_saccade_results_mean, aes(x = lambda, y = EK_saccade_MCC)) +
   geom_line(linewidth = 0.8) +
   geom_point(size = 3) +
   labs(
@@ -850,7 +850,7 @@ trial_list <- dat %>%
   distinct(sub, Trial_Id)
 
 # Run IHMM across all trials
-ihmm_fixation_results <- lapply(1, function(x) {
+ihmm_fixation_results_mean <- lapply(1, function(x) {
   
   all_d2 <- list()
   
@@ -947,9 +947,9 @@ ihmm_fixation_results <- lapply(1, function(x) {
 })
 
 # Combine results
-ihmm_fixation_results <- bind_rows(ihmm_fixation_results)
+ihmm_fixation_results_mean <- bind_rows(ihmm_fixation_results_mean)
 
-print(ihmm_fixation_results)
+print(ihmm_fixation_results_mean)
 ```
 For saccade detection, the same IHMM procedure was applied to the webcam gaze samples. The algorithm was run with `return_saccades = TRUE`, with the minimum fixation duration set to 50 ms. Detected saccade intervals were converted to sample-level labels using `sacc_start` and `sacc_end`. Human-labelled saccade samples were coded as 1 and all other samples as 0, and the IHMM output was coded in the same binary format. Performance was evaluated using the Matthews correlation coefficient (MCC) across all subjects and trials.
 
@@ -959,7 +959,7 @@ For saccade detection, IHMM achieved an MCC of 0.027 on the cleaned webcam data.
 # IHMM-saccade
 
 # Run IHMM across all trials
-ihmm_saccade_results <- lapply(1, function(x) {
+ihmm_saccade_results_mean <- lapply(1, function(x) {
   
   all_d2 <- list()
   
@@ -1056,9 +1056,9 @@ ihmm_saccade_results <- lapply(1, function(x) {
 })
 
 # Combine results
-ihmm_saccade_results <- bind_rows(ihmm_saccade_results)
+ihmm_saccade_results_mean <- bind_rows(ihmm_saccade_results_mean)
 
-print(ihmm_saccade_results)
+print(ihmm_saccade_results_mean)
 ```
 
 
@@ -1077,10 +1077,10 @@ For both IVT and IDT, each smoothing method was applied separately to the webcam
 
 ```{r}
 
-# Setup for IVT and IDT
+# Setup 
 
 # Smoothing methods
-smooth_methods <- c("raw", "ma", "median", "sg")
+smooth_methods <- c("raw", "mean", "median", "sg")
 
 # IVT parameters
 vel_thresholds <- seq(20, 70, by = 5)
@@ -1103,8 +1103,7 @@ get_xy <- function(data, smooth){
       y = y,
       time = time_start,
       GT = ground_truth
-    ) %>%
-    dplyr::filter(!is.na(x), !is.na(y))
+    )
   
   if(nrow(d) < 5) {
     return(d)
@@ -1114,7 +1113,7 @@ get_xy <- function(data, smooth){
     
     return(d)
     
-  } else if(smooth == "ma") {
+  } else if(smooth == "mean") {
     
     d <- eyemovements::SmoothSamples(
       d,
@@ -1143,8 +1142,85 @@ get_xy <- function(data, smooth){
 
 ```
 
-IVT-Fixation
 
+Extract ground-truth fixation events
+```{r}
+
+# Extract ground-truth fixation events
+
+gt_fixation_events <- dat %>%
+  dplyr::transmute(
+    sub = sub,
+    Trial_Id = Trial_Id,
+    time = time_start,
+    GT = ground_truth
+  ) %>%
+  dplyr::arrange(sub, Trial_Id, time) %>%
+  dplyr::group_by(sub, Trial_Id) %>%
+  dplyr::mutate(
+    is_fix = GT == "fixation",
+    event_id = cumsum(is_fix != dplyr::lag(is_fix, default = first(is_fix)))
+  ) %>%
+  dplyr::ungroup() %>%
+  dplyr::filter(is_fix) %>%
+  dplyr::group_by(sub, Trial_Id, event_id) %>%
+  dplyr::summarise(
+    fix_start = min(time, na.rm = TRUE),
+    fix_end = max(time, na.rm = TRUE),
+    duration = fix_end - fix_start,
+    .groups = "drop"
+  )
+
+gt_fixation_summary <- gt_fixation_events %>%
+  dplyr::group_by(sub, Trial_Id) %>%
+  dplyr::summarise(
+    GT_n_fixations = dplyr::n(),
+    GT_mean_fix_dur = mean(duration, na.rm = TRUE),
+    GT_sd_fix_dur = sd(duration, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+
+
+Extract ground-truth saccade events
+```{r}
+# Extract ground-truth saccade events
+
+gt_saccade_events <- dat %>%
+  dplyr::transmute(
+    sub = sub,
+    Trial_Id = Trial_Id,
+    time = time_start,
+    GT = ground_truth
+  ) %>%
+  dplyr::arrange(sub, Trial_Id, time) %>%
+  dplyr::group_by(sub, Trial_Id) %>%
+  dplyr::mutate(
+    is_sacc = GT == "saccade",
+    event_id = cumsum(is_sacc != dplyr::lag(is_sacc, default = first(is_sacc)))
+  ) %>%
+  dplyr::ungroup() %>%
+  dplyr::filter(is_sacc) %>%
+  dplyr::group_by(sub, Trial_Id, event_id) %>%
+  dplyr::summarise(
+    sacc_start = min(time, na.rm = TRUE),
+    sacc_end = max(time, na.rm = TRUE),
+    duration = sacc_end - sacc_start,
+    .groups = "drop"
+  )
+
+gt_saccade_summary <- gt_saccade_events %>%
+  dplyr::group_by(sub, Trial_Id) %>%
+  dplyr::summarise(
+    GT_n_saccades = dplyr::n(),
+    GT_mean_sacc_dur = mean(duration, na.rm = TRUE),
+    GT_sd_sacc_dur = sd(duration, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+
+
+IVT-Fixation
 ```{r}
 
 # IVT-fixation
@@ -1641,6 +1717,1030 @@ ggplot(
   ) +
   theme_classic(base_size = 14)
  
+```
+
+EK03-fixation with different smoothing methods
+```{r}
+# EK03-fixation
+
+# Define lambda values
+lambdas <- 2:15
+
+# Run EK03 fixation detection
+ek_fixation_results <- lapply(smooth_methods, function(s) {
+  
+  lapply(lambdas, function(l) {
+    
+    cat("Running EK03 fixation:", s, l, "\n")
+    
+    all_d2 <- list()
+    
+    for(i in 1:nrow(trial_list)) {
+      
+      # Select one trial
+      df0 <- subset(
+        dat,
+        sub == trial_list$sub[i] &
+          Trial_Id == trial_list$Trial_Id[i]
+      )
+      
+      # Apply selected smoothing method
+      d <- get_xy(df0, s)
+      
+      # Skip very short trials
+      if(nrow(d) < 5) next
+      
+      # Run EK03 fixation detection
+      algo_EK <- tryCatch(
+        {
+          eyemovements::EngbertKliegl03(
+            data = d,
+            lambda = l,
+            min_fix_dur = 50,
+            return_saccades = FALSE,
+            dva_x = 0.01865554,
+            dva_y = 0.01919689
+          )
+        },
+        error = function(e) {
+          message("EK03 fixation error: ", e$message)
+          return(NULL)
+        }
+      )
+      
+      # Convert detected fixations to sample-level labels
+      if(is.null(algo_EK) || nrow(algo_EK) == 0) {
+        
+        d_EK <- d %>%
+          dplyr::mutate(algo_state = "none")
+        
+      } else {
+        
+        d_EK <- d %>%
+          dplyr::left_join(
+            algo_EK %>%
+              dplyr::transmute(
+                fix_start,
+                fix_end,
+                algo_state = "fixation"
+              ),
+            dplyr::join_by(
+              between(time, fix_start, fix_end)
+            )
+          ) %>%
+          dplyr::mutate(
+            algo_state = ifelse(
+              is.na(algo_state),
+              "none",
+              algo_state
+            )
+          )
+      }
+      
+      # Combine algorithm labels with ground truth
+      d2 <- d
+      d2$EK <- d_EK$algo_state
+      
+      # Convert labels to binary fixation classes
+      d2 <- d2 %>%
+        dplyr::mutate(
+          GT_bin = ifelse(GT == "fixation", 1, 0),
+          EK_bin = ifelse(EK == "fixation", 1, 0)
+        )
+      
+      all_d2[[length(all_d2) + 1]] <- d2
+    }
+    
+    # Combine all trials
+    all_d2 <- dplyr::bind_rows(all_d2)
+    
+    # Calculate MCC
+    data.frame(
+      method = "EK03",
+      event = "fixation",
+      smoothing = s,
+      lambda = l,
+      min_fix_dur = 50,
+      MCC = mltools::mcc(
+        actuals = all_d2$GT_bin,
+        preds = all_d2$EK_bin
+      )
+    )
+  })
+})
+
+# Combine results
+ek_fixation_results <- dplyr::bind_rows(
+  unlist(ek_fixation_results, recursive = FALSE)
+)
+
+print(ek_fixation_results)
+
+# Plot fixation MCC
+ggplot(
+  ek_fixation_results,
+  aes(x = lambda, y = MCC, colour = smoothing)
+) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 2) +
+  labs(
+    title = "EK03 Fixation MCC Across Lambda Values",
+    x = "Lambda",
+    y = "Fixation MCC",
+    colour = "Smoothing"
+  ) +
+  theme_classic(base_size = 14)
+```
+EK03-saccade
+```{r}
+
+# Run EK03 saccade detection
+lambdas <- 2:15
+
+ek_saccade_results <- lapply(smooth_methods, function(s) {
+  
+  lapply(lambdas, function(l) {
+    
+    cat("Running EK03 saccade:", s, l, "\n")
+    
+    all_d2 <- list()
+    
+    for(i in 1:nrow(trial_list)) {
+      
+      # Select one trial
+      df0 <- subset(
+        dat,
+        sub == trial_list$sub[i] &
+          Trial_Id == trial_list$Trial_Id[i]
+      )
+      
+      # Apply selected smoothing method
+      d <- get_xy(df0, s)
+      
+      # Skip very short trials
+      if(nrow(d) < 5) next
+      
+      # Run EK03 saccade detection
+      algo_EK <- tryCatch(
+        {
+          eyemovements::EngbertKliegl03(
+            data = d,
+            lambda = l,
+            min_fix_dur = 50,
+            return_saccades = TRUE,
+            dva_x = 0.01865554,
+            dva_y = 0.01919689
+          )
+        },
+        error = function(e) {
+          message("EK03 saccade error: ", e$message)
+          return(NULL)
+        }
+      )
+      
+      # Convert detected saccades to sample-level labels
+      if(is.null(algo_EK) || nrow(algo_EK) == 0) {
+        
+        d_EK <- d %>%
+          dplyr::mutate(algo_state = "none")
+        
+      } else {
+        
+        d_EK <- d %>%
+          dplyr::left_join(
+            algo_EK %>%
+              dplyr::transmute(
+                sacc_start,
+                sacc_end,
+                algo_state = "saccade"
+              ),
+            dplyr::join_by(
+              between(time, sacc_start, sacc_end)
+            )
+          ) %>%
+          dplyr::mutate(
+            algo_state = ifelse(
+              is.na(algo_state),
+              "none",
+              algo_state
+            )
+          )
+      }
+      
+      # Combine algorithm labels with ground truth
+      d2 <- d
+      d2$EK <- d_EK$algo_state
+      
+      # Convert labels to binary saccade classes
+      d2 <- d2 %>%
+        dplyr::mutate(
+          GT_bin = ifelse(GT == "saccade", 1, 0),
+          EK_bin = ifelse(EK == "saccade", 1, 0)
+        )
+      
+      all_d2[[length(all_d2) + 1]] <- d2
+    }
+    
+    # Combine all trials
+    all_d2 <- dplyr::bind_rows(all_d2)
+    
+    # Calculate MCC
+    data.frame(
+      method = "EK03",
+      event = "saccade",
+      smoothing = s,
+      lambda = l,
+      min_fix_dur = 50,
+      MCC = mltools::mcc(
+        actuals = all_d2$GT_bin,
+        preds = all_d2$EK_bin
+      )
+    )
+  })
+})
+
+# Combine results
+ek_saccade_results <- dplyr::bind_rows(
+  unlist(ek_saccade_results, recursive = FALSE)
+)
+
+print(ek_saccade_results)
+
+# Plot saccade MCC
+ggplot(
+  ek_saccade_results,
+  aes(x = lambda, y = MCC, colour = smoothing)
+) +
+  geom_line(linewidth = 0.8) +
+  geom_point(size = 2) +
+  labs(
+    title = "EK03 Saccade MCC Across Lambda Values",
+    x = "Lambda",
+    y = "Saccade MCC",
+    colour = "Smoothing"
+  ) +
+  theme_classic(base_size = 14)
+```
+IHMM-fixation
+```{r}
+
+# IHMM parameter
+ihmm_min_fix_dur <- 50
+
+# Run IHMM fixation detection
+ihmm_fixation_results <- lapply(smooth_methods, function(s) {
+  
+  cat("Running IHMM fixation:", s, ihmm_min_fix_dur, "\n")
+  
+  all_d2 <- list()
+  
+  for(i in 1:nrow(trial_list)) {
+    
+    # Select one trial
+    df0 <- subset(
+      dat,
+      sub == trial_list$sub[i] &
+        Trial_Id == trial_list$Trial_Id[i]
+    )
+    
+    # Apply selected smoothing method
+    d <- get_xy(df0, s)
+    
+    # Skip very short trials
+    if(nrow(d) < 5) next
+    
+    # Run IHMM fixation detection
+    algo_IHMM <- tryCatch(
+      {
+        eyemovements::IHMM(
+          data = d,
+          min_fix_dur = ihmm_min_fix_dur,
+          return_saccades = FALSE,
+          dva_x = 0.01865554,
+          dva_y = 0.01919689
+        )
+      },
+      error = function(e) {
+        message("IHMM fixation error: ", e$message)
+        return(NULL)
+      }
+    )
+    
+    # Convert detected fixations to sample-level labels
+    if(is.null(algo_IHMM) || nrow(algo_IHMM) == 0) {
+      
+      d_IHMM <- d %>%
+        dplyr::mutate(algo_state = "none")
+      
+    } else {
+      
+      d_IHMM <- d %>%
+        dplyr::left_join(
+          algo_IHMM %>%
+            dplyr::transmute(
+              fix_start,
+              fix_end,
+              algo_state = "fixation"
+            ),
+          dplyr::join_by(
+            between(time, fix_start, fix_end)
+          )
+        ) %>%
+        dplyr::mutate(
+          algo_state = ifelse(
+            is.na(algo_state),
+            "none",
+            algo_state
+          )
+        )
+    }
+    
+    # Combine algorithm labels with ground truth
+    d2 <- d
+    d2$IHMM <- d_IHMM$algo_state
+    
+    # Convert labels to binary fixation classes
+    d2 <- d2 %>%
+      dplyr::mutate(
+        GT_bin = ifelse(GT == "fixation", 1, 0),
+        IHMM_bin = ifelse(IHMM == "fixation", 1, 0)
+      )
+    
+    all_d2[[length(all_d2) + 1]] <- d2
+  }
+  
+  # Combine all trials
+  all_d2 <- dplyr::bind_rows(all_d2)
+  
+  # Calculate MCC
+  data.frame(
+    method = "IHMM",
+    event = "fixation",
+    smoothing = s,
+    min_fix_dur = ihmm_min_fix_dur,
+    MCC = mltools::mcc(
+      actuals = all_d2$GT_bin,
+      preds = all_d2$IHMM_bin
+    )
+  )
+})
+
+# Combine results
+ihmm_fixation_results <- dplyr::bind_rows(ihmm_fixation_results)
+
+print(ihmm_fixation_results)
+
+# Plot fixation MCC across smoothing methods
+ggplot(
+  ihmm_fixation_results,
+  aes(x = smoothing, y = MCC)
+) +
+  geom_col(width = 0.6) +
+  geom_point(size = 2) +
+  labs(
+    title = "IHMM Fixation MCC Across Smoothing Methods",
+    x = "Smoothing method",
+    y = "Fixation MCC"
+  ) +
+  theme_classic(base_size = 14)
+```
+IHMM-saccade
+```{r}
+# Run IHMM saccade detection
+ihmm_saccade_results <- lapply(smooth_methods, function(s) {
+  
+  cat("Running IHMM saccade:", s, ihmm_min_fix_dur, "\n")
+  
+  all_d2 <- list()
+  
+  for(i in 1:nrow(trial_list)) {
+    
+    # Select one trial
+    df0 <- subset(
+      dat,
+      sub == trial_list$sub[i] &
+        Trial_Id == trial_list$Trial_Id[i]
+    )
+    
+    # Apply selected smoothing method
+    d <- get_xy(df0, s)
+    
+    # Skip very short trials
+    if(nrow(d) < 5) next
+    
+    # Run IHMM saccade detection
+    algo_IHMM <- tryCatch(
+      {
+        eyemovements::IHMM(
+          data = d,
+          min_fix_dur = ihmm_min_fix_dur,
+          return_saccades = TRUE,
+          dva_x = 0.01865554,
+          dva_y = 0.01919689
+        )
+      },
+      error = function(e) {
+        message("IHMM saccade error: ", e$message)
+        return(NULL)
+      }
+    )
+    
+    # Convert detected saccades to sample-level labels
+    if(is.null(algo_IHMM) || nrow(algo_IHMM) == 0) {
+      
+      d_IHMM <- d %>%
+        dplyr::mutate(algo_state = "none")
+      
+    } else {
+      
+      d_IHMM <- d %>%
+        dplyr::left_join(
+          algo_IHMM %>%
+            dplyr::transmute(
+              sacc_start,
+              sacc_end,
+              algo_state = "saccade"
+            ),
+          dplyr::join_by(
+            between(time, sacc_start, sacc_end)
+          )
+        ) %>%
+        dplyr::mutate(
+          algo_state = ifelse(
+            is.na(algo_state),
+            "none",
+            algo_state
+          )
+        )
+    }
+    
+    # Combine algorithm labels with ground truth
+    d2 <- d
+    d2$IHMM <- d_IHMM$algo_state
+    
+    # Convert labels to binary saccade classes
+    d2 <- d2 %>%
+      dplyr::mutate(
+        GT_bin = ifelse(GT == "saccade", 1, 0),
+        IHMM_bin = ifelse(IHMM == "saccade", 1, 0)
+      )
+    
+    all_d2[[length(all_d2) + 1]] <- d2
+  }
+  
+  # Combine all trials
+  all_d2 <- dplyr::bind_rows(all_d2)
+  
+  # Calculate MCC
+  data.frame(
+    method = "IHMM",
+    event = "saccade",
+    smoothing = s,
+    min_fix_dur = ihmm_min_fix_dur,
+    MCC = mltools::mcc(
+      actuals = all_d2$GT_bin,
+      preds = all_d2$IHMM_bin
+    )
+  )
+})
+
+# Combine results
+ihmm_saccade_results <- dplyr::bind_rows(ihmm_saccade_results)
+
+print(ihmm_saccade_results)
+
+# Plot saccade MCC across smoothing methods
+ggplot(
+  ihmm_saccade_results,
+  aes(x = smoothing, y = MCC)
+) +
+  geom_col(width = 0.6) +
+  geom_point(size = 2) +
+  labs(
+    title = "IHMM Saccade MCC Across Smoothing Methods",
+    x = "Smoothing method",
+    y = "Saccade MCC"
+  ) +
+  theme_classic(base_size = 14)
+```
+Run algorithms and save detected fixation events
+```{r}
+all_fixation_events <- list()
+
+for(s in smooth_methods) {
+  
+  for(i in 1:nrow(trial_list)) {
+    
+    # Select one trial
+    df0 <- subset(
+      dat,
+      sub == trial_list$sub[i] &
+        Trial_Id == trial_list$Trial_Id[i]
+    )
+    
+    # Apply selected smoothing method
+    d <- get_xy(df0, s)
+    
+    # Skip very short trials
+    if(nrow(d) < 5) next
+    
+    current_sub <- trial_list$sub[i]
+    current_trial <- trial_list$Trial_Id[i]
+    
+    # IVT fixation events
+    
+    for(v in vel_thresholds) {
+      
+      algo_IVT <- tryCatch(
+        {
+          eyemovements::IVT(
+            data = d,
+            vel_threshold = v,
+            min_fix_dur = min_fix_dur,
+            return_saccades = FALSE,
+            dva_x = 0.01865554,
+            dva_y = 0.01919689
+          )
+        },
+        error = function(e) return(NULL)
+      )
+      
+      if(!is.null(algo_IVT) && nrow(algo_IVT) > 0) {
+        
+        ev <- algo_IVT %>%
+          dplyr::transmute(
+            method = "IVT",
+            event = "fixation",
+            smoothing = s,
+            parameter = paste0("vel_", v),
+            sub = current_sub,
+            Trial_Id = current_trial,
+            fix_start = fix_start,
+            fix_end = fix_end,
+            duration = fix_end - fix_start
+          )
+        
+        all_fixation_events[[length(all_fixation_events) + 1]] <- ev
+      }
+    }
+    
+
+    # IDT fixation events
+    for(disp in disp_thresholds) {
+      
+      algo_IDT <- tryCatch(
+        {
+          eyemovements::IDT(
+            data = d,
+            disp_threshold = disp,
+            window_threshold = window_threshold,
+            return_saccades = FALSE,
+            dva_x = 0.01865554,
+            dva_y = 0.01919689
+          )
+        },
+        error = function(e) return(NULL)
+      )
+      
+      if(!is.null(algo_IDT) && nrow(algo_IDT) > 0) {
+        
+        ev <- algo_IDT %>%
+          dplyr::transmute(
+            method = "IDT",
+            event = "fixation",
+            smoothing = s,
+            parameter = paste0("disp_", disp),
+            sub = current_sub,
+            Trial_Id = current_trial,
+            fix_start = fix_start,
+            fix_end = fix_end,
+            duration = fix_end - fix_start
+          )
+        
+        all_fixation_events[[length(all_fixation_events) + 1]] <- ev
+      }
+    }
+    
+  
+    # EK03 fixation events
+    
+    for(l in lambdas) {
+      
+      algo_EK <- tryCatch(
+        {
+          eyemovements::EngbertKliegl03(
+            data = d,
+            lambda = l,
+            min_fix_dur = 50,
+            return_saccades = FALSE,
+            dva_x = 0.01865554,
+            dva_y = 0.01919689
+          )
+        },
+        error = function(e) return(NULL)
+      )
+      
+      if(!is.null(algo_EK) && nrow(algo_EK) > 0) {
+        
+        ev <- algo_EK %>%
+          dplyr::transmute(
+            method = "EK03",
+            event = "fixation",
+            smoothing = s,
+            parameter = paste0("lambda_", l),
+            sub = current_sub,
+            Trial_Id = current_trial,
+            fix_start = fix_start,
+            fix_end = fix_end,
+            duration = fix_end - fix_start
+          )
+        
+        all_fixation_events[[length(all_fixation_events) + 1]] <- ev
+      }
+    }
+    
+   
+    # IHMM fixation events
+    algo_IHMM <- tryCatch(
+      {
+        eyemovements::IHMM(
+          data = d,
+          min_fix_dur = 50,
+          return_saccades = FALSE,
+          dva_x = 0.01865554,
+          dva_y = 0.01919689
+        )
+      },
+      error = function(e) return(NULL)
+    )
+    
+    if(!is.null(algo_IHMM) && nrow(algo_IHMM) > 0) {
+      
+      ev <- algo_IHMM %>%
+        dplyr::transmute(
+          method = "IHMM",
+          event = "fixation",
+          smoothing = s,
+          parameter = "none",
+          sub = current_sub,
+          Trial_Id = current_trial,
+          fix_start = fix_start,
+          fix_end = fix_end,
+          duration = fix_end - fix_start
+        )
+      
+      all_fixation_events[[length(all_fixation_events) + 1]] <- ev
+    }
+  }
+}
+
+all_fixation_events <- dplyr::bind_rows(all_fixation_events)
+
+print(all_fixation_events)
+```
+Run algorithms and save detected saccade events
+```{r}
+
+all_saccade_events <- list()
+
+for(s in smooth_methods) {
+  
+  for(i in 1:nrow(trial_list)) {
+    
+    # Select one trial
+    df0 <- subset(
+      dat,
+      sub == trial_list$sub[i] &
+        Trial_Id == trial_list$Trial_Id[i]
+    )
+    
+    # Apply selected smoothing method
+    d <- get_xy(df0, s)
+    
+    # Skip very short trials
+    if(nrow(d) < 5) next
+    
+    current_sub <- trial_list$sub[i]
+    current_trial <- trial_list$Trial_Id[i]
+    
+
+    # IVT saccade events
+    for(v in vel_thresholds) {
+      
+      algo_IVT <- tryCatch(
+        {
+          eyemovements::IVT(
+            data = d,
+            vel_threshold = v,
+            min_fix_dur = min_fix_dur,
+            return_saccades = TRUE,
+            dva_x = 0.01865554,
+            dva_y = 0.01919689
+          )
+        },
+        error = function(e) return(NULL)
+      )
+      
+      if(!is.null(algo_IVT) && nrow(algo_IVT) > 0) {
+        
+        ev <- algo_IVT %>%
+          dplyr::transmute(
+            method = "IVT",
+            event = "saccade",
+            smoothing = s,
+            parameter = paste0("vel_", v),
+            sub = current_sub,
+            Trial_Id = current_trial,
+            sacc_start = sacc_start,
+            sacc_end = sacc_end,
+            duration = sacc_end - sacc_start
+          )
+        
+        all_saccade_events[[length(all_saccade_events) + 1]] <- ev
+      }
+    }
+    
+
+    # IDT saccade events
+    
+    for(disp in disp_thresholds) {
+      
+      algo_IDT <- tryCatch(
+        {
+          eyemovements::IDT(
+            data = d,
+            disp_threshold = disp,
+            window_threshold = window_threshold,
+            return_saccades = TRUE,
+            dva_x = 0.01865554,
+            dva_y = 0.01919689
+          )
+        },
+        error = function(e) return(NULL)
+      )
+      
+      if(!is.null(algo_IDT) && nrow(algo_IDT) > 0) {
+        
+        ev <- algo_IDT %>%
+          dplyr::transmute(
+            method = "IDT",
+            event = "saccade",
+            smoothing = s,
+            parameter = paste0("disp_", disp),
+            sub = current_sub,
+            Trial_Id = current_trial,
+            sacc_start = sacc_start,
+            sacc_end = sacc_end,
+            duration = sacc_end - sacc_start
+          )
+        
+        all_saccade_events[[length(all_saccade_events) + 1]] <- ev
+      }
+    }
+    
+
+    # EK03 saccade events
+    for(l in lambdas) {
+      
+      algo_EK <- tryCatch(
+        {
+          eyemovements::EngbertKliegl03(
+            data = d,
+            lambda = l,
+            min_fix_dur = 50,
+            return_saccades = TRUE,
+            dva_x = 0.01865554,
+            dva_y = 0.01919689
+          )
+        },
+        error = function(e) return(NULL)
+      )
+      
+      if(!is.null(algo_EK) && nrow(algo_EK) > 0) {
+        
+        ev <- algo_EK %>%
+          dplyr::transmute(
+            method = "EK03",
+            event = "saccade",
+            smoothing = s,
+            parameter = paste0("lambda_", l),
+            sub = current_sub,
+            Trial_Id = current_trial,
+            sacc_start = sacc_start,
+            sacc_end = sacc_end,
+            duration = sacc_end - sacc_start
+          )
+        
+        all_saccade_events[[length(all_saccade_events) + 1]] <- ev
+      }
+    }
+    
+
+    # IHMM saccade events
+    algo_IHMM <- tryCatch(
+      {
+        eyemovements::IHMM(
+          data = d,
+          min_fix_dur = 50,
+          return_saccades = TRUE,
+          dva_x = 0.01865554,
+          dva_y = 0.01919689
+        )
+      },
+      error = function(e) return(NULL)
+    )
+    
+    if(!is.null(algo_IHMM) && nrow(algo_IHMM) > 0) {
+      
+      ev <- algo_IHMM %>%
+        dplyr::transmute(
+          method = "IHMM",
+          event = "saccade",
+          smoothing = s,
+          parameter = "none",
+          sub = current_sub,
+          Trial_Id = current_trial,
+          sacc_start = sacc_start,
+          sacc_end = sacc_end,
+          duration = sacc_end - sacc_start
+        )
+      
+      all_saccade_events[[length(all_saccade_events) + 1]] <- ev
+    }
+  }
+}
+
+all_saccade_events <- dplyr::bind_rows(all_saccade_events)
+
+print(all_saccade_events)
+```
+Compute event-level RMSE for fixation
+```{r}
+# Summarise detected fixation events per trial
+algo_fixation_summary_raw <- all_fixation_events %>%
+  dplyr::group_by(method, smoothing, parameter, sub, Trial_Id) %>%
+  dplyr::summarise(
+    algo_n_fixations = dplyr::n(),
+    algo_mean_fix_dur = mean(duration, na.rm = TRUE),
+    algo_sd_fix_dur = sd(duration, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Include trials with zero detected fixations
+algo_params <- all_fixation_events %>%
+  dplyr::distinct(method, smoothing, parameter)
+
+algo_fixation_summary <- tidyr::crossing(
+  algo_params,
+  trial_list
+) %>%
+  dplyr::left_join(
+    algo_fixation_summary_raw,
+    by = c("method", "smoothing", "parameter", "sub", "Trial_Id")
+  ) %>%
+  dplyr::mutate(
+    algo_n_fixations = ifelse(is.na(algo_n_fixations), 0, algo_n_fixations)
+  )
+
+# Compare with ground truth
+fixation_comparison <- algo_fixation_summary %>%
+  dplyr::left_join(
+    gt_fixation_summary,
+    by = c("sub", "Trial_Id")
+  ) %>%
+  dplyr::mutate(
+    error_n_fixations = algo_n_fixations - GT_n_fixations,
+    error_mean_fix_dur = algo_mean_fix_dur - GT_mean_fix_dur,
+    error_sd_fix_dur = algo_sd_fix_dur - GT_sd_fix_dur
+  )
+
+# Compute RMSE by method, smoothing, and parameter
+fixation_rmse_results <- fixation_comparison %>%
+  dplyr::group_by(method, smoothing, parameter) %>%
+  dplyr::summarise(
+    RMSE_n_fixations = sqrt(mean(error_n_fixations^2, na.rm = TRUE)),
+    RMSE_mean_fix_dur = sqrt(mean(error_mean_fix_dur^2, na.rm = TRUE)),
+    RMSE_sd_fix_dur = sqrt(mean(error_sd_fix_dur^2, na.rm = TRUE)),
+    
+    mean_error_n_fixations = mean(error_n_fixations, na.rm = TRUE),
+    mean_error_mean_fix_dur = mean(error_mean_fix_dur, na.rm = TRUE),
+    mean_error_sd_fix_dur = mean(error_sd_fix_dur, na.rm = TRUE),
+    
+    .groups = "drop"
+  ) %>%
+  dplyr::arrange(method, smoothing, RMSE_n_fixations)
+
+print(fixation_rmse_results)
+```
+
+Save detected events and RMSE results
+
+```{r}
+
+dir.create("results", showWarnings = FALSE)
+dir.create("results/detected_events", showWarnings = FALSE)
+dir.create("results/event_level_rmse", showWarnings = FALSE)
+
+readr::write_csv(
+  all_fixation_events,
+  "results/detected_events/all_fixation_events.csv"
+)
+
+readr::write_csv(
+  fixation_comparison,
+  "results/event_level_rmse/fixation_event_level_comparison.csv"
+)
+
+readr::write_csv(
+  fixation_rmse_results,
+  "results/event_level_rmse/fixation_rmse_results.csv"
+)
+
+
+```
+
+Compute event-level RMSE for saccades
+```{r}
+# Summarise detected saccade events per trial
+algo_saccade_summary_raw <- all_saccade_events %>%
+  dplyr::group_by(method, smoothing, parameter, sub, Trial_Id) %>%
+  dplyr::summarise(
+    algo_n_saccades = dplyr::n(),
+    algo_mean_sacc_dur = mean(duration, na.rm = TRUE),
+    algo_sd_sacc_dur = sd(duration, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Include trials with zero detected saccades
+algo_params_sacc <- all_saccade_events %>%
+  dplyr::distinct(method, smoothing, parameter)
+
+algo_saccade_summary <- tidyr::crossing(
+  algo_params_sacc,
+  trial_list
+) %>%
+  dplyr::left_join(
+    algo_saccade_summary_raw,
+    by = c("method", "smoothing", "parameter", "sub", "Trial_Id")
+  ) %>%
+  dplyr::mutate(
+    algo_n_saccades = ifelse(is.na(algo_n_saccades), 0, algo_n_saccades)
+  )
+
+# Compare with ground truth
+saccade_comparison <- algo_saccade_summary %>%
+  dplyr::left_join(
+    gt_saccade_summary,
+    by = c("sub", "Trial_Id")
+  ) %>%
+  dplyr::mutate(
+    error_n_saccades = algo_n_saccades - GT_n_saccades,
+    error_mean_sacc_dur = algo_mean_sacc_dur - GT_mean_sacc_dur,
+    error_sd_sacc_dur = algo_sd_sacc_dur - GT_sd_sacc_dur
+  )
+
+# Compute RMSE by method, smoothing, and parameter
+saccade_rmse_results <- saccade_comparison %>%
+  dplyr::group_by(method, smoothing, parameter) %>%
+  dplyr::summarise(
+    RMSE_n_saccades = sqrt(mean(error_n_saccades^2, na.rm = TRUE)),
+    RMSE_mean_sacc_dur = sqrt(mean(error_mean_sacc_dur^2, na.rm = TRUE)),
+    RMSE_sd_sacc_dur = sqrt(mean(error_sd_sacc_dur^2, na.rm = TRUE)),
+    
+    mean_error_n_saccades = mean(error_n_saccades, na.rm = TRUE),
+    mean_error_mean_sacc_dur = mean(error_mean_sacc_dur, na.rm = TRUE),
+    mean_error_sd_sacc_dur = mean(error_sd_sacc_dur, na.rm = TRUE),
+    
+    .groups = "drop"
+  ) %>%
+  dplyr::arrange(method, smoothing, RMSE_n_saccades)
+
+print(saccade_rmse_results)
+```
+
+Save saccade events and RMSE results
+```{r}
+
+dir.create("results", showWarnings = FALSE)
+dir.create("results/detected_events", showWarnings = FALSE)
+dir.create("results/event_level_rmse", showWarnings = FALSE)
+
+readr::write_csv(
+  all_saccade_events,
+  "results/detected_events/all_saccade_events.csv"
+)
+
+readr::write_csv(
+  saccade_comparison,
+  "results/event_level_rmse/saccade_event_level_comparison.csv"
+)
+
+readr::write_csv(
+  saccade_rmse_results,
+  "results/event_level_rmse/saccade_rmse_results.csv"
+)
+
+
 ```
 
 
