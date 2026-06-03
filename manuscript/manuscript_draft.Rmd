@@ -2720,7 +2720,6 @@ print(saccade_rmse_results)
 
 Save saccade events and RMSE results
 ```{r}
-
 dir.create("results", showWarnings = FALSE)
 dir.create("results/detected_events", showWarnings = FALSE)
 dir.create("results/event_level_rmse", showWarnings = FALSE)
@@ -2740,7 +2739,86 @@ readr::write_csv(
   "results/event_level_rmse/saccade_rmse_results.csv"
 )
 
+```
+MCC Results
+```{r}
 
+# Combine IVT fixation + saccade MCC results
+ivt_mcc <- bind_rows(
+  ivt_fixation_results,
+  ivt_saccade_results
+) %>%
+  mutate(
+    parameter_type = "vel_threshold",
+    parameter_value = vel_threshold
+  ) %>%
+  select(
+    method, event, smoothing,
+    parameter_type, parameter_value,
+    MCC
+  )
+
+# Combine IDT fixation + saccade MCC results
+idt_mcc <- bind_rows(
+  idt_fixation_results,
+  idt_saccade_results
+) %>%
+  mutate(
+    parameter_type = "disp_threshold",
+    parameter_value = disp_threshold
+  ) %>%
+  select(
+    method, event, smoothing,
+    parameter_type, parameter_value,
+    MCC
+  )
+
+# Combine EK03 fixation + saccade MCC results
+ek_mcc <- bind_rows(
+  ek_fixation_results,
+  ek_saccade_results
+) %>%
+  mutate(
+    parameter_type = "lambda",
+    parameter_value = lambda
+  ) %>%
+  select(
+    method, event, smoothing,
+    parameter_type, parameter_value,
+    MCC
+  )
+
+# Combine IHMM fixation + saccade MCC results
+ihmm_mcc <- bind_rows(
+  ihmm_fixation_results,
+  ihmm_saccade_results
+) %>%
+  mutate(
+    parameter_type = "none",
+    parameter_value = NA_real_
+  ) %>%
+  select(
+    method, event, smoothing,
+    parameter_type, parameter_value,
+    MCC
+  )
+
+# Combine all algorithm MCC results
+all_mcc_results <- bind_rows(
+  ivt_mcc,
+  idt_mcc,
+  ek_mcc,
+  ihmm_mcc
+)
+
+# View combined MCC results
+View(all_mcc_results)
+
+# Save to CSV
+write_csv(
+  all_mcc_results,
+  "results/all_algorithm_mcc_results.csv"
+)
 ```
 
 
