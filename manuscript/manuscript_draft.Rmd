@@ -18,11 +18,13 @@ library(eyemovements)
 library(data.table)
 library(patchwork)
 library(signal)
+library(T4transport)
 
 
 ```
 
 ## Introduction
+This study evaluates how well traditional and machine-learning-based eye-movement event detection algorithms detect fixations and saccades in noisy, low-sampling-rate webcam eye-tracking data, using human-labelled ground truth as the reference.
 
 ## Method
 
@@ -71,7 +73,6 @@ Fixation detection
 
 The velocity-threshold identification algorithm (I-VT) was used to detect fixations and saccades from the webcam gaze samples. I-VT classifies eye-movement events based on the point-to-point velocity of gaze samples. In the present analysis, I-VT was implemented using the `IVT()` function from the `eyemovements` package.  A range of velocity thresholds was tested from 20 to 70 deg/s in steps of 5 deg/s. with the minimum fixation duration set to 50 ms. For fixation detection, `IVT()` was run with `return_saccades = FALSE`. The detected fixation intervals were then converted from event-level output to sample-level labels by joining each detected fixation back to the original time series using `fix_start` and `fix_end`. For evaluation, human-labelled fixation samples were coded as 1 and all other samples were coded as 0. The algorithm output was coded in the same binary format, and performance was assessed using the Matthews correlation coefficient (MCC) across all subjects and trials.
 
-For fixation detection, I-VT showed relatively weak but above-zero agreement with the human labels across all tested velocity thresholds. MCC increased from 0.113 at 20 deg/s to a maximum of 0.148 at 50 deg/s, before slightly decreasing at higher thresholds. This suggests that, for the cleaned webcam data, a velocity threshold around 50 deg/s provided the best trade-off for fixation detection within the tested range. However, the overall MCC values remained low, indicating limited sample-level agreement between I-VT fixation labels and the human-labelled ground truth.
 
 ```{r}
 # IVT-fixation
@@ -202,7 +203,6 @@ Saccade detection
 
 The same I-VT procedure was also used to detect saccades from the cleaned webcam gaze samples. The cleaned and smoothed gaze coordinates were analysed using the `IVT()` function with the same velocity-threshold range, from 20 to 70 deg/s in steps of 5 deg/s. For saccade detection, the algorithm was run with `return_saccades = TRUE`, while retaining the same minimum fixation duration setting of 50 ms and the package’s default minimum saccade amplitude criterion. Detected saccade intervals were mapped back to sample-level labels using `sacc_start` and `sacc_end`. For evaluation, human-labelled saccade samples were coded as 1 and all other samples were coded as 0. The I-VT output was converted into the same binary format, and MCC was calculated across all subjects and trials.
 
-Saccade detection performance was substantially poorer than fixation detection. The highest MCC was observed at the lowest tested velocity threshold, 20 deg/s, with an MCC of 0.035. As the velocity threshold increased, MCC decreased progressively, reaching values close to zero and becoming slightly negative at higher thresholds. This pattern suggests that higher velocity thresholds caused I-VT to miss more saccade samples, while lower thresholds still produced only very weak agreement with the human labels. Overall, I-VT showed poor sample-level discrimination between saccade and non-saccade samples in the cleaned webcam data.
 
 ```{r}
 # IVT-saccade
@@ -330,7 +330,7 @@ ggplot(ivt_saccade_results_mean, aes(x = vel_threshold, y = MCC)) +
 
 The dispersion-threshold identification algorithm (I-DT) was also used to detect eye-movement events. Unlike I-VT, which classifies eye movements based on velocity, I-DT identifies fixations based on the spatial dispersion of gaze samples within a temporal window. The basic assumption is that gaze samples belonging to a fixation should remain spatially close to each other, whereas larger dispersion indicates movement between fixation locations. In the present analysis, I-DT was implemented using the `IDT()` function from the `eyemovements` package and applied to the cleaned webcam gaze samples. Before detection, gaze coordinates were smoothed using a three-sample moving average window. Dispersion thresholds from 1 to 8 degrees were tested in steps of 0.5 degrees, and the temporal window threshold was set to 50 ms. Detected fixation intervals were converted to sample-level labels by mapping each event back to the original time series using `fix_start` and `fix_end`. Human-labelled fixation samples were coded as 1 and all other samples as 0, and the algorithm output was coded in the same way. Performance was evaluated using the Matthews correlation coefficient (MCC) across all subjects and trials.
 
-For fixation detection, I-DT achieved its highest MCC at the lowest tested dispersion threshold. The best performance was observed at a dispersion threshold of 1 degree, with an MCC of 0.185. MCC decreased as the dispersion threshold increased, falling to 0.015 at 8 degrees. This indicates that, in the cleaned webcam data, stricter dispersion thresholds produced better agreement with the human-labelled fixation ground truth. However, the overall MCC values remained low, suggesting that I-DT provided only limited sample-level agreement with the human annotations.
+
 ```{r}
 # IDT-fixation
 
@@ -457,7 +457,7 @@ ggplot(idt_fixation_results_mean, aes(x = disp_threshold, y = MCC)) +
 ```
 For saccade detection, the same I-DT procedure was applied to the cleaned webcam gaze samples, using the same range of dispersion thresholds from 1 to 8 degrees in steps of 0.5 degrees and a temporal window threshold of 50 ms. The algorithm was run with `return_saccades = TRUE`, and the detected saccade intervals were converted to sample-level labels using `sacc_start` and `sacc_end`. Human-labelled saccade samples were coded as 1 and all other samples as 0, and the algorithm output was coded in the same binary format. Performance was evaluated using MCC across all subjects and trials.
 
-I-DT saccade detection showed the highest performance at a dispersion threshold of 1.5 degrees, with an MCC of 0.119. Performance was slightly lower at 1 degree (MCC = 0.112) and decreased steadily as the dispersion threshold increased, reaching an MCC of 0.007 at 8 degrees. This indicates that lower dispersion thresholds produced better sample-level agreement with the human-labelled saccade ground truth. However, the overall MCC values were low, suggesting that I-DT had limited ability to distinguish saccade from non-saccade samples in the cleaned webcam data.
+
 ```{r}
 # IDT-saccade
 idt_saccade_results_mean <- lapply(disp_thresholds, function(disp) {
@@ -593,7 +593,7 @@ ggplot(idt_saccade_results_mean, aes(x = disp_threshold, y = MCC)) +
 
 This algorithm, originally proposed by Engbert and Kliegl (2003), was also applied to the webcam gaze samples. This method is fundamentally a velocity-based saccade detection algorithm: it identifies saccades using an adaptive velocity threshold, with the threshold controlled by the lambda parameter, and treats the intervals between detected saccades as fixations. This is consistent with the implementation documentation, which describes the method as detecting fixations by first applying the Engbert and Kliegl saccade detection algorithm and then classifying the periods between saccades as fixations. In the present analysis, the method was implemented using the `EngbertKliegl03()` function from the `eyemovements` package. Before detection, gaze coordinates were smoothed using a three-sample moving average window. Lambda values from 2 to 15 were tested, and the minimum fixation duration was set to 50 ms. For fixation detection, the algorithm was run with `return_saccades = FALSE`. Detected fixation intervals were converted to sample-level labels by mapping each event back to the original time series using `fix_start` and `fix_end`. Human-labelled fixation samples were coded as 1 and all other samples as 0, and the algorithm output was coded in the same binary format. Performance was evaluated using the Matthews correlation coefficient (MCC) across all subjects and trials.
 
-For fixation detection, the Engbert and Kliegl algorithm showed its best performance at a relatively low lambda value. The highest MCC was observed at lambda = 3, with an MCC of 0.271. Performance was slightly lower at lambda = 2 (MCC = 0.235) and gradually decreased as lambda increased, reaching an MCC of 0.095 at lambda = 15. This pattern suggests that lower lambda values provided better agreement with the human-labelled fixation ground truth in the cleaned webcam data, whereas higher lambda values were more conservative and produced poorer sample-level agreement. Overall, the Engbert and Kliegl method performed better than the I-VT and I-DT fixation settings tested here, although the MCC values still indicated only limited-to-moderate agreement with the human annotations.
+
 ```{r}
 # EK03-fixation
 
@@ -710,8 +710,6 @@ ggplot(ek_lambda_results_mean, aes(x = lambda, y = EK_MCC)) +
 ```
 
 For saccade detection, the same Engbert and Kliegl procedure was applied to the cleaned webcam gaze samples, using lambda values from 2 to 15 and a minimum fixation duration of 50 ms. The algorithm was run with `return_saccades = TRUE`, and detected saccade intervals were converted to sample-level labels using `sacc_start` and `sacc_end`. Human-labelled saccade samples were coded as 1 and all other samples as 0, and the algorithm output was coded in the same binary format. Performance was evaluated using the Matthews correlation coefficient (MCC) across all subjects and trials.
-
-For saccade detection, the Engbert and Kliegl algorithm showed its highest performance at the lowest tested lambda value. The best MCC was observed at lambda = 2 (MCC = 0.181). Performance then decreased steadily as lambda increased, falling to 0.028 at lambda = 15. This pattern suggests that lower lambda values were more suitable for detecting saccades in the cleaned webcam data, whereas higher lambda values made the algorithm more conservative and likely led to under-detection of saccades. Although the Engbert and Kliegl algorithm performed better than I-VT and I-DT for saccade detection, the MCC values remained relatively low, indicating limited sample-level agreement with the human-labelled saccade ground truth.
 
 ```{r}
 # EK03-saccade
@@ -841,7 +839,7 @@ ggplot(ek_lambda_saccade_results_mean, aes(x = lambda, y = EK_saccade_MCC)) +
 
 The iterative hidden Markov model (IHMM) was also applied to the cleaned webcam gaze samples for fixation detection. The method was implemented using the `IHMM()` function from the `eyemovements` package. As in the other analyses, gaze coordinates were first smoothed using a three-sample moving average window. The algorithm was applied separately to each subject and trial, with the minimum fixation duration set to 50 ms. For fixation detection, IHMM() was run with `return_saccades = FALSE`. The fixation intervals returned by the algorithm were then converted to sample-level labels by mapping each detected event back to the original time series using `fix_start` and `fix_end`. Human-labelled fixation samples were coded as 1 and all other samples as 0, and the IHMM output was coded in the same binary format. Performance was evaluated using the Matthews correlation coefficient (MCC) across all subjects and trials.
 
-For fixation detection, IHMM achieved an MCC of 0.157 on the cleaned webcam data. The model convergence messages printed during the analysis indicated that the hidden Markov model successfully converged for individual trials. However, the resulting MCC suggests that IHMM provided only limited sample-level agreement with the human-labelled fixation ground truth. Its performance was lower than the best Engbert and Kliegl fixation result, but broadly comparable to the lower-performing threshold-based methods tested on the cleaned dataset.
+
 ```{r}
 # IHMM-fixation
 
@@ -953,7 +951,6 @@ print(ihmm_fixation_results_mean)
 ```
 For saccade detection, the same IHMM procedure was applied to the webcam gaze samples. The algorithm was run with `return_saccades = TRUE`, with the minimum fixation duration set to 50 ms. Detected saccade intervals were converted to sample-level labels using `sacc_start` and `sacc_end`. Human-labelled saccade samples were coded as 1 and all other samples as 0, and the IHMM output was coded in the same binary format. Performance was evaluated using the Matthews correlation coefficient (MCC) across all subjects and trials.
 
-For saccade detection, IHMM achieved an MCC of 0.027 on the cleaned webcam data. Although the model convergence messages indicated that the hidden Markov model successfully converged for individual trials, the resulting MCC was close to zero. This suggests that IHMM provided very limited sample-level discrimination between saccade and non-saccade samples. The poor performance is consistent with the general difficulty of detecting short reading-related saccades from low-sampling-rate webcam gaze data.
 
 ```{r}
 # IHMM-saccade
@@ -1060,11 +1057,6 @@ ihmm_saccade_results_mean <- bind_rows(ihmm_saccade_results_mean)
 
 print(ihmm_saccade_results_mean)
 ```
-
-
-#### Machine learning algorithm
-#### Others...
-
 
 ### Sample Smoothing methods
 
@@ -2462,7 +2454,6 @@ for(s in smooth_methods) {
     
 
     # IDT saccade events
-    
     for(disp in disp_thresholds) {
       
       algo_IDT <- tryCatch(
@@ -2498,7 +2489,7 @@ for(s in smooth_methods) {
       }
     }
     
-
+   
     # EK03 saccade events
     for(l in lambdas) {
       
@@ -2535,7 +2526,7 @@ for(s in smooth_methods) {
       }
     }
     
-
+  
     # IHMM saccade events
     algo_IHMM <- tryCatch(
       {
@@ -2573,173 +2564,11 @@ for(s in smooth_methods) {
 all_saccade_events <- dplyr::bind_rows(all_saccade_events)
 
 print(all_saccade_events)
-```
-Compute event-level RMSE for fixation
-```{r}
-# Summarise detected fixation events per trial
-algo_fixation_summary_raw <- all_fixation_events %>%
-  dplyr::group_by(method, smoothing, parameter, sub, Trial_Id) %>%
-  dplyr::summarise(
-    algo_n_fixations = dplyr::n(),
-    algo_mean_fix_dur = mean(duration, na.rm = TRUE),
-    algo_sd_fix_dur = sd(duration, na.rm = TRUE),
-    .groups = "drop"
-  )
-
-# Include trials with zero detected fixations
-algo_params <- all_fixation_events %>%
-  dplyr::distinct(method, smoothing, parameter)
-
-algo_fixation_summary <- tidyr::crossing(
-  algo_params,
-  trial_list
-) %>%
-  dplyr::left_join(
-    algo_fixation_summary_raw,
-    by = c("method", "smoothing", "parameter", "sub", "Trial_Id")
-  ) %>%
-  dplyr::mutate(
-    algo_n_fixations = ifelse(is.na(algo_n_fixations), 0, algo_n_fixations)
-  )
-
-# Compare with ground truth
-fixation_comparison <- algo_fixation_summary %>%
-  dplyr::left_join(
-    gt_fixation_summary,
-    by = c("sub", "Trial_Id")
-  ) %>%
-  dplyr::mutate(
-    error_n_fixations = algo_n_fixations - GT_n_fixations,
-    error_mean_fix_dur = algo_mean_fix_dur - GT_mean_fix_dur,
-    error_sd_fix_dur = algo_sd_fix_dur - GT_sd_fix_dur
-  )
-
-# Compute RMSE by method, smoothing, and parameter
-fixation_rmse_results <- fixation_comparison %>%
-  dplyr::group_by(method, smoothing, parameter) %>%
-  dplyr::summarise(
-    RMSE_n_fixations = sqrt(mean(error_n_fixations^2, na.rm = TRUE)),
-    RMSE_mean_fix_dur = sqrt(mean(error_mean_fix_dur^2, na.rm = TRUE)),
-    RMSE_sd_fix_dur = sqrt(mean(error_sd_fix_dur^2, na.rm = TRUE)),
-    
-    mean_error_n_fixations = mean(error_n_fixations, na.rm = TRUE),
-    mean_error_mean_fix_dur = mean(error_mean_fix_dur, na.rm = TRUE),
-    mean_error_sd_fix_dur = mean(error_sd_fix_dur, na.rm = TRUE),
-    
-    .groups = "drop"
-  ) %>%
-  dplyr::arrange(method, smoothing, RMSE_n_fixations)
-
-print(fixation_rmse_results)
-```
-
-Save detected events and RMSE results
-
-```{r}
-
-dir.create("results", showWarnings = FALSE)
-dir.create("results/detected_events", showWarnings = FALSE)
-dir.create("results/event_level_rmse", showWarnings = FALSE)
-
-readr::write_csv(
-  all_fixation_events,
-  "results/detected_events/all_fixation_events.csv"
-)
-
-readr::write_csv(
-  fixation_comparison,
-  "results/event_level_rmse/fixation_event_level_comparison.csv"
-)
-
-readr::write_csv(
-  fixation_rmse_results,
-  "results/event_level_rmse/fixation_rmse_results.csv"
-)
-
 
 ```
 
-Compute event-level RMSE for saccades
-```{r}
-# Summarise detected saccade events per trial
-algo_saccade_summary_raw <- all_saccade_events %>%
-  dplyr::group_by(method, smoothing, parameter, sub, Trial_Id) %>%
-  dplyr::summarise(
-    algo_n_saccades = dplyr::n(),
-    algo_mean_sacc_dur = mean(duration, na.rm = TRUE),
-    algo_sd_sacc_dur = sd(duration, na.rm = TRUE),
-    .groups = "drop"
-  )
 
-# Include trials with zero detected saccades
-algo_params_sacc <- all_saccade_events %>%
-  dplyr::distinct(method, smoothing, parameter)
 
-algo_saccade_summary <- tidyr::crossing(
-  algo_params_sacc,
-  trial_list
-) %>%
-  dplyr::left_join(
-    algo_saccade_summary_raw,
-    by = c("method", "smoothing", "parameter", "sub", "Trial_Id")
-  ) %>%
-  dplyr::mutate(
-    algo_n_saccades = ifelse(is.na(algo_n_saccades), 0, algo_n_saccades)
-  )
-
-# Compare with ground truth
-saccade_comparison <- algo_saccade_summary %>%
-  dplyr::left_join(
-    gt_saccade_summary,
-    by = c("sub", "Trial_Id")
-  ) %>%
-  dplyr::mutate(
-    error_n_saccades = algo_n_saccades - GT_n_saccades,
-    error_mean_sacc_dur = algo_mean_sacc_dur - GT_mean_sacc_dur,
-    error_sd_sacc_dur = algo_sd_sacc_dur - GT_sd_sacc_dur
-  )
-
-# Compute RMSE by method, smoothing, and parameter
-saccade_rmse_results <- saccade_comparison %>%
-  dplyr::group_by(method, smoothing, parameter) %>%
-  dplyr::summarise(
-    RMSE_n_saccades = sqrt(mean(error_n_saccades^2, na.rm = TRUE)),
-    RMSE_mean_sacc_dur = sqrt(mean(error_mean_sacc_dur^2, na.rm = TRUE)),
-    RMSE_sd_sacc_dur = sqrt(mean(error_sd_sacc_dur^2, na.rm = TRUE)),
-    
-    mean_error_n_saccades = mean(error_n_saccades, na.rm = TRUE),
-    mean_error_mean_sacc_dur = mean(error_mean_sacc_dur, na.rm = TRUE),
-    mean_error_sd_sacc_dur = mean(error_sd_sacc_dur, na.rm = TRUE),
-    
-    .groups = "drop"
-  ) %>%
-  dplyr::arrange(method, smoothing, RMSE_n_saccades)
-
-print(saccade_rmse_results)
-```
-
-Save saccade events and RMSE results
-```{r}
-dir.create("results", showWarnings = FALSE)
-dir.create("results/detected_events", showWarnings = FALSE)
-dir.create("results/event_level_rmse", showWarnings = FALSE)
-
-readr::write_csv(
-  all_saccade_events,
-  "results/detected_events/all_saccade_events.csv"
-)
-
-readr::write_csv(
-  saccade_comparison,
-  "results/event_level_rmse/saccade_event_level_comparison.csv"
-)
-
-readr::write_csv(
-  saccade_rmse_results,
-  "results/event_level_rmse/saccade_rmse_results.csv"
-)
-
-```
 MCC Results
 ```{r}
 
@@ -2811,8 +2640,6 @@ all_mcc_results <- bind_rows(
   ihmm_mcc
 )
 
-# View combined MCC results
-View(all_mcc_results)
 
 # Save to CSV
 write_csv(
@@ -2821,10 +2648,120 @@ write_csv(
 )
 ```
 
+### Event-level agreement (Wasserstein distance)
+
+To quantify how well each algorithm's event-level characteristics match the human-labelled ground truth, each trial was summarised by three features: the number of events, the mean event duration, and the SD of event duration. The multivariate Wasserstein distance between the algorithm's and the ground truth's per-trial distributions was then computed, after standardising all three features using the ground-truth mean and SD. The distance was transformed to a similarity score $W_{\mathrm{multi}} = 1 / (1 + d)$, where a value of 1 indicates identical distributions.
+
+```{r wasserstein}
+# Event-level Wasserstein distance 
+
+compute_wasserstein_full <- function(gt_mat, algo_mat, p = 1) {
+  valid <- complete.cases(gt_mat) & complete.cases(algo_mat)
+  gt_mat   <- gt_mat[valid, , drop = FALSE]
+  algo_mat <- algo_mat[valid, , drop = FALSE]
+  if (nrow(gt_mat) < 3 || nrow(algo_mat) < 3)
+    return(list(W_multi = NA, W_n = NA, W_mean = NA, W_sd = NA))
+
+  gt_center <- colMeans(gt_mat)
+  gt_scale  <- apply(gt_mat, 2, sd)
+  gt_scale[gt_scale == 0] <- 1
+
+  gt_scaled   <- scale(gt_mat,   center = gt_center, scale = gt_scale)
+  algo_scaled <- scale(algo_mat, center = gt_center, scale = gt_scale)
+
+  w_dist <- function(g, a, cols) {
+    d <- T4transport::wasserstein(
+      scale(g[, cols, drop = FALSE], center = gt_center[cols], scale = gt_scale[cols]),
+      scale(a[, cols, drop = FALSE], center = gt_center[cols], scale = gt_scale[cols]),
+      p = p
+    )$distance
+    1 / (1 + d)
+  }
+
+  list(
+    W_multi = 1 / (1 + T4transport::wasserstein(gt_scaled, algo_scaled, p = p)$distance),
+    W_n     = w_dist(gt_mat, algo_mat, 1),   # event count
+    W_mean  = w_dist(gt_mat, algo_mat, 2),   # mean duration
+    W_sd    = w_dist(gt_mat, algo_mat, 3)    # SD duration
+  )
+}
+
+#Traditional algorithms: per (method, smoothing, parameter) 
+run_wasserstein_trad <- function(comp_df, event_type) {
+  if (event_type == "fixation") {
+    n_c  <- "algo_n_fixations";  m_c  <- "algo_mean_fix_dur";  s_c  <- "algo_sd_fix_dur"
+    gn_c <- "GT_n_fixations";    gm_c <- "GT_mean_fix_dur";    gs_c <- "GT_sd_fix_dur"
+  } else {
+    n_c  <- "algo_n_saccades";   m_c  <- "algo_mean_sacc_dur"; s_c  <- "algo_sd_sacc_dur"
+    gn_c <- "GT_n_saccades";     gm_c <- "GT_mean_sacc_dur";   gs_c <- "GT_sd_sacc_dur"
+  }
+
+  comp_df %>%
+    group_by(method, smoothing, parameter) %>%
+    group_modify(~ {
+      gt   <- .x %>% select(all_of(c(gn_c, gm_c, gs_c))) %>% as.matrix()
+      algo <- .x %>% select(all_of(c(n_c,  m_c,  s_c)))  %>% as.matrix()
+      w <- compute_wasserstein_full(gt, algo)
+      data.frame(W_multi = w$W_multi, W_n = w$W_n, W_mean = w$W_mean, W_sd = w$W_sd)
+    }) %>%
+    ungroup() %>%
+    mutate(event = event_type)
+}
+
+fix_comp <- read_csv(
+  here("manuscript", "results", "event_level_rmse", "fixation_event_level_comparison.csv"),
+  show_col_types = FALSE
+)
+sac_comp <- read_csv(
+  here("manuscript", "results", "event_level_rmse", "saccade_event_level_comparison.csv"),
+  show_col_types = FALSE
+)
+
+W_fix <- run_wasserstein_trad(fix_comp, "fixation")
+W_sac <- run_wasserstein_trad(sac_comp, "saccade")
+
+# CNN-BLSTM per-trial event-level data (all smoothing types)
+ml_trial_raw    <- read_csv(here("..", "results", "ml_event_level_by_trial_raw.csv"),       show_col_types = FALSE) %>% mutate(smoothing = "raw")
+ml_trial_mean   <- read_csv(here("..", "results", "ml_event_level_by_trial_mean.csv"),      show_col_types = FALSE) %>% mutate(smoothing = "mean")
+ml_trial_median <- read_csv(here("..", "results", "ml_event_level_by_trial_median.csv"),    show_col_types = FALSE) %>% mutate(smoothing = "median")
+ml_trial_sg     <- read_csv(here("..", "results", "ml_event_level_by_trial_sg.csv"),        show_col_types = FALSE) %>% mutate(smoothing = "sg_p3_n7")
+ml_trial_sg5    <- read_csv(here("..", "results", "ml_event_level_by_trial_sg_p5_n23.csv"), show_col_types = FALSE) %>% mutate(smoothing = "sg_p5_n23")
+
+ml_trial <- bind_rows(ml_trial_raw, ml_trial_mean, ml_trial_median, ml_trial_sg, ml_trial_sg5) %>%
+  mutate(method = "CNN-BLSTM", parameter = "none")
+
+ml_wasserstein <- ml_trial %>%
+  group_by(method, smoothing, parameter, event_type) %>%
+  group_modify(~ {
+    gt   <- .x %>% select(gt_event_count, gt_mean_duration_ms, gt_sd_duration_ms) %>% as.matrix()
+    algo <- .x %>% select(pred_event_count, pred_mean_duration_ms, pred_sd_duration_ms) %>% as.matrix()
+    w <- compute_wasserstein_full(gt, algo)
+    data.frame(W_multi = w$W_multi, W_n = w$W_n, W_mean = w$W_mean, W_sd = w$W_sd)
+  }) %>%
+  ungroup() %>%
+  rename(event = event_type)
+
+W_all <- bind_rows(W_fix, W_sac, ml_wasserstein)
+
+#Best configuration per method x event 
+table_s2 <- W_all %>%
+  filter(!is.na(W_multi)) %>%
+  group_by(method, event) %>%
+  slice_max(W_multi, n = 1, with_ties = FALSE) %>%
+  ungroup() %>%
+  select(method, event, smoothing, parameter,
+         `W_multi (overall)` = W_multi,
+         `W_n (count)`       = W_n,
+         `W_mean (duration)` = W_mean,
+         `W_sd (SD)`         = W_sd) %>%
+  arrange(event, desc(`W_multi (overall)`))
+
+table_s2
+```
+
 
 ## Results
 
-This figure illustrates the fixation detection results for one representative trial, comparing the human-labelled ground truth with the outputs from IVT, IDT, EK, and IHMM. The upper panel shows the x- and y-position traces from the EyeLink and webcam recordings over trial time. The webcam signal is visibly noisier and less aligned with the EyeLink signal, especially in the x-coordinate, which may contribute to discrepancies in algorithmic event detection. The lower panel shows fixation intervals detected by each method. Overall, the algorithms capture some of the major fixation periods present in the ground truth, but the temporal boundaries often differ. IVT and IDT tend to produce longer fixation intervals and sometimes merge neighbouring ground-truth fixations, whereas EK appears to produce shorter and more fragmented fixation intervals. IHMM produces fixation intervals that are broadly aligned with the ground truth in some parts of the trial, but it also extends several fixations beyond the manually labelled boundaries. These differences illustrate why sample-level agreement remains limited: even when an algorithm detects events in approximately the correct regions, small shifts in onset and offset times can substantially reduce MCC.
 
 ```{r}
 
@@ -3095,7 +3032,7 @@ event_dat <- state_dat %>%
     end = max(time, na.rm = TRUE),
     .groups = "drop"
   ) %>%
-  filter(state == "fixation") %>%
+  dplyr::filter(state == "fixation") %>%
   mutate(
     source_num = as.numeric(source),
     ymin = source_num - 0.35,
@@ -3137,6 +3074,4 @@ P_trace / P_events +
     heights = c(3, 1.5)
   )
 ```
-
-
 
