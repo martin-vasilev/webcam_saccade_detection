@@ -1,0 +1,11 @@
+method,event,smoothing,parameter_type,parameter_value,MCC
+CNN-BLSTM,fixation,raw,none,,0.6281710479822108
+CNN-BLSTM,saccade,raw,none,,0.5283637690553966
+CNN-BLSTM,fixation,mean,none,,0.6331833571754691
+CNN-BLSTM,saccade,mean,none,,0.5268001143040238
+CNN-BLSTM,fixation,median,none,,0.6238505936482468
+CNN-BLSTM,saccade,median,none,,0.5264391892246028
+CNN-BLSTM,fixation,sg_p3_n7,none,,0.6199760606669222
+CNN-BLSTM,saccade,sg_p3_n7,none,,0.5251104611315952
+CNN-BLSTM,fixation,sg_p5_n23,none,,0.6283277284276374
+CNN-BLSTM,saccade,sg_p5_n23,none,,0.532789542337001

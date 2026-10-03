@@ -1,0 +1,2 @@
+n_files,n_samples,accuracy,fixation_f1,saccade_f1,fixation_mcc,saccade_mcc,fix_TN,fix_FP,fix_FN,fix_TP,sacc_TN,sacc_FP,sacc_FN,sacc_TP
+236,24364,0.7667460187161386,0.8782960885943297,0.5251022685013016,0.5612041371525611,0.43233931775703255,4562,2593,1704,15505,18415,1679,2152,2118

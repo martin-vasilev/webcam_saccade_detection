@@ -1,0 +1,3 @@
+event_type,smoothing,n_trials,event_count_rmse,mean_duration_rmse_ms,sd_duration_rmse_ms
+fixation,median,785,1.621904204448476,104.20700097387152,96.5740683716784
+saccade,median,785,2.131056375107273,11.740002485534127,11.963339987162646
