@@ -1,0 +1,5 @@
+a <- commandArgs(FALSE);p <- sub('^--file=','',a[grepl('^--file=',a)])
+r <- normalizePath(file.path(dirname(p),'../..'),winslash='/');w<-normalizePath(file.path(r,'../..'),winslash='/')
+.libPaths(c(file.path(w,'classical_detection_reproduction/R_library'),file.path(w,'classical_evaluation_reproduction/R_library'),.libPaths()))
+print(get('wass_lp',asNamespace('T4transport')))
+print(get('valid_single_marginal',asNamespace('T4transport')))

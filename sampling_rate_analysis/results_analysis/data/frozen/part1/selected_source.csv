@@ -1,0 +1,13 @@
+"policy","estimand","condition","method","event","TP","TN","FP","FN","MCC","scored_rows","base_rows","prediction_available_rows","successful_test_trials","test_trials","error_test_trials"
+"primary","paired_cross_rate","original","EK03","fixation",39024,9113,5230,15210,0.30171035919492,68577,68577,68577,792,792,0
+"primary","paired_cross_rate","original","EK03","saccade",6976,36103,22116,3382,0.212736935718832,68577,68577,68577,792,792,0
+"primary","paired_cross_rate","original","IDT","fixation",33488,10063,4280,20746,0.260879334202764,68577,68577,68577,792,792,0
+"primary","paired_cross_rate","original","IDT","saccade",2484,46076,9144,7367,0.0809902222341039,65071,68577,67813,786,792,6
+"primary","paired_cross_rate","original","IVT","fixation",35256,8666,5677,18978,0.210820160349184,68577,68577,68577,792,792,0
+"primary","paired_cross_rate","original","IVT","saccade",7176,32688,25531,3182,0.182292666899785,68577,68577,68577,792,792,0
+"primary","paired_cross_rate","rate30","EK03","fixation",37792,9652,4691,16442,0.309751898918487,68577,68577,68577,792,792,0
+"primary","paired_cross_rate","rate30","EK03","saccade",6410,39565,18654,3948,0.221913953296427,68577,68577,68577,792,792,0
+"primary","paired_cross_rate","rate30","IDT","fixation",20640,11529,2814,33594,0.158074468700964,68577,68577,68577,792,792,0
+"primary","paired_cross_rate","rate30","IDT","saccade",3698,45029,10191,6153,0.166941826842373,65071,68577,65245,756,792,36
+"primary","paired_cross_rate","rate30","IVT","fixation",29065,10344,3999,25169,0.209265403665758,68577,68577,68577,792,792,0
+"primary","paired_cross_rate","rate30","IVT","saccade",5800,35749,22470,4558,0.126578341964794,68577,68577,68577,792,792,0

@@ -1,0 +1,20 @@
+{
+  "package_version": "results_review_001",
+  "date": "2026-11-25",
+  "base_repository": "https://github.com/martin-vasilev/webcam_saccade_detection",
+  "base_commit": "2d2b7d5827c481f3b82296cc5be1f1d2e5a89ef9",
+  "layers": {
+    "frozen_science": "data/frozen and hash-pinned definitions; immutable",
+    "review": "output/review; provisional presentation only",
+    "manuscript": "Not produced or edited"
+  },
+  "supported_modes": [
+    "verify",
+    "review"
+  ],
+  "full_scientific_recomputation": false,
+  "release_status": "CONDITIONALLY READY",
+  "publication_clearance": false,
+  "protected_outputs_unchanged": true,
+  "git_commit_push_PR_performed": false
+}

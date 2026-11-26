@@ -1,0 +1,17 @@
+[
+  {
+    "product": "saccade_velocity_events.csv",
+    "byte_identical": true,
+    "sha256": "3fcbe6cf2705f494f911bba980f838c7f33b59ba0f453c845b013508eb1ee432"
+  },
+  {
+    "product": "saccade_velocity_summary.csv",
+    "byte_identical": true,
+    "sha256": "317c65f0d8e033e2a8bc0f195a6da4d3577a206f3d51860cfcf89aa97861aeed"
+  },
+  {
+    "product": "saccade_velocity_missingness.csv",
+    "byte_identical": true,
+    "sha256": "6c5684ffb0d566ab1475b75d6e3c5acfa3a4a69e905a2193168049d2105e7b8d"
+  }
+]

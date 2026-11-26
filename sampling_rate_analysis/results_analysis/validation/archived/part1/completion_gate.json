@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "numerical": true,
+  "visual_review": true,
+  "source_preservation": true,
+  "figures": 7,
+  "plotted_values": 712,
+  "reviewed_date": "2026-11-19",
+  "stage": "part1",
+  "scope": "Frozen imports, descriptive figures and independent verification only"
+}

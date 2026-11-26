@@ -1,0 +1,11 @@
+{
+  "inputs_sha256": "5885dd9bf7834052311957f9666a802eec23932d61bbd4615e799749bb364ee4",
+  "outputs": {
+    "wasserstein_historical_compatibility.csv": "eb848cf3260263ad563767c96b2dae83ac63433f7d8c32648c996746e97ae988",
+    "wasserstein_harmonised.csv": "bc358e6a3cfdeff8f54a52564c225374a959851e6ec063c253ddf0ddf5108e46",
+    "complete_case_ledger.csv": "2a3a8d7e80a7772bf4752de96d7b479c9d3c4c2e94157281c68f57817988f3f4",
+    "reference_scaling.csv": "9c462a2988f7d32b2614bfaff45344be5a76f3238a85b4a5a20655ff34d19b52",
+    "validation/transport_fixtures.json": "fc90a6470277df31d0343d81661222af38b3fa5fb2113125d51a92913a779388"
+  },
+  "implementation": "d64d1d1210fec197b316aa831b3afc859d5564eb143466935407cf98bb9c1566"
+}

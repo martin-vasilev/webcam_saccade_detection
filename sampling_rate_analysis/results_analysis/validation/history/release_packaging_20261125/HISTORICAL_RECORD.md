@@ -1,0 +1,1 @@
+These are unchanged records of the packaging-only version tested on 25 November 2026. They are not current scientific-recomputation capability statements. Their inventories and command tests apply to that earlier package snapshot, retained privately in pre_scientific_extension_package.

@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "constant_reference_zero_scale_distance": 1.7321,
+  "fewer_than_three_trials_returns_NA": true,
+  "legacy_NA_propagation_fixture_demonstrated": true,
+  "fixture_fixation_start": [
+    0,
+    30
+  ],
+  "fixture_fixation_end": [
+    10,
+    60
+  ]
+}

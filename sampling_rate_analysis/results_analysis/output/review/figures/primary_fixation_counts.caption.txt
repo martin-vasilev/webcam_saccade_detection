@@ -1,0 +1,2 @@
+Replotted archived full-precision curves; density/transport not recomputed.
+See matching original caption in config/part3_curve_captions.json and figure_source_curves.csv for denominators.

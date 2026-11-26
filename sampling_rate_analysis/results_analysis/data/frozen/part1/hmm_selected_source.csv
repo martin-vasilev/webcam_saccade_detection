@@ -1,0 +1,5 @@
+"seed_id","selection_policy","policy","estimand","condition","method","event","base_rows","available_rows","successful_trials","error_trials","test_trials","scoring_row_sha256","TP","TN","FP","FN","MCC","scored_rows"
+0,"within_seed","primary","paired_cross_rate","original","IHMM","fixation",68577,68530,791,1,792,"033b6b8957a81cab4cea52d24b006cba2df907d74a1e4fe2700ddf27f9c57111",40224,5913,8394,13865,0.140805904529629,68396
+0,"within_seed","primary","paired_cross_rate","original","IHMM","saccade",68577,68530,791,1,792,"033b6b8957a81cab4cea52d24b006cba2df907d74a1e4fe2700ddf27f9c57111",2227,44492,13574,8103,-0.0154474679548971,68396
+0,"within_seed","primary","paired_cross_rate","rate30","IHMM","fixation",68577,68443,789,3,792,"033b6b8957a81cab4cea52d24b006cba2df907d74a1e4fe2700ddf27f9c57111",36777,5643,8664,17312,0.064045614275313,68396
+0,"within_seed","primary","paired_cross_rate","rate30","IHMM","saccade",68577,68443,789,3,792,"033b6b8957a81cab4cea52d24b006cba2df907d74a1e4fe2700ddf27f9c57111",914,50366,7700,9416,-0.0476248310881138,68396

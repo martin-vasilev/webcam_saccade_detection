@@ -1,0 +1,42 @@
+[
+  {
+    "product": "derived/native_events.csv",
+    "byte_identical": true,
+    "sha256": "eede2e80d500aa6c622155fcac991cad1c214d4cb8a06ea4e74d280bdf27e6d3"
+  },
+  {
+    "product": "derived/call_roster.csv",
+    "byte_identical": true,
+    "sha256": "83ddba32b545dc3c66629511d30d44aa45923565d45cc5155c8f4f2eeb89a373"
+  },
+  {
+    "product": "derived/coordinates.csv",
+    "byte_identical": true,
+    "sha256": "005716a7b937c528b8b6f46969f897fc18171d437a1bab9fd752972e3ea8944e"
+  },
+  {
+    "product": "derived/cnn_original_coordinates.csv",
+    "byte_identical": true,
+    "sha256": "60c7598c6a0ff3bb06fe072fbd4816113040a64c61772075edf3600859607e2d"
+  },
+  {
+    "product": "derived/trial_recording_periods.csv",
+    "byte_identical": true,
+    "sha256": "4b8318bd2d79d981e3ffe70bf4605642d1f3b2f444d5ab2841a715fc3d4589b2"
+  },
+  {
+    "product": "event_trial_summary.csv",
+    "byte_identical": true,
+    "sha256": "fa07b09a6488e8404299c3fb227efc550016c3ae7785091c1f21aaa33f2b97d5"
+  },
+  {
+    "product": "event_distribution_summary.csv",
+    "byte_identical": true,
+    "sha256": "716f31f40737235b8abe89fac65ac42b25532865522dd6252eef696dab2e4597"
+  },
+  {
+    "product": "reference_event_validation.csv",
+    "byte_identical": true,
+    "sha256": "4f5d62146b80d5a297c77fa15404f090385aeca199080f559119177258144dd2"
+  }
+]

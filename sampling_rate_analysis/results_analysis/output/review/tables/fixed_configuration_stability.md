@@ -1,0 +1,14 @@
+# Provisional review - fixed configuration stability
+
+Full-precision values: matching CSV. Definitions and support limitations: METHODS.md.
+
+| algorithm | representation | outer_folds | folds_same_preprocessing | folds_exact_configuration |
+| --- | --- | --- | --- | --- |
+| IVT | original | 20 | 20 | 20 |
+| IDT | original | 20 | 20 | 19 |
+| EK03 | original | 20 | 20 | 20 |
+| IHMM | original | 20 | 19 | 19 |
+| IVT | rate30 | 20 | 20 | 12 |
+| IDT | rate30 | 20 | 20 | 18 |
+| EK03 | rate30 | 20 | 20 | 20 |
+| IHMM | rate30 | 20 | 20 | 20 |

@@ -1,0 +1,819 @@
+{
+  "passed": true,
+  "reviewed_pngs": 26,
+  "reviewed_pdf_content": 26,
+  "method": "All PNG contact sheets and six distinct changed-plot pairs inspected; final MCC panel inspected at full resolution. All PDF text and metadata compared; 25 exact decoded page streams and one declared margin-only change.",
+  "findings": "Plotted values, labels, support notes, legends, distributions and grouping unchanged. PNG raster differences accepted after paired visual review. Previously clipped first-column MCC y-axis label corrected by increasing Part 2 left margin from 3.5 to 4.2 lines; no data or scientific selection changes.",
+  "pdf_metadata": "CreationDate/ModDate differences accepted; other metadata identical",
+  "records": [
+    {
+      "path": "output/review/figures/01_EK03_parameter_smoothing.pdf",
+      "original_sha256": "041e32689153864c2082ccdcdb3b67b4ee3ebf7834db08e0142a5736d1974aac",
+      "release_sha256": "c60384e3c9ad156d7c9a0a8f483e09fd1f5945e4d5e3cd039e0990a398467d56",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/review/figures/01_EK03_parameter_smoothing.png",
+      "original_sha256": "8af42f5836ca82a30e33ad36cc752e6b1c2d9d382275360c66fe1ec9446b531c",
+      "release_sha256": "75a73715de857c194e60272ecca4c7b7a1b5a01eb0dc48abc7e5e22add2597ee",
+      "byte_identical": false,
+      "size": [
+        3000,
+        2250
+      ],
+      "pixels_identical": false,
+      "changed_luminance_fraction": 2.370370370374797e-05,
+      "difference_bbox": [
+        56,
+        63,
+        2674,
+        2154
+      ],
+      "mean_absolute_channel_difference": [
+        0.0001445925925925926,
+        0.00013185185185185186,
+        0.00012992592592592594
+      ]
+    },
+    {
+      "path": "output/review/figures/01_IDT_parameter_smoothing.pdf",
+      "original_sha256": "cb00a1b120ad93b693f7cd93ee496cb1b47976dea4aac6c6d034e18f3a77bf2c",
+      "release_sha256": "4be37e60c3521b5f4b01850010d49384049ebbc009d82d2b7f298907d6c16ec1",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/review/figures/01_IDT_parameter_smoothing.png",
+      "original_sha256": "11a3e3e7fd123db89ebbea3af9e99c94acb1c4f058f74ca53c44f7af18b8e9b5",
+      "release_sha256": "b1d19d0fb28c45d2a982664aa83ec975ea49aba634bb7b3f306bdb537ffc6b46",
+      "byte_identical": false,
+      "size": [
+        3000,
+        2250
+      ],
+      "pixels_identical": false,
+      "changed_luminance_fraction": 2.370370370374797e-05,
+      "difference_bbox": [
+        56,
+        63,
+        2674,
+        2154
+      ],
+      "mean_absolute_channel_difference": [
+        0.0001445925925925926,
+        0.00013185185185185186,
+        0.00012992592592592594
+      ]
+    },
+    {
+      "path": "output/review/figures/01_IVT_parameter_smoothing.pdf",
+      "original_sha256": "aad6483d603611e2402ebc3947abd89e931288ab4815d30a6baae6f990524fd4",
+      "release_sha256": "101bf4111021d2560d3572f07f33a3ebd93be3a6861f106fe23cbcfcbfe7e231",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/review/figures/01_IVT_parameter_smoothing.png",
+      "original_sha256": "82f787e93bf36bd788224f412c1268a559b598a006e9ee4b6fe0cf7e9f550312",
+      "release_sha256": "d4f5c331087d6d4e4588e9f1db1687dd6f1e00075e7a78b3695e382ffeb4fa98",
+      "byte_identical": false,
+      "size": [
+        3000,
+        2250
+      ],
+      "pixels_identical": false,
+      "changed_luminance_fraction": 6.0444444444418544e-05,
+      "difference_bbox": [
+        56,
+        63,
+        2674,
+        2154
+      ],
+      "mean_absolute_channel_difference": [
+        0.00034962962962962964,
+        0.0003066666666666667,
+        0.00028607407407407406
+      ]
+    },
+    {
+      "path": "output/review/figures/02_IHMM_preprocessing.pdf",
+      "original_sha256": "cef132ce34d8b84fb10f78311ca4c4f311d64077d6fdea53409c67d388ffa47b",
+      "release_sha256": "b99b55e99745d1537cdfc846aab5c03ecb39f482019e10c8a77fcee75d08b30b",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/review/figures/02_IHMM_preprocessing.png",
+      "original_sha256": "3f5fdaeaaffa33db0f0868e1b4e16eba0398b1d3be7eef1eb67cb4f5fdf56024",
+      "release_sha256": "c46b384b5596ef9f4967e2aa3bd91d176d25426137d05ff78695c85808c58584",
+      "byte_identical": false,
+      "size": [
+        3000,
+        1350
+      ],
+      "pixels_identical": false,
+      "changed_luminance_fraction": 1.530864197529791e-05,
+      "difference_bbox": [
+        426,
+        898,
+        1922,
+        1270
+      ],
+      "mean_absolute_channel_difference": [
+        8.54320987654321e-05,
+        8.493827160493827e-05,
+        8.34567901234568e-05
+      ]
+    },
+    {
+      "path": "output/review/figures/03_CNN_five_preprocessing.pdf",
+      "original_sha256": "35082bcf24f9fe253b53bda67063b978249ab9ca29f06ad3574011e271b7daf4",
+      "release_sha256": "2514b58f03bd9cec3bb6fb99a74fba365dba654bce4b2d5cbf860e878a290727",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/review/figures/03_CNN_five_preprocessing.png",
+      "original_sha256": "8fcf5e6d1272ca0b9455b666f7f2de7008ed6c8593efcde78c95ffbf7d4ddaa2",
+      "release_sha256": "ed0842bd929fb4d5ccd25028414a5f08c9f7579b89a141f4d73a7a3dd60b15a8",
+      "byte_identical": false,
+      "size": [
+        3000,
+        1350
+      ],
+      "pixels_identical": false,
+      "changed_luminance_fraction": 1.4320987654303785e-05,
+      "difference_bbox": [
+        407,
+        838,
+        1903,
+        1156
+      ],
+      "mean_absolute_channel_difference": [
+        8.493827160493827e-05,
+        8.34567901234568e-05,
+        8.54320987654321e-05
+      ]
+    },
+    {
+      "path": "output/review/figures/04_common_SG523.pdf",
+      "original_sha256": "262362d96b198ff6af38a261ba4ca42c6c6ec52ace26c2b69d2ce1bef3820e6c",
+      "release_sha256": "88130ec98e950fa818878fdd15b8b9f2e83aba306faffab6a2ff4b22d74bc63d",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/review/figures/04_common_SG523.png",
+      "original_sha256": "bbefac2b49af24e5ce5a75d0108c38049a5522f745f5f586b39eef5c0772db64",
+      "release_sha256": "bbefac2b49af24e5ce5a75d0108c38049a5522f745f5f586b39eef5c0772db64",
+      "byte_identical": true,
+      "size": [
+        4200,
+        2100
+      ],
+      "pixels_identical": true,
+      "changed_luminance_fraction": 0.0,
+      "difference_bbox": null,
+      "mean_absolute_channel_difference": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "output/review/figures/primary_fixation_counts.pdf",
+      "original_sha256": "313adb333d92568e935138363262df340b94da0628bf339d00cdec1accf99822",
+      "release_sha256": "c1efa2ec52c1e73a71f9725f59bc33d55c32c20181529b88cbd5f8519e7d73c1",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/review/figures/primary_fixation_counts.png",
+      "original_sha256": "809a9476e3c5ef8c7bace5a0071937f711d35065a73d73a3084f66cdb4505756",
+      "release_sha256": "809a9476e3c5ef8c7bace5a0071937f711d35065a73d73a3084f66cdb4505756",
+      "byte_identical": true,
+      "size": [
+        4200,
+        2100
+      ],
+      "pixels_identical": true,
+      "changed_luminance_fraction": 0.0,
+      "difference_bbox": null,
+      "mean_absolute_channel_difference": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "output/review/figures/primary_fixation_duration.pdf",
+      "original_sha256": "984f417f1d4fc33d0fedf6e1afa0668d0595902a24aa2f493b4d68f7ee5a2cf0",
+      "release_sha256": "282842f95c20c322da335fdc67f61d6952e2e0f33ac05c2e00abc0b721e9db50",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/review/figures/primary_fixation_duration.png",
+      "original_sha256": "2ae911abb5b66010a0b0f9a4e796be6db00a004314ec7ed0b1073bdaa98683fb",
+      "release_sha256": "2ae911abb5b66010a0b0f9a4e796be6db00a004314ec7ed0b1073bdaa98683fb",
+      "byte_identical": true,
+      "size": [
+        4200,
+        2100
+      ],
+      "pixels_identical": true,
+      "changed_luminance_fraction": 0.0,
+      "difference_bbox": null,
+      "mean_absolute_channel_difference": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "output/review/figures/primary_saccade_average_velocity.pdf",
+      "original_sha256": "90a6c4633dd107c816e0bb7618919feabf8b1846e6f392383741380f326746f8",
+      "release_sha256": "f519096a177a96fb6872b0b940ef514b9ca8e87374cc3a172bb5a6081e9cf27d",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/review/figures/primary_saccade_average_velocity.png",
+      "original_sha256": "3154a9485716b95cec1971e83b411e1315afa936c979271df600856edc83993b",
+      "release_sha256": "3154a9485716b95cec1971e83b411e1315afa936c979271df600856edc83993b",
+      "byte_identical": true,
+      "size": [
+        4200,
+        2100
+      ],
+      "pixels_identical": true,
+      "changed_luminance_fraction": 0.0,
+      "difference_bbox": null,
+      "mean_absolute_channel_difference": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "output/review/figures/primary_saccade_counts.pdf",
+      "original_sha256": "e69824f07caa030af3a4abfda9ab4614211f8c11d378ba80f5d7945c063a8e14",
+      "release_sha256": "8351f8f08785adb6c2f4f42a8e22431cca8332c5cf81e50d4f86f22778caa2b1",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/review/figures/primary_saccade_counts.png",
+      "original_sha256": "dcf9cc1a3e031e55e0a95eafdd3a69b3444330a1c3812dcffe75b4b10a986a63",
+      "release_sha256": "dcf9cc1a3e031e55e0a95eafdd3a69b3444330a1c3812dcffe75b4b10a986a63",
+      "byte_identical": true,
+      "size": [
+        4200,
+        2100
+      ],
+      "pixels_identical": true,
+      "changed_luminance_fraction": 0.0,
+      "difference_bbox": null,
+      "mean_absolute_channel_difference": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "output/review/figures/primary_saccade_duration.pdf",
+      "original_sha256": "3c28b96d18d405a90309ff141df88e83be1f34f232f8e325c354fc937249d714",
+      "release_sha256": "b4156def91fd722589c26177ce1df30824810c917c5da0abc0f42a9441e40ad1",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/review/figures/primary_saccade_duration.png",
+      "original_sha256": "bc727936baf8ce8bd42b1188af534d86089880d411843c869dd7b12eaa03a47b",
+      "release_sha256": "bc727936baf8ce8bd42b1188af534d86089880d411843c869dd7b12eaa03a47b",
+      "byte_identical": true,
+      "size": [
+        4200,
+        2100
+      ],
+      "pixels_identical": true,
+      "changed_luminance_fraction": 0.0,
+      "difference_bbox": null,
+      "mean_absolute_channel_difference": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "output/review/figures/primary_saccade_peak_velocity.pdf",
+      "original_sha256": "b06a3ec915c18744ce9099f7221cf6fe63e73481f5ee083ea9a7f285e95cf464",
+      "release_sha256": "d74886210e513af3b7f24314d16b81218983853ba80a49eaa4236ff871a4d6d5",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/review/figures/primary_saccade_peak_velocity.png",
+      "original_sha256": "1d9f8bd58f8c6c97bfa37c25d59c3aad71a2d1c57d56d9f291bb05b588973560",
+      "release_sha256": "1d9f8bd58f8c6c97bfa37c25d59c3aad71a2d1c57d56d9f291bb05b588973560",
+      "byte_identical": true,
+      "size": [
+        4200,
+        2100
+      ],
+      "pixels_identical": true,
+      "changed_luminance_fraction": 0.0,
+      "difference_bbox": null,
+      "mean_absolute_channel_difference": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "output/review/figures/sample_level_heldout_by_method.pdf",
+      "original_sha256": "c8589b5242bf77ae49923a4520350145b1b75e2fa07a96e74515769c4bce5662",
+      "release_sha256": "eccb7e1fa5ab027a5acd185d42bf54b1ee4baeb49cd182a796ec9e65a645ad48",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": false,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": true
+    },
+    {
+      "path": "output/review/figures/sample_level_heldout_by_method.png",
+      "original_sha256": "28ac7388cef7e6615d11a7e2f03646adc4513bafebec99a41a91f9a5837adf5c",
+      "release_sha256": "61bf265bef94b8edf8a797309d4d26624f3d33aae2bfa3133c7251501062369d",
+      "byte_identical": false,
+      "size": [
+        3900,
+        1950
+      ],
+      "pixels_identical": false,
+      "changed_luminance_fraction": 0.02637278106508878,
+      "difference_bbox": [
+        0,
+        69,
+        3781,
+        1789
+      ],
+      "mean_absolute_channel_difference": [
+        4.41168704799474,
+        4.412290466798159,
+        4.400181854043392
+      ]
+    },
+    {
+      "path": "output/supplementary/CNN_sensitivity_fixation_counts.pdf",
+      "original_sha256": "8c4b30c1503f52d2c57c48e8b626dad71dfece525d119472b1b045c3095f48e3",
+      "release_sha256": "fdd70d5c886042e7836f2aaaa65887969f0851b8536558599d4e7cc3a3a014ff",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/supplementary/CNN_sensitivity_fixation_counts.png",
+      "original_sha256": "730f67fa248590e7e378e57e89eca82a91f2b50af2e47b8a6a185f96ef32cfcf",
+      "release_sha256": "730f67fa248590e7e378e57e89eca82a91f2b50af2e47b8a6a185f96ef32cfcf",
+      "byte_identical": true,
+      "size": [
+        4200,
+        2100
+      ],
+      "pixels_identical": true,
+      "changed_luminance_fraction": 0.0,
+      "difference_bbox": null,
+      "mean_absolute_channel_difference": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "output/supplementary/CNN_sensitivity_fixation_duration.pdf",
+      "original_sha256": "9151e41a92370476b50f26e000ec7e63944fea1bfc3557c58efb626d31898af3",
+      "release_sha256": "d89d5f1c94c1a912b6c8f5e06c91eb8e3e10a324843a063e57b8e1d024ed8140",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/supplementary/CNN_sensitivity_fixation_duration.png",
+      "original_sha256": "b319074fade1e56b81b2bd20aec80582021c5fd3cd4520f1f14c53d776106622",
+      "release_sha256": "b319074fade1e56b81b2bd20aec80582021c5fd3cd4520f1f14c53d776106622",
+      "byte_identical": true,
+      "size": [
+        4200,
+        2100
+      ],
+      "pixels_identical": true,
+      "changed_luminance_fraction": 0.0,
+      "difference_bbox": null,
+      "mean_absolute_channel_difference": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "output/supplementary/CNN_sensitivity_saccade_average_velocity.pdf",
+      "original_sha256": "8f7819c1550e973b64277c419d700d4f4ea342a7c2e08bb2b828b0304e6e306f",
+      "release_sha256": "e97d53f545346101c67d4d11b9356864783763fa56197b74f9c047ddabcf6937",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/supplementary/CNN_sensitivity_saccade_average_velocity.png",
+      "original_sha256": "6b0aeba3e20efdb053bd439c6d0dd7a4fcceadc6b30b9a4cba7218322c76426e",
+      "release_sha256": "6b0aeba3e20efdb053bd439c6d0dd7a4fcceadc6b30b9a4cba7218322c76426e",
+      "byte_identical": true,
+      "size": [
+        4200,
+        2100
+      ],
+      "pixels_identical": true,
+      "changed_luminance_fraction": 0.0,
+      "difference_bbox": null,
+      "mean_absolute_channel_difference": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "output/supplementary/CNN_sensitivity_saccade_counts.pdf",
+      "original_sha256": "93425af81c5dcfa869e939787943228f1653e7a07ef58ad5ebb32b0300d41a10",
+      "release_sha256": "b8dd089e1ff3f43f623a6c7c9e79cc450debd9d0b0ab38711eb7d3ef40dfb279",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/supplementary/CNN_sensitivity_saccade_counts.png",
+      "original_sha256": "ee0c70cef19b31bda88343c0cc3a22612aadd44fff824208cd79a44c8489eb3f",
+      "release_sha256": "ee0c70cef19b31bda88343c0cc3a22612aadd44fff824208cd79a44c8489eb3f",
+      "byte_identical": true,
+      "size": [
+        4200,
+        2100
+      ],
+      "pixels_identical": true,
+      "changed_luminance_fraction": 0.0,
+      "difference_bbox": null,
+      "mean_absolute_channel_difference": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "output/supplementary/CNN_sensitivity_saccade_duration.pdf",
+      "original_sha256": "e5513feabe13749d2e4deff09df1922cf798945bcb2dc3cd34a4f52e82d345c2",
+      "release_sha256": "8c684bb28e9a1a7b58ef4c773e37bddac56804b1599fa8b249663cbe04089fc0",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/supplementary/CNN_sensitivity_saccade_duration.png",
+      "original_sha256": "b1e6bc0f4ce6c89ddd5d03e8074e5841ea4fbcec6ea36927592f5ba4413e01bb",
+      "release_sha256": "b1e6bc0f4ce6c89ddd5d03e8074e5841ea4fbcec6ea36927592f5ba4413e01bb",
+      "byte_identical": true,
+      "size": [
+        4200,
+        2100
+      ],
+      "pixels_identical": true,
+      "changed_luminance_fraction": 0.0,
+      "difference_bbox": null,
+      "mean_absolute_channel_difference": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "output/supplementary/CNN_sensitivity_saccade_peak_velocity.pdf",
+      "original_sha256": "3b8cacf82272b01fbab59b91da4eb7bbe8083a905d045b3ce303550c9d910553",
+      "release_sha256": "23c7d10418300ee5ec9b53357e5cbaaa816e32c7bc3ae648c9bbd4485ebba42c",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/supplementary/CNN_sensitivity_saccade_peak_velocity.png",
+      "original_sha256": "f79dd03afa2d4454525e4a1ad762d61ee4df5f8261f681bf47e77a25d0c0c4a1",
+      "release_sha256": "f79dd03afa2d4454525e4a1ad762d61ee4df5f8261f681bf47e77a25d0c0c4a1",
+      "byte_identical": true,
+      "size": [
+        4200,
+        2100
+      ],
+      "pixels_identical": true,
+      "changed_luminance_fraction": 0.0,
+      "difference_bbox": null,
+      "mean_absolute_channel_difference": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "output/supplementary/part1_presentation/figures/01_EK03_parameter_smoothing.pdf",
+      "original_sha256": "041e32689153864c2082ccdcdb3b67b4ee3ebf7834db08e0142a5736d1974aac",
+      "release_sha256": "c60384e3c9ad156d7c9a0a8f483e09fd1f5945e4d5e3cd039e0990a398467d56",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/supplementary/part1_presentation/figures/01_EK03_parameter_smoothing.png",
+      "original_sha256": "8af42f5836ca82a30e33ad36cc752e6b1c2d9d382275360c66fe1ec9446b531c",
+      "release_sha256": "75a73715de857c194e60272ecca4c7b7a1b5a01eb0dc48abc7e5e22add2597ee",
+      "byte_identical": false,
+      "size": [
+        3000,
+        2250
+      ],
+      "pixels_identical": false,
+      "changed_luminance_fraction": 2.370370370374797e-05,
+      "difference_bbox": [
+        56,
+        63,
+        2674,
+        2154
+      ],
+      "mean_absolute_channel_difference": [
+        0.0001445925925925926,
+        0.00013185185185185186,
+        0.00012992592592592594
+      ]
+    },
+    {
+      "path": "output/supplementary/part1_presentation/figures/01_IDT_parameter_smoothing.pdf",
+      "original_sha256": "cb00a1b120ad93b693f7cd93ee496cb1b47976dea4aac6c6d034e18f3a77bf2c",
+      "release_sha256": "4be37e60c3521b5f4b01850010d49384049ebbc009d82d2b7f298907d6c16ec1",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/supplementary/part1_presentation/figures/01_IDT_parameter_smoothing.png",
+      "original_sha256": "11a3e3e7fd123db89ebbea3af9e99c94acb1c4f058f74ca53c44f7af18b8e9b5",
+      "release_sha256": "b1d19d0fb28c45d2a982664aa83ec975ea49aba634bb7b3f306bdb537ffc6b46",
+      "byte_identical": false,
+      "size": [
+        3000,
+        2250
+      ],
+      "pixels_identical": false,
+      "changed_luminance_fraction": 2.370370370374797e-05,
+      "difference_bbox": [
+        56,
+        63,
+        2674,
+        2154
+      ],
+      "mean_absolute_channel_difference": [
+        0.0001445925925925926,
+        0.00013185185185185186,
+        0.00012992592592592594
+      ]
+    },
+    {
+      "path": "output/supplementary/part1_presentation/figures/01_IVT_parameter_smoothing.pdf",
+      "original_sha256": "aad6483d603611e2402ebc3947abd89e931288ab4815d30a6baae6f990524fd4",
+      "release_sha256": "101bf4111021d2560d3572f07f33a3ebd93be3a6861f106fe23cbcfcbfe7e231",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/supplementary/part1_presentation/figures/01_IVT_parameter_smoothing.png",
+      "original_sha256": "82f787e93bf36bd788224f412c1268a559b598a006e9ee4b6fe0cf7e9f550312",
+      "release_sha256": "d4f5c331087d6d4e4588e9f1db1687dd6f1e00075e7a78b3695e382ffeb4fa98",
+      "byte_identical": false,
+      "size": [
+        3000,
+        2250
+      ],
+      "pixels_identical": false,
+      "changed_luminance_fraction": 6.0444444444418544e-05,
+      "difference_bbox": [
+        56,
+        63,
+        2674,
+        2154
+      ],
+      "mean_absolute_channel_difference": [
+        0.00034962962962962964,
+        0.0003066666666666667,
+        0.00028607407407407406
+      ]
+    },
+    {
+      "path": "output/supplementary/part1_presentation/figures/02_IHMM_preprocessing.pdf",
+      "original_sha256": "cef132ce34d8b84fb10f78311ca4c4f311d64077d6fdea53409c67d388ffa47b",
+      "release_sha256": "b99b55e99745d1537cdfc846aab5c03ecb39f482019e10c8a77fcee75d08b30b",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/supplementary/part1_presentation/figures/02_IHMM_preprocessing.png",
+      "original_sha256": "3f5fdaeaaffa33db0f0868e1b4e16eba0398b1d3be7eef1eb67cb4f5fdf56024",
+      "release_sha256": "c46b384b5596ef9f4967e2aa3bd91d176d25426137d05ff78695c85808c58584",
+      "byte_identical": false,
+      "size": [
+        3000,
+        1350
+      ],
+      "pixels_identical": false,
+      "changed_luminance_fraction": 1.530864197529791e-05,
+      "difference_bbox": [
+        426,
+        898,
+        1922,
+        1270
+      ],
+      "mean_absolute_channel_difference": [
+        8.54320987654321e-05,
+        8.493827160493827e-05,
+        8.34567901234568e-05
+      ]
+    },
+    {
+      "path": "output/supplementary/part1_presentation/figures/03_CNN_five_preprocessing.pdf",
+      "original_sha256": "35082bcf24f9fe253b53bda67063b978249ab9ca29f06ad3574011e271b7daf4",
+      "release_sha256": "2514b58f03bd9cec3bb6fb99a74fba365dba654bce4b2d5cbf860e878a290727",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/supplementary/part1_presentation/figures/03_CNN_five_preprocessing.png",
+      "original_sha256": "8fcf5e6d1272ca0b9455b666f7f2de7008ed6c8593efcde78c95ffbf7d4ddaa2",
+      "release_sha256": "ed0842bd929fb4d5ccd25028414a5f08c9f7579b89a141f4d73a7a3dd60b15a8",
+      "byte_identical": false,
+      "size": [
+        3000,
+        1350
+      ],
+      "pixels_identical": false,
+      "changed_luminance_fraction": 1.4320987654303785e-05,
+      "difference_bbox": [
+        407,
+        838,
+        1903,
+        1156
+      ],
+      "mean_absolute_channel_difference": [
+        8.493827160493827e-05,
+        8.34567901234568e-05,
+        8.54320987654321e-05
+      ]
+    },
+    {
+      "path": "output/supplementary/part1_presentation/figures/04_common_SG523.pdf",
+      "original_sha256": "262362d96b198ff6af38a261ba4ca42c6c6ec52ace26c2b69d2ce1bef3820e6c",
+      "release_sha256": "88130ec98e950fa818878fdd15b8b9f2e83aba306faffab6a2ff4b22d74bc63d",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/supplementary/part1_presentation/figures/04_common_SG523.png",
+      "original_sha256": "bbefac2b49af24e5ce5a75d0108c38049a5522f745f5f586b39eef5c0772db64",
+      "release_sha256": "bbefac2b49af24e5ce5a75d0108c38049a5522f745f5f586b39eef5c0772db64",
+      "byte_identical": true,
+      "size": [
+        4200,
+        2100
+      ],
+      "pixels_identical": true,
+      "changed_luminance_fraction": 0.0,
+      "difference_bbox": null,
+      "mean_absolute_channel_difference": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "path": "output/supplementary/part1_presentation/figures/05_existing_selected_policy_context.pdf",
+      "original_sha256": "63723e3fca583dbf25ab706989fb3699eb98651d5579b05afc81cd3725cfd445",
+      "release_sha256": "d3b96e6fad5dae85d1050adf4fe8c3bd8e21b9f7d6b3e2642cb8d0ca2aab6c44",
+      "byte_identical": false,
+      "pages": 1,
+      "text_identical": true,
+      "page_streams_identical": true,
+      "non_time_metadata_identical": true,
+      "declared_margin_only_change": false
+    },
+    {
+      "path": "output/supplementary/part1_presentation/figures/05_existing_selected_policy_context.png",
+      "original_sha256": "bd68694d4db2cb60b2f20edd89f0d0b8f6d8bd8f7803b6ca798764090c16c900",
+      "release_sha256": "bd68694d4db2cb60b2f20edd89f0d0b8f6d8bd8f7803b6ca798764090c16c900",
+      "byte_identical": true,
+      "size": [
+        3600,
+        2100
+      ],
+      "pixels_identical": true,
+      "changed_luminance_fraction": 0.0,
+      "difference_bbox": null,
+      "mean_absolute_channel_difference": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ]
+}

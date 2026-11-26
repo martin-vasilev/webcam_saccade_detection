@@ -1,0 +1,9 @@
+{
+  "inputs_sha256": "5885dd9bf7834052311957f9666a802eec23932d61bbd4615e799749bb364ee4",
+  "outputs": {
+    "saccade_velocity_events.csv": "3fcbe6cf2705f494f911bba980f838c7f33b59ba0f453c845b013508eb1ee432",
+    "saccade_velocity_summary.csv": "317c65f0d8e033e2a8bc0f195a6da4d3577a206f3d51860cfcf89aa97861aeed",
+    "saccade_velocity_missingness.csv": "6c5684ffb0d566ab1475b75d6e3c5acfa3a4a69e905a2193168049d2105e7b8d"
+  },
+  "implementation": "dc2b5307e2180f7ed77479df3472e0ecf4e7de7e782fbed4c4a41213df58f0c4"
+}

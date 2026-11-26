@@ -1,0 +1,17 @@
+"method","event","condition","MCC","scored_rows"
+"EK03","fixation","original",0.30171035919492,68577
+"EK03","saccade","original",0.212736935718832,68577
+"IDT","fixation","original",0.260879334202764,68577
+"IDT","saccade","original",0.0809902222341039,65071
+"IVT","fixation","original",0.210820160349184,68577
+"IVT","saccade","original",0.182292666899785,68577
+"EK03","fixation","rate30",0.309751898918487,68577
+"EK03","saccade","rate30",0.221913953296427,68577
+"IDT","fixation","rate30",0.158074468700964,68577
+"IDT","saccade","rate30",0.166941826842373,65071
+"IVT","fixation","rate30",0.209265403665758,68577
+"IVT","saccade","rate30",0.126578341964794,68577
+"IHMM","fixation","original",0.140805904529629,68396
+"IHMM","saccade","original",-0.0154474679548971,68396
+"IHMM","fixation","rate30",0.064045614275313,68396
+"IHMM","saccade","rate30",-0.0476248310881138,68396

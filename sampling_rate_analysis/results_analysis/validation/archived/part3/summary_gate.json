@@ -1,0 +1,10 @@
+{
+  "inputs_sha256": "5885dd9bf7834052311957f9666a802eec23932d61bbd4615e799749bb364ee4",
+  "outputs": {
+    "event_trial_summary.csv": "fa07b09a6488e8404299c3fb227efc550016c3ae7785091c1f21aaa33f2b97d5",
+    "event_distribution_summary.csv": "716f31f40737235b8abe89fac65ac42b25532865522dd6252eef696dab2e4597",
+    "event_availability_and_exclusions.csv": "ac7d799981b1e8c9d60f4044986305993b51fb0f11ca23567faa20c7a4615e96",
+    "reference_event_validation.csv": "4f5d62146b80d5a297c77fa15404f090385aeca199080f559119177258144dd2"
+  },
+  "implementation": "0ba4fa2847858bdcd2d8893da2b65e7607ade38d3ab894fb2e54995180bd740b"
+}

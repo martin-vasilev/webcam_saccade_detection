@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "pinned_sources": 1112,
+  "native_events": 199462,
+  "trial_summary_rows": 69696,
+  "velocity_rows_verified": 124837,
+  "transport_comparisons_verified": 504,
+  "independent_assignment_problems": 224,
+  "source_reference_and_native_events": true,
+  "zero_singleton_and_failure_rules": true,
+  "historical_and_harmonised_velocities": true,
+  "shared_support_and_scaling": true,
+  "figure_observations_verified": 632353,
+  "figure_curve_points": 84050,
+  "figures": 12,
+  "frozen_sources_and_earlier_outputs_unchanged": true,
+  "no_detector_or_neural_calls": true,
+  "pretransport_checks_reused_under_exact_hashes": true,
+  "tested_full_verifier_sha256": "0f6116b278af42d75fae05a8230c95cd01f909edc712bf855eb8434d66a3499b",
+  "pretransport_cache_sha256": "4c4affbd3420e3c2475aff01a2926a0a271557896b7f0706b2ae7c42d8cdf35d"
+}

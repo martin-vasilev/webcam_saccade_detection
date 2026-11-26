@@ -1,0 +1,11 @@
+{
+  "inputs_sha256": "5885dd9bf7834052311957f9666a802eec23932d61bbd4615e799749bb364ee4",
+  "outputs": {
+    "derived/native_events.csv": "eede2e80d500aa6c622155fcac991cad1c214d4cb8a06ea4e74d280bdf27e6d3",
+    "derived/call_roster.csv": "83ddba32b545dc3c66629511d30d44aa45923565d45cc5155c8f4f2eeb89a373",
+    "derived/coordinates.csv": "005716a7b937c528b8b6f46969f897fc18171d437a1bab9fd752972e3ea8944e",
+    "derived/trial_recording_periods.csv": "4b8318bd2d79d981e3ffe70bf4605642d1f3b2f444d5ab2841a715fc3d4589b2",
+    "derived/cnn_original_coordinates.csv": "60c7598c6a0ff3bb06fe072fbd4816113040a64c61772075edf3600859607e2d"
+  },
+  "implementation": "db4508cf46f17dd04db2d8d349056dbe59ff9b11f62ac9d0989d56ed289f0a21"
+}

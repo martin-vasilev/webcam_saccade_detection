@@ -1,0 +1,26 @@
+# Provisional review - sample level prediction availability
+
+Full-precision values: matching CSV. Definitions and support limitations: METHODS.md.
+
+| algorithm | representation | event | available_trials | failed_trials | evaluation_rows |
+| --- | --- | --- | --- | --- | --- |
+| IVT | original | fixation | 792 | 0 | 68577 |
+| IVT | original | saccade | 792 | 0 | 68577 |
+| IVT | rate30 | fixation | 792 | 0 | 68577 |
+| IVT | rate30 | saccade | 792 | 0 | 68577 |
+| IDT | original | fixation | 787 | 5 | 65245 |
+| IDT | original | saccade | 787 | 5 | 65245 |
+| IDT | rate30 | fixation | 756 | 36 | 65245 |
+| IDT | rate30 | saccade | 756 | 36 | 65245 |
+| EK03 | original | fixation | 792 | 0 | 68577 |
+| EK03 | original | saccade | 792 | 0 | 68577 |
+| EK03 | rate30 | fixation | 792 | 0 | 68577 |
+| EK03 | rate30 | saccade | 792 | 0 | 68577 |
+| IHMM | original | fixation | 791 | 1 | 68396 |
+| IHMM | original | saccade | 791 | 1 | 68396 |
+| IHMM | rate30 | fixation | 789 | 3 | 68396 |
+| IHMM | rate30 | saccade | 789 | 3 | 68396 |
+| CNN-BLSTM | original | fixation | 792 | 0 | 68577 |
+| CNN-BLSTM | original | saccade | 792 | 0 | 68577 |
+| CNN-BLSTM | rate30 | fixation | 792 | 0 | 68577 |
+| CNN-BLSTM | rate30 | saccade | 792 | 0 | 68577 |

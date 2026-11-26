@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "sources_verified": 1112,
+  "producer_gates_verified": [
+    "native_input",
+    "summary",
+    "velocity",
+    "transport"
+  ],
+  "historical_comparisons": 144,
+  "harmonised_and_sensitivity_comparisons": 360,
+  "trial_support_records": 285120,
+  "complete_comparison_cartesian_coverage": true,
+  "exact_transport_outputs_reused": true
+}

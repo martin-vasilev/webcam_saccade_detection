@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "mode": "verify",
+  "stages": {
+    "part1": {
+      "passed": true,
+      "hashed_files": 18,
+      "confusion_rows_checked": 672
+    },
+    "part2": {
+      "passed": true,
+      "hashed_files": 16,
+      "confusion_rows_checked": 260
+    },
+    "part2b": {
+      "passed": true,
+      "hashed_files": 13,
+      "confusion_rows_checked": 200
+    },
+    "part3": {
+      "passed": true,
+      "hashed_files": 19,
+      "confusion_rows_checked": 0
+    }
+  },
+  "scope": "Archived-result integrity and numerical identities; not full scientific recomputation"
+}

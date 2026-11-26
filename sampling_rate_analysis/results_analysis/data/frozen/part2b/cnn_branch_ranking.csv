@@ -1,0 +1,11 @@
+"representation","branch","fixation_MCC","saccade_MCC","J","evaluation_rows","interpretation","descriptive_rank","observed_highest"
+"original","raw",0.624350513941827,0.612630624364614,0.618490569153221,68577,"post_hoc_descriptive_branch_ranking",4,FALSE
+"original","mean",0.65485499904736,0.629585667619226,0.642220333333293,68577,"post_hoc_descriptive_branch_ranking",1,TRUE
+"original","median",0.641418556753804,0.618731084232785,0.630074820493294,68577,"post_hoc_descriptive_branch_ranking",2,FALSE
+"original","sg_p3_n7",0.63443759731968,0.624601852877998,0.629519725098839,68577,"post_hoc_descriptive_branch_ranking",3,FALSE
+"original","sg_p5_n23",0.5503039938961,0.534861659400664,0.542582826648382,68577,"post_hoc_descriptive_branch_ranking",5,FALSE
+"rate30","raw",0.594776487327863,0.549456734899186,0.572116611113525,68577,"post_hoc_descriptive_branch_ranking",1,TRUE
+"rate30","mean",0.570950352776744,0.545090758810648,0.558020555793696,68577,"post_hoc_descriptive_branch_ranking",3,FALSE
+"rate30","median",0.580893775282777,0.546035989936327,0.563464882609552,68577,"post_hoc_descriptive_branch_ranking",2,FALSE
+"rate30","sg_p3_n7",0.541183761772057,0.52654602277621,0.533864892274133,68577,"post_hoc_descriptive_branch_ranking",4,FALSE
+"rate30","sg_p5_n23",0.152193137841508,0.186083251384266,0.169138194612887,68577,"post_hoc_descriptive_branch_ranking",5,FALSE

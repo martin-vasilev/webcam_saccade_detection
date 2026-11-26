@@ -1,0 +1,108 @@
+{
+  "passed": true,
+  "scope": "Only products present in this private scientific run; not a declaration that all stages/full transport were executed",
+  "checks": [
+    {
+      "product": "part1 classical full grid",
+      "rows": 640,
+      "columns": 6,
+      "passed": true
+    },
+    {
+      "product": "part1 hmm full grid",
+      "rows": 16,
+      "columns": 6,
+      "passed": true
+    },
+    {
+      "product": "b prediction/event-level reconstructed counts",
+      "rows": 506880,
+      "columns": 6,
+      "passed": true
+    },
+    {
+      "product": "h prediction/event-level reconstructed counts",
+      "rows": 12672,
+      "columns": 6,
+      "passed": true
+    },
+    {
+      "product": "cnn prediction/event-level reconstructed counts",
+      "rows": 400,
+      "columns": 6,
+      "passed": true
+    },
+    {
+      "product": "part2 heldout_performance",
+      "rows": 144,
+      "columns": 25,
+      "passed": true
+    },
+    {
+      "product": "part2 cnn_five_branch_performance",
+      "rows": 20,
+      "columns": 21,
+      "passed": true
+    },
+    {
+      "product": "part2 all frozen selections/training identities",
+      "rows": 160,
+      "columns": 12,
+      "passed": true
+    },
+    {
+      "product": "part2b final_fixed_configurations",
+      "rows": 10,
+      "columns": 16,
+      "passed": true
+    },
+    {
+      "product": "part2b configuration_stability",
+      "rows": 8,
+      "columns": 34,
+      "passed": true
+    },
+    {
+      "product": "part2b performance_interpretation",
+      "rows": 180,
+      "columns": 17,
+      "passed": true
+    },
+    {
+      "product": "part3 event_distribution_summary",
+      "rows": 88,
+      "columns": 23,
+      "passed": true
+    },
+    {
+      "product": "part3 saccade_velocity_summary",
+      "rows": 30,
+      "columns": 11,
+      "passed": true
+    },
+    {
+      "product": "part3 saccade_velocity_missingness",
+      "rows": 72,
+      "columns": 6,
+      "passed": true
+    },
+    {
+      "product": "part3 wasserstein_harmonised",
+      "rows": 4,
+      "columns": 22,
+      "passed": true
+    },
+    {
+      "product": "part3 wasserstein_historical_compatibility",
+      "rows": 1,
+      "columns": 22,
+      "passed": true
+    },
+    {
+      "product": "part3 reference_scaling",
+      "rows": 4,
+      "columns": 9,
+      "passed": true
+    }
+  ]
+}

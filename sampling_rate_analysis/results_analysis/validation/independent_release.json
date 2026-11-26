@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "scope": "Independent archived aggregate identities and review-source values; not event reconstruction, selection, transport re-solving or model training",
+  "frozen_hashes": 48,
+  "classification_rows": 1132,
+  "transport_identities": 2336,
+  "review_values": 1422,
+  "curve_points": 84050,
+  "part1_plot_values": 712,
+  "archived_code_hashes": 45,
+  "executable_scientific_code_hashes": 19,
+  "event_summary_rows": 88,
+  "velocity_summary_rows": 30,
+  "render_hash_differences": [],
+  "render_review_required": false,
+  "strict_render_bytes": true,
+  "python": "3.11.9"
+}

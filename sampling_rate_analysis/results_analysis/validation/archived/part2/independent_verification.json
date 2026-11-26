@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "outer_folds_verified": 160,
+  "candidate_pairs_verified": 86880,
+  "trial_records": 38016,
+  "pooled_records": 144,
+  "CNN_branches": 5,
+  "training_test_separation": true,
+  "aligned_training_support": true,
+  "deterministic_selection": true,
+  "independent_metrics": true,
+  "shared_policy_support": true,
+  "inputs_unchanged": true,
+  "primary_hmm_seed_id": 0,
+  "no_model_or_detector_calls": true,
+  "plotted_values": 120,
+  "figures": 4
+}

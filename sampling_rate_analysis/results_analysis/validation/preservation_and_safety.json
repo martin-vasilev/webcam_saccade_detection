@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "protected_extension_files": 1283,
+  "inherited_source_hashes": 1388,
+  "original_scientific_changes": [],
+  "new_files_in_scientific_workspace": [],
+  "machine_paths": [],
+  "credential_patterns": [],
+  "observation_level_columns": [],
+  "files_above_20MiB": [],
+  "tracked_git_changes": [],
+  "github_main": "2d2b7d5827c481f3b82296cc5be1f1d2e5a89ef9",
+  "manuscripts": [
+    {
+      "path": "manuscript/manuscript_draft.Rmd",
+      "git_blob": "5bab67e7104dd5ec4e93c810575fb1d4e5a3fd53",
+      "unchanged": true
+    },
+    {
+      "path": "manuscript/manuscript_draft.html",
+      "git_blob": "3ad4d05b6e2c4f12c1c59698794490be77250d82",
+      "unchanged": true
+    }
+  ],
+  "scope": "Preservation and static release safety scan; not a redistribution-rights grant or raw-input recomputation"
+}

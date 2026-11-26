@@ -1,0 +1,13 @@
+"seed_id","selection_policy","policy","estimand","condition","method","event","base_rows","available_rows","successful_trials","error_trials","test_trials","scoring_row_sha256","TP","TN","FP","FN","MCC","scored_rows"
+0,"within_seed","primary","condition_specific","original","IHMM","fixation",68577,68530,791,1,792,"bdf3582162b03e99b749d1c643ed4526906980e2c5e9c0170a57d0683050a26c",40288,5921,8415,13906,0.140305328739285,68530
+0,"within_seed","primary","condition_specific","original","IHMM","saccade",68577,68530,791,1,792,"bdf3582162b03e99b749d1c643ed4526906980e2c5e9c0170a57d0683050a26c",2229,44581,13596,8124,-0.0156367003925503,68530
+0,"within_seed","primary","condition_specific","rate1000","IHMM","fixation",68577,68577,792,0,792,"d49f74cc987968d55f7bee0a79b64f25c5a42c1ea874795e7b21ec3b9a5d6612",31858,8478,5865,22376,0.14593274387928,68577
+0,"within_seed","primary","condition_specific","rate1000","IHMM","saccade",68577,68577,792,0,792,"d49f74cc987968d55f7bee0a79b64f25c5a42c1ea874795e7b21ec3b9a5d6612",2024,46399,11820,8334,-0.00679959427048946,68577
+0,"within_seed","primary","condition_specific","rate30","IHMM","fixation",68577,68443,789,3,792,"d35fb3a0bbe1606ad23d3c8aee4d377b4c0d9df6cbdcd9c37baa8500ee71fd91",36783,5650,8664,17346,0.0639413863569328,68443
+0,"within_seed","primary","condition_specific","rate30","IHMM","saccade",68577,68443,789,3,792,"d35fb3a0bbe1606ad23d3c8aee4d377b4c0d9df6cbdcd9c37baa8500ee71fd91",916,50397,7711,9419,-0.0475423602036425,68443
+0,"within_seed","primary","paired_cross_rate","original","IHMM","fixation",68577,68530,791,1,792,"033b6b8957a81cab4cea52d24b006cba2df907d74a1e4fe2700ddf27f9c57111",40224,5913,8394,13865,0.140805904529629,68396
+0,"within_seed","primary","paired_cross_rate","original","IHMM","saccade",68577,68530,791,1,792,"033b6b8957a81cab4cea52d24b006cba2df907d74a1e4fe2700ddf27f9c57111",2227,44492,13574,8103,-0.0154474679548971,68396
+0,"within_seed","primary","paired_cross_rate","rate1000","IHMM","fixation",68577,68577,792,0,792,"033b6b8957a81cab4cea52d24b006cba2df907d74a1e4fe2700ddf27f9c57111",31799,8464,5843,22290,0.146759398160857,68396
+0,"within_seed","primary","paired_cross_rate","rate1000","IHMM","saccade",68577,68577,792,0,792,"033b6b8957a81cab4cea52d24b006cba2df907d74a1e4fe2700ddf27f9c57111",2022,46280,11786,8308,-0.00645442306212245,68396
+0,"within_seed","primary","paired_cross_rate","rate30","IHMM","fixation",68577,68443,789,3,792,"033b6b8957a81cab4cea52d24b006cba2df907d74a1e4fe2700ddf27f9c57111",36777,5643,8664,17312,0.064045614275313,68396
+0,"within_seed","primary","paired_cross_rate","rate30","IHMM","saccade",68577,68443,789,3,792,"033b6b8957a81cab4cea52d24b006cba2df907d74a1e4fe2700ddf27f9c57111",914,50366,7700,9416,-0.0476248310881138,68396

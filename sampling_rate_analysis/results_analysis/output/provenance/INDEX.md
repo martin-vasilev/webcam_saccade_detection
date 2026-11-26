@@ -1,0 +1,1 @@
+package_identity.json is the preserved packaging-only identity of 25 November. The current scientific extension identity is scientific_pipeline_identity.json (26 November). Input/code lineage is in config; measured current scientific gates are in validation/scientific_recomputation/. No old scientific results or review files were replaced.

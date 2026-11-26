@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "source_records": 937,
+  "development_candidate_pairs_verified": 4344,
+  "selected_classical_configurations": 8,
+  "provisional_CNN_rows": 2,
+  "all_CNN_branches": 5,
+  "development_interval_calls_reprojected": 12586,
+  "native_event_inventory_rows": 36,
+  "reference_rows": 68577,
+  "trial_roster": 792,
+  "selection_stability_verified": true,
+  "candidate_statuses_and_support_verified": true,
+  "earlier_outputs_unchanged": true,
+  "CNN_decision_requires_scientific_confirmation": true,
+  "event_level_definitions_not_yet_frozen": true,
+  "no_detector_training_inference_or_event_statistics": true
+}

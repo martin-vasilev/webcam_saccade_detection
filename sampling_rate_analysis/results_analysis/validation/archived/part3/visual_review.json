@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "review_date": "2026-11-22",
+  "figures": [
+    {
+      "figure": "CNN_sensitivity_fixation_counts",
+      "pdf_sha256": "5d2153df01f6ab4d78a0adb00690f36d588e50316e498b87a17a83dafb17f71c",
+      "png_sha256": "487364af712a4fe885bfa228e9715ea5a581b5076c166e31a5dbc1da46fa5744",
+      "review_render_sha256": "10c07fad18ab4be7172b721d4ca3f4ae586c71fc49398e55e3f7fcaeac05fcdd",
+      "assessment": "Reviewed: readable titles/axes/denominators, footer separated from x-axis titles, complete curves and disclosed reference/exposure limitations."
+    },
+    {
+      "figure": "CNN_sensitivity_fixation_duration",
+      "pdf_sha256": "f180945fa7ae7aad856984378967777262397ed99330097c2f6110f109d2e0a1",
+      "png_sha256": "7476bbcdc7c0d99a3e34636e1a4914eb8ea39f1a38b5004a9937df13848d6be4",
+      "review_render_sha256": "aace27277ae0add2543f7288821d558f53e6648bed266c168bc6f3f6bec3cf09",
+      "assessment": "Reviewed: readable titles/axes/denominators, footer separated from x-axis titles, complete curves and disclosed reference/exposure limitations."
+    },
+    {
+      "figure": "CNN_sensitivity_saccade_average_velocity",
+      "pdf_sha256": "aea4d358eae589f1be4c22a6d9c923a5f919349ccd22b95537cb83bf8eb752d4",
+      "png_sha256": "86373091e0ceb9ab1eb1d14fbefb8976449a0e49aee7c23145b6064b27b8a6ba",
+      "review_render_sha256": "1466e2a18621584476bb520bfff4d773efc05c5ffe876395e4e8f6a4249e4b41",
+      "assessment": "Reviewed: readable titles/axes/denominators, footer separated from x-axis titles, complete curves and disclosed reference/exposure limitations."
+    },
+    {
+      "figure": "CNN_sensitivity_saccade_counts",
+      "pdf_sha256": "cc043cd7901b84f597f4325329a3d91fa3c381ee6848a8ef7568294027684633",
+      "png_sha256": "e681b1bd213f4f29c5f3ba44deb3452f19e1863e321c030fe8113c4be8e6a9d9",
+      "review_render_sha256": "46ba6dbafd0c703498a8172d23a7e3aadba74a675d8d4371d591af7f6067881a",
+      "assessment": "Reviewed: readable titles/axes/denominators, footer separated from x-axis titles, complete curves and disclosed reference/exposure limitations."
+    },
+    {
+      "figure": "CNN_sensitivity_saccade_duration",
+      "pdf_sha256": "6a5bb192871d42d21956c67026ce5864cf8a7ae484eddd4dab79d560f019cbfd",
+      "png_sha256": "9c9049693d73c35b255585161fb361ed16a5a28c30509448deffdbe83947ceec",
+      "review_render_sha256": "5b47504307458788aea4ad11f794d09ac954c25a806a202cd50702ebab3e3b03",
+      "assessment": "Reviewed: readable titles/axes/denominators, footer separated from x-axis titles, complete curves and disclosed reference/exposure limitations."
+    },
+    {
+      "figure": "CNN_sensitivity_saccade_peak_velocity",
+      "pdf_sha256": "2027ecbf97a0e5dc8a713c14e72754956ac3d6c9ea1fef6cf8978168d990b19c",
+      "png_sha256": "980b3bbd0f201a9244b4fc984b4ed197bd6c73a546c66f2630552b867c9b0fca",
+      "review_render_sha256": "cd944ba20dfa7294b9e5162616144fced18fa4b9dcbb358b63cb8555f0940a90",
+      "assessment": "Reviewed: readable titles/axes/denominators, footer separated from x-axis titles, complete curves and disclosed reference/exposure limitations."
+    },
+    {
+      "figure": "primary_fixation_counts",
+      "pdf_sha256": "7fbe8a52d5d4d296d941a6dbc5c336a1fc8a453937bd245166b69d96ca6c927d",
+      "png_sha256": "94287458663081073a08af5cd6cb9f6ea059b903cb501d385bed80f030b2b659",
+      "review_render_sha256": "d2cf2b2b01b49a45272ec020e78e4625de9f119cc0b4df0e5ef5574ed4d15a87",
+      "assessment": "Reviewed: readable titles/axes/denominators, footer separated from x-axis titles, complete curves and disclosed reference/exposure limitations."
+    },
+    {
+      "figure": "primary_fixation_duration",
+      "pdf_sha256": "11bdcb68ec5351e59fb7279df8cb986e3a83df8699cc687a61c315e6fc879877",
+      "png_sha256": "22f4cae7f4ae60abd0757e437314d4c7d556983c252f4357720864270d310beb",
+      "review_render_sha256": "36c6f413c13d9faef9fcc39bbbde76b60337e876e90590673aa58bc59c5d0cd4",
+      "assessment": "Reviewed: readable titles/axes/denominators, footer separated from x-axis titles, complete curves and disclosed reference/exposure limitations."
+    },
+    {
+      "figure": "primary_saccade_average_velocity",
+      "pdf_sha256": "a7328acee23b99e351bed059e30b3c8e5394df464c0b277148450a9c81ea4724",
+      "png_sha256": "e222d149e6ea8bd698f63c2165fd28334b584201af29997e3779ee77584e9a84",
+      "review_render_sha256": "a498b78ac0c82aabfa1e12c740521319e1207efa9b126e9a9079a6d563be7139",
+      "assessment": "Reviewed: readable titles/axes/denominators, footer separated from x-axis titles, complete curves and disclosed reference/exposure limitations."
+    },
+    {
+      "figure": "primary_saccade_counts",
+      "pdf_sha256": "5f01247b94c40dabff1e4a453751045bfb2dfd8ca3ccae999a441e534515e75f",
+      "png_sha256": "240c173803fe5e340df749dad5f4e34cfaa2b7a2bfa73885c64e2add57d4fa0e",
+      "review_render_sha256": "ab28582e2dab0ca9537c3dbfa794b3990cf66b2d02963e51727f2e835b6c9090",
+      "assessment": "Reviewed: readable titles/axes/denominators, footer separated from x-axis titles, complete curves and disclosed reference/exposure limitations."
+    },
+    {
+      "figure": "primary_saccade_duration",
+      "pdf_sha256": "f1310ce921cb02ef8d1300b8b405980d816037bd1712cb3d1949dfffddaea831",
+      "png_sha256": "03e3650c959cb69ef0ff9d7276bb1d407632d6c418f7d89a2b215671b9b7919d",
+      "review_render_sha256": "5450d0f6ef0702d7b47c75eb5fc09d85dfb27ba259049aa7701ac89bd71ca111",
+      "assessment": "Reviewed: readable titles/axes/denominators, footer separated from x-axis titles, complete curves and disclosed reference/exposure limitations."
+    },
+    {
+      "figure": "primary_saccade_peak_velocity",
+      "pdf_sha256": "526341484fa6ce1066be4db81e10b6dff76e2382b29312b1c00f1744a5af4842",
+      "png_sha256": "5a33b2d9f24df97889940cfe1a5e3efc43fa31761ddf530d7afd2ff3e4e7d201",
+      "review_render_sha256": "c812255e15264b24bd159116421a129d83497325e190f1c0809c5e8dc6e78887",
+      "assessment": "Reviewed: readable titles/axes/denominators, footer separated from x-axis titles, complete curves and disclosed reference/exposure limitations."
+    }
+  ],
+  "source_tables_unchanged_during_layout_redraw": true,
+  "font_note": "Poppler emitted fallback-font warnings; all final displayed labels were inspected and readable."
+}

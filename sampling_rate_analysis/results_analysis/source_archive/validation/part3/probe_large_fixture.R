@@ -1,0 +1,6 @@
+a<-commandArgs(FALSE);p<-sub('^--file=','',a[grepl('^--file=',a)]);root<-normalizePath(file.path(dirname(p),'../..'),winslash='/');w<-normalizePath(file.path(root,'../..'),winslash='/')
+.libPaths(c(file.path(w,'classical_evaluation_reproduction/R_library'),.libPaths()))
+cat('Starting deterministic 500-row univariate translation fixture at',as.character(Sys.time()),'\n');flush.console()
+t<-system.time(d<-T4transport::wasserstein(matrix(0:499,ncol=1),matrix(1:500,ncol=1),p=1)$distance)
+stopifnot(abs(d-1)<1e-8)
+cat('Large exact translation fixture PASS, distance',d,'elapsed',t[['elapsed']],'seconds\n')

@@ -1,0 +1,3 @@
+Classical: training-only joint preprocessing LOPO selection, own-policy paired joint support.
+CNN Raw: fixed held-out branch, not selected on held-out MCC. Supports differ across methods; no direct inferential ranking.
+Exact denominators, confusion counts and all CNN branches are in data/frozen/part2/. No new intervals are calculated.
