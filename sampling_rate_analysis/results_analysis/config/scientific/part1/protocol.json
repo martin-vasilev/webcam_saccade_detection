@@ -1,0 +1,35 @@
+{
+  "version": "martin_results_extension_001.part1.v1",
+  "stage": "part1",
+  "conditions": [
+    "original",
+    "rate30"
+  ],
+  "policy": "primary",
+  "grid_estimand": "paired_cross_rate",
+  "hmm_seed_id": 0,
+  "cnn_scope": "cnn_primary",
+  "common_sg": {
+    "order": 5,
+    "window": 23,
+    "thresholds": {
+      "IVT": {
+        "fixation": 35,
+        "saccade": 20
+      },
+      "IDT": {
+        "fixation": 1,
+        "saccade": 1.5
+      },
+      "EK03": {
+        "fixation": 3,
+        "saccade": 2
+      }
+    },
+    "rationale": "Historical fixed thresholds with existing SG5/23 grid rows; no threshold optimisation"
+  },
+  "seed": 20261118,
+  "bootstrap_recomputed": false,
+  "input_manifest_sha256": "1dbbe35412649b90e756473a54dabc19b7e77865e801d9578c0308426fca6ab6",
+  "figure_policy": "Own configuration three-rate paired support; no new scoring masks. Different configurations can have different supports. CNN held-out branch support identical within original/30 pair."
+}

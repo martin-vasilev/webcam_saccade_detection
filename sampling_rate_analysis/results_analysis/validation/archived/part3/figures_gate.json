@@ -1,0 +1,33 @@
+{
+  "inputs_sha256": "5885dd9bf7834052311957f9666a802eec23932d61bbd4615e799749bb364ee4",
+  "outputs": {
+    "figure_source_observations.csv": "7694bacb32ebe121a14c5b5a3135ed5ea348804bcd407861347abeb39fdfcfb8",
+    "figure_source_curves.csv": "d71679f5d65f822ef0b9b3bacfb7d83ae61bc1050c2383ad6ec7e98c78de76b0",
+    "figures/captions.json": "05fa5154d4ae1e7dec103690ca5bd914dde551e9db01528a323cf2743d12c0f5",
+    "figures/primary_fixation_duration.pdf": "11bdcb68ec5351e59fb7279df8cb986e3a83df8699cc687a61c315e6fc879877",
+    "figures/primary_fixation_duration.png": "22f4cae7f4ae60abd0757e437314d4c7d556983c252f4357720864270d310beb",
+    "figures/CNN_sensitivity_fixation_duration.pdf": "f180945fa7ae7aad856984378967777262397ed99330097c2f6110f109d2e0a1",
+    "figures/CNN_sensitivity_fixation_duration.png": "7476bbcdc7c0d99a3e34636e1a4914eb8ea39f1a38b5004a9937df13848d6be4",
+    "figures/primary_saccade_duration.pdf": "f1310ce921cb02ef8d1300b8b405980d816037bd1712cb3d1949dfffddaea831",
+    "figures/primary_saccade_duration.png": "03e3650c959cb69ef0ff9d7276bb1d407632d6c418f7d89a2b215671b9b7919d",
+    "figures/CNN_sensitivity_saccade_duration.pdf": "6a5bb192871d42d21956c67026ce5864cf8a7ae484eddd4dab79d560f019cbfd",
+    "figures/CNN_sensitivity_saccade_duration.png": "9c9049693d73c35b255585161fb361ed16a5a28c30509448deffdbe83947ceec",
+    "figures/primary_fixation_counts.pdf": "7fbe8a52d5d4d296d941a6dbc5c336a1fc8a453937bd245166b69d96ca6c927d",
+    "figures/primary_fixation_counts.png": "94287458663081073a08af5cd6cb9f6ea059b903cb501d385bed80f030b2b659",
+    "figures/CNN_sensitivity_fixation_counts.pdf": "5d2153df01f6ab4d78a0adb00690f36d588e50316e498b87a17a83dafb17f71c",
+    "figures/CNN_sensitivity_fixation_counts.png": "487364af712a4fe885bfa228e9715ea5a581b5076c166e31a5dbc1da46fa5744",
+    "figures/primary_saccade_counts.pdf": "5f01247b94c40dabff1e4a453751045bfb2dfd8ca3ccae999a441e534515e75f",
+    "figures/primary_saccade_counts.png": "240c173803fe5e340df749dad5f4e34cfaa2b7a2bfa73885c64e2add57d4fa0e",
+    "figures/CNN_sensitivity_saccade_counts.pdf": "cc043cd7901b84f597f4325329a3d91fa3c381ee6848a8ef7568294027684633",
+    "figures/CNN_sensitivity_saccade_counts.png": "e681b1bd213f4f29c5f3ba44deb3452f19e1863e321c030fe8113c4be8e6a9d9",
+    "figures/primary_saccade_average_velocity.pdf": "a7328acee23b99e351bed059e30b3c8e5394df464c0b277148450a9c81ea4724",
+    "figures/primary_saccade_average_velocity.png": "e222d149e6ea8bd698f63c2165fd28334b584201af29997e3779ee77584e9a84",
+    "figures/CNN_sensitivity_saccade_average_velocity.pdf": "aea4d358eae589f1be4c22a6d9c923a5f919349ccd22b95537cb83bf8eb752d4",
+    "figures/CNN_sensitivity_saccade_average_velocity.png": "86373091e0ceb9ab1eb1d14fbefb8976449a0e49aee7c23145b6064b27b8a6ba",
+    "figures/primary_saccade_peak_velocity.pdf": "526341484fa6ce1066be4db81e10b6dff76e2382b29312b1c00f1744a5af4842",
+    "figures/primary_saccade_peak_velocity.png": "5a33b2d9f24df97889940cfe1a5e3efc43fa31761ddf530d7afd2ff3e4e7d201",
+    "figures/CNN_sensitivity_saccade_peak_velocity.pdf": "2027ecbf97a0e5dc8a713c14e72754956ac3d6c9ea1fef6cf8978168d990b19c",
+    "figures/CNN_sensitivity_saccade_peak_velocity.png": "980b3bbd0f201a9244b4fc984b4ed197bd6c73a546c66f2630552b867c9b0fca"
+  },
+  "implementation": "809b56ca24b77bfee9ecda6fdb79681678ad8977d4aad17fb53fecc409a1fbbd"
+}

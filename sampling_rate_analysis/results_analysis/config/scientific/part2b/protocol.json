@@ -1,0 +1,16 @@
+{
+  "version": "part2b_v1.0",
+  "development_participants": 20,
+  "trials": 792,
+  "reference_rows": 68577,
+  "objective": "equal-event mean of pooled binary fixation and saccade MCC",
+  "availability": "maximise jointly available eligible development rows",
+  "aligned_support": "intersection of joint-success trials across all maximum-availability pairs, before calculating either event MCC",
+  "undefined": "inadmissible if either MCC undefined; no lower-availability fallback",
+  "tie": "J tolerance 1e-12, then Raw/Mean3/Median3/SG5_23, ascending fixation then saccade threshold",
+  "hmm_seed_id": 0,
+  "cnn_policy": "post-hoc rankings reported; provisional common Raw primary for minimal signal transformation, all other branches as sensitivity; requires scientific confirmation; not an optimality claim",
+  "interpretation": "Full development-data selection; scores are not held-out fixed-configuration estimates",
+  "input_manifest_sha256": "73c7a8c823a92e86503a16ca1e4a801d25cffaec33c72512e5aaf05e73bc2147",
+  "archived_part2_entry_sha256": "a61b030140cf56b7998e92524de749c239eb52e9ea417002f8795ebf8f328c8c"
+}

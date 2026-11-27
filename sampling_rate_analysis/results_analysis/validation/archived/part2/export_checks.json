@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "figures": [
+    {
+      "figure": "cnn_five_branches_MCC_F1",
+      "pages": 1,
+      "embedded_rasters": 0,
+      "png_pixels": [
+        3300,
+        2100
+      ],
+      "png_dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "joint_policy_F1",
+      "pages": 1,
+      "embedded_rasters": 0,
+      "png_pixels": [
+        3300,
+        1860
+      ],
+      "png_dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "joint_policy_MCC",
+      "pages": 1,
+      "embedded_rasters": 0,
+      "png_pixels": [
+        3300,
+        1860
+      ],
+      "png_dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "policy_comparison_matched_support",
+      "pages": 1,
+      "embedded_rasters": 0,
+      "png_pixels": [
+        3600,
+        1950
+      ],
+      "png_dpi": [
+        299.9994,
+        299.9994
+      ]
+    }
+  ],
+  "manual_review": "All four rendered PDFs inspected. Axis-label clipping corrected before final review.",
+  "rendering_note": "Poppler reported unavailable Symbol/ArialUnicode fallback fonts; visible text and plotted labels rendered correctly."
+}

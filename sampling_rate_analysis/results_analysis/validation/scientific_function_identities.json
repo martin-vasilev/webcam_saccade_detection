@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "scope": "Structural function identities only; real-data gates separate",
+  "functions": [
+    {
+      "function_name": "part2_read",
+      "identical_body_and_formals": true
+    },
+    {
+      "function_name": "part2_context",
+      "identical_body_and_formals": true
+    },
+    {
+      "function_name": "joint_mcc",
+      "identical_body_and_formals": true
+    },
+    {
+      "function_name": "joint_pairs",
+      "identical_body_and_formals": true
+    },
+    {
+      "function_name": "select_joint",
+      "identical_body_and_formals": true
+    },
+    {
+      "function_name": "classification_metrics",
+      "identical_body_and_formals": true
+    },
+    {
+      "function_name": "policy_calls",
+      "identical_body_and_formals": true
+    },
+    {
+      "function_name": "evaluate_policies",
+      "identical_body_and_formals": true
+    },
+    {
+      "function_name": "evaluate_cnn",
+      "identical_body_and_formals": true
+    },
+    {
+      "function_name": "part2b_select",
+      "identical_body_and_formals": true
+    },
+    {
+      "function_name": "part2b_stability",
+      "identical_body_and_formals": true
+    },
+    {
+      "function_name": "part3_events",
+      "identical_body_and_formals": true
+    },
+    {
+      "function_name": "part3_velocities",
+      "identical_body_and_formals": true
+    },
+    {
+      "function_name": "part3_figures",
+      "identical_body_and_formals": true
+    }
+  ]
+}

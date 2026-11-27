@@ -1,0 +1,161 @@
+{
+  "passed": true,
+  "figures": [
+    {
+      "figure": "CNN_sensitivity_fixation_counts",
+      "vector_pdf": true,
+      "pages": 1,
+      "png_pixels": [
+        4500,
+        2280
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "CNN_sensitivity_fixation_duration",
+      "vector_pdf": true,
+      "pages": 1,
+      "png_pixels": [
+        4500,
+        2280
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "CNN_sensitivity_saccade_average_velocity",
+      "vector_pdf": true,
+      "pages": 1,
+      "png_pixels": [
+        4500,
+        2280
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "CNN_sensitivity_saccade_counts",
+      "vector_pdf": true,
+      "pages": 1,
+      "png_pixels": [
+        4500,
+        2280
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "CNN_sensitivity_saccade_duration",
+      "vector_pdf": true,
+      "pages": 1,
+      "png_pixels": [
+        4500,
+        2280
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "CNN_sensitivity_saccade_peak_velocity",
+      "vector_pdf": true,
+      "pages": 1,
+      "png_pixels": [
+        4500,
+        2280
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "primary_fixation_counts",
+      "vector_pdf": true,
+      "pages": 1,
+      "png_pixels": [
+        4500,
+        2280
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "primary_fixation_duration",
+      "vector_pdf": true,
+      "pages": 1,
+      "png_pixels": [
+        4500,
+        2280
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "primary_saccade_average_velocity",
+      "vector_pdf": true,
+      "pages": 1,
+      "png_pixels": [
+        4500,
+        2280
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "primary_saccade_counts",
+      "vector_pdf": true,
+      "pages": 1,
+      "png_pixels": [
+        4500,
+        2280
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "primary_saccade_duration",
+      "vector_pdf": true,
+      "pages": 1,
+      "png_pixels": [
+        4500,
+        2280
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "figure": "primary_saccade_peak_velocity",
+      "vector_pdf": true,
+      "pages": 1,
+      "png_pixels": [
+        4500,
+        2280
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    }
+  ]
+}

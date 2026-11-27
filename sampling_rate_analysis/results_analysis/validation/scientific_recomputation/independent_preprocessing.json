@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "groups": 16,
+  "coordinate_rows": 1904,
+  "source_timestamps_exact": true,
+  "absolute_tolerance": 2e-05,
+  "relative_tolerance": 1e-07,
+  "production_detector_calls": 0
+}

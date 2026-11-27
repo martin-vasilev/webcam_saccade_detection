@@ -1,0 +1,17 @@
+{
+  "version": "part2_joint_v1.0",
+  "conditions": [
+    "original",
+    "rate30"
+  ],
+  "seed_id": 0,
+  "objective": "equal-event arithmetic mean of pooled fixation and saccade training MCC",
+  "availability": "Maximise candidate-pair joint available eligible training row count",
+  "tie_support": "Intersection of training trials jointly available for all maximum-availability candidate pairs; evaluate both tasks on this same set",
+  "undefined": "Candidate inadmissible if either training MCC undefined; no lower-availability fallback",
+  "tie_break": "J within 1e-12, then Raw/Mean3/Median3/SG5_23, ascending fixation threshold, ascending saccade threshold",
+  "evaluation": "own_policy_paired_joint: successes for both event calls at both rates per participant; condition_specific_joint and shared_policy_paired_joint additionally reported",
+  "CNN": "All five fixed held-out branches on original frozen support; no branch selection",
+  "input_manifest_sha256": "684ea23c23cbe3b70826c0cc529b1199e7fdf125d0d2b5899181451d1a5ece1b",
+  "historical_part1_entry_sha256": "151ad9998e0e1927a7c4f5209459b41395e42c4b403c83967ac3b5db32c6cd91"
+}

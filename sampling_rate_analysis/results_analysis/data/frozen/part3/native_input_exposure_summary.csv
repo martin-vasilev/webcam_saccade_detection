@@ -1,0 +1,5 @@
+representation,role,source_samples,policy
+Original,classical_detector_and_sampled_reference_input,73796,conf>0 and el_pupil>0
+Original,CNN_full_native_sequence,78492,frozen C3-B full sequence; native events retained
+30 Hz,classical_and_CNN_observed_frame_input,40791,archived observed-frame representation
+30 Hz,reference_event_construction_source,73796,Original sampled reference boundaries; velocity measured on 30-Hz frames

@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "figure_pairs": 7,
+  "figures": [
+    {
+      "figure": "01_EK03_parameter_smoothing",
+      "png_sha256": "75a73715de857c194e60272ecca4c7b7a1b5a01eb0dc48abc7e5e22add2597ee",
+      "pdf_sha256": "f3bd152b8599584abb9dc82ffe989673923f3ddcea0033f5d8977f394fee952d",
+      "dpi": 300,
+      "visual_contact_sheet_review": true
+    },
+    {
+      "figure": "01_IDT_parameter_smoothing",
+      "png_sha256": "b1d19d0fb28c45d2a982664aa83ec975ea49aba634bb7b3f306bdb537ffc6b46",
+      "pdf_sha256": "3fbaea62b987582eb52404f385e1a3a399f83b2ae64dd239469fa849408c343b",
+      "dpi": 300,
+      "visual_contact_sheet_review": true
+    },
+    {
+      "figure": "01_IVT_parameter_smoothing",
+      "png_sha256": "d4f5c331087d6d4e4588e9f1db1687dd6f1e00075e7a78b3695e382ffeb4fa98",
+      "pdf_sha256": "97f317612c9d4de7212f80f4474eefe8a622f3f7c56e4456ca18f721c7076b11",
+      "dpi": 300,
+      "visual_contact_sheet_review": true
+    },
+    {
+      "figure": "02_IHMM_preprocessing",
+      "png_sha256": "2037fbf8e1ac8276433fb00498de65b8fa7d11eed9971fde5f513a85dcd7a307",
+      "pdf_sha256": "9273ecade97610fe41d53e7db80223f2076d7e0d6568626266c092de1bc7bb95",
+      "dpi": 300,
+      "visual_contact_sheet_review": true
+    },
+    {
+      "figure": "03_CNN_five_preprocessing",
+      "png_sha256": "64668947edd2dbf355b79152cf7f7dce6a358358c349228cdc897880a28539c2",
+      "pdf_sha256": "998af12ebda8124d7f8c3161014af5d0eb6d37e401c9153e5e37e10f01137c59",
+      "dpi": 300,
+      "visual_contact_sheet_review": true
+    },
+    {
+      "figure": "04_common_SG523",
+      "png_sha256": "bbefac2b49af24e5ce5a75d0108c38049a5522f745f5f586b39eef5c0772db64",
+      "pdf_sha256": "88ed57e2882fe6e31cc93ff39b3155b2dabe5665310e9c5f81af9218d312b559",
+      "dpi": 300,
+      "visual_contact_sheet_review": true
+    },
+    {
+      "figure": "sample_level_heldout_by_method",
+      "png_sha256": "0b61db33f2195ca49bbd74f9d1c0a24c2dc579c6bad58ea68af22c093c51a122",
+      "pdf_sha256": "59b0a053f6aae2dc8bab2e8d6805ab1953efef17d557a38957df02eb8eece6bf",
+      "dpi": 300,
+      "visual_contact_sheet_review": true
+    }
+  ]
+}

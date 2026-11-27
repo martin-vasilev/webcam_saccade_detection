@@ -1,0 +1,61 @@
+{
+  "version": "part3_v1.0.2",
+  "frozen_before_event_rankings": true,
+  "trial_roster": 792,
+  "reference": {
+    "primary": "historical binary target-label runs after conf>0 & el_pupil>0, sorted actual timestamps, end minus start",
+    "gap_sensitivity": "split target runs at any ineligible edge in frozen 75-ms blocked_edges ledger (invalid/manual blink/cap); no native detector events resegmented",
+    "rate_policy": "same Original manual-sampled reference events at both rates; no reference resampling/cropping",
+    "unknown_labels": "Preserve literal original R NA/cumsum propagation in historical reference; gap-aware sensitivity treats unknown labels as explicit non-target run boundaries without propagation"
+  },
+  "duration": {
+    "primary": "saved native duration: classical end-start; CNN last-first+median_step",
+    "sensitivity": "first-to-last sample span for all events"
+  },
+  "configurations": "exact Phase 2B eight classical fixed choices; primary I-HMM seed_id 0; CNN Raw primary and four fixed sensitivity branches",
+  "transport": {
+    "package": "T4transport 0.1.8",
+    "p": 1,
+    "ground_metric": "Euclidean, verified with 3/4 diagonal-shift fixture giving 5",
+    "masses": "uniform per trial",
+    "historical": "original compute_wasserstein_full; paired method-specific complete cases, reference sample SD scaling, zero SD=>1, n<3=>NA",
+    "main": "common complete trials across four classical plus CNN Raw, both rates, separate event/reference definition; same reference centring/scaling for all",
+    "cnn_sensitivity": "intersect primary-common set with that branch complete cases at both rates; reference scaling on explicitly recorded branch-specific subset",
+    "method_sensitivity": "method-specific paired complete cases retained as historical compatibility",
+    "count_only": "common successful-call trials across primary five families and both rates; include zero events; reference need not have 2 events",
+    "outputs": "raw standardized transport distance and 1/(1+d) similarity, also native-unit univariate distances",
+    "solver_check": "independent scipy linear_sum_assignment/n for equal-size uniform empirical measures; sorted differences for univariate W1"
+  },
+  "velocity": {
+    "calibration_deg_per_pixel_x": 0.01865554,
+    "calibration_deg_per_pixel_y": 0.01919689,
+    "harmonised": "raw observed coordinates at current representation; successive pairs wholly inside native event; arithmetic mean and maximum speed in deg/s",
+    "reference": "same native reference boundaries, sampled only at each representation actual observed timestamps; no new interpolation",
+    "blocked": "underlying Original blocked-edge component change forbids derivative; if any required edge/stencil is blocked, event velocity NA with reason",
+    "historical": "exact archived whole-trial get_xy preprocessing and detector derivative; IVT/IDT previous-current, IHMM difference of degree-scaled positions, EK03 four neighbours/(1.5*(t[i+2]-t[i-2])); inclusive native endpoints",
+    "smoothing_support": "historical derivative marked unavailable if its smoothing/derivative dependency stencil crosses blocked edge; preserve algorithm boundary/NA omission on supported samples",
+    "undefined": "no within-event pair, missing/nonfinite positions, blocked derivative support or no finite historical speed=>explicit NA reason; no partial gap-bridged estimate",
+    "limitations": "30-Hz peak is resolution-specific observed-frame speed; no physiological/subframe peak recovery; common calibration is historical project convention, not new participant calibration"
+  },
+  "summaries": {
+    "zero": "N=0, Mean/SD=NA on successful empty",
+    "singleton": "N=1, Mean=duration, sample SD=NA",
+    "failed": "all event summary measures NA, status preserved",
+    "distribution": "separate pooled-event mean/sample SD and unweighted across-trial N/Mean/SD summaries; finite denominators explicit"
+  },
+  "figures": {
+    "count": 12,
+    "formats": [
+      "300dpi PNG",
+      "vector PDF"
+    ],
+    "duration_velocity_axes": "KDE of log10(1+duration_ms) or log10(1+speed_deg_s), all finite nonnegative observations retained; transformed density labelled",
+    "counts": "empirical discrete PMF, no KDE",
+    "duration_support": "primary common-complete trials; CNN sensitivities use same exposure set with zero-event absence disclosed",
+    "velocity_support": "common primary availability trials; finite-event densities with missingness retained"
+  },
+  "statistical_scope": "descriptive event-distribution comparisons, no population hypothesis tests or new selection",
+  "input_manifest_sha256": "5885dd9bf7834052311957f9666a802eec23932d61bbd4615e799749bb364ee4",
+  "pre_result_amendment": "302 valid-row NA labels discovered during input validation before any native/reference event table, summary, velocity or transport result was calculated. Initial protocol retained in config/part3/history.",
+  "native_input_geometry": "Classical Original/reference use conf/pupil-valid rows; corrected CNN Original uses full native trial sequence, as frozen C3-B. Derive a separate full-native raw-coordinate map and validate every native source-anchor/sample-count identity. Do not crop events. Invalid-support derivatives are unavailable."
+}

@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "name": "recompute_missing_arguments",
+      "passed": true,
+      "scope": "interface / archived verification only",
+      "expected_exit": "nonzero"
+    },
+    {
+      "name": "reject_public_scientific_output",
+      "passed": true,
+      "scope": "interface / archived verification only",
+      "expected_exit": "nonzero"
+    },
+    {
+      "name": "reject_protected_scientific_output",
+      "passed": true,
+      "scope": "interface / archived verification only",
+      "expected_exit": "nonzero"
+    },
+    {
+      "name": "missing_scientific_input",
+      "passed": true,
+      "scope": "interface / archived verification only",
+      "expected_exit": "nonzero"
+    },
+    {
+      "name": "parse_scientific_R",
+      "passed": true,
+      "scope": "interface / archived verification only",
+      "expected_exit": "zero"
+    },
+    {
+      "name": "relocated_cached_verification",
+      "passed": true,
+      "scope": "interface / archived verification only",
+      "expected_exit": "zero"
+    }
+  ],
+  "python_modules_compile": true,
+  "notes": "No full scientific stage rerun by these interface tests; actual scientific computations are recorded separately."
+}

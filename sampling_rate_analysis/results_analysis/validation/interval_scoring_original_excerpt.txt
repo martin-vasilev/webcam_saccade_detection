@@ -1,0 +1,9 @@
+     e=gg.get(cfg.configuration_id);p=np.zeros(len(times),bool)
+     if e is not None:
+      for a,b in e[['start_ms','end_ms']].itertuples(index=False,name=None):p|=(times>=a)&(times<=b)
+      # Independent inclusive sweep-line algorithm, handles overlap/zero-duration events.
+      independent=(np.searchsorted(np.sort(e.start_ms.to_numpy()),times,side='right')-np.searchsorted(np.sort(e.end_ms.to_numpy()),times,side='left'))>0
+      assert np.array_equal(p,independent)
+     else:assert r.n_events==0
+     y=labels==cfg.event
+     if ok:counts[ci,j,ti]=[sum(y&p),sum(~y&~p),sum(~y&p),sum(y&~p)];assert counts[ci,j,ti].sum()==len(times)

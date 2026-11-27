@@ -1,0 +1,7 @@
+a<-commandArgs(FALSE);p<-sub('^--file=','',a[grepl('^--file=',a)]);root<-normalizePath(file.path(dirname(p),'../..'),winslash='/');w<-normalizePath(file.path(root,'../..'),winslash='/')
+.libPaths(c(file.path(w,'classical_evaluation_reproduction/R_library'),.libPaths()))
+x<-matrix(rep(1:10,each=50),ncol=1);y<-matrix(rep(1:5,each=100),ncol=1)
+cat('Starting duplicate-atom 500-row fixture',as.character(Sys.time()),'\n');flush.console()
+t<-system.time(d<-T4transport::wasserstein(x,y,p=1)$distance)
+stopifnot(abs(d-2.5)<1e-8)
+cat('Duplicate-atom fixture PASS, distance',d,'elapsed',t[['elapsed']],'seconds\n')

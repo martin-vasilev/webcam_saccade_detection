@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "name": "staged_verify_part1",
+      "passed": true,
+      "expected_exit": "zero",
+      "scope": "archived verification or structural/dependency check"
+    },
+    {
+      "name": "staged_verify_part2",
+      "passed": true,
+      "expected_exit": "zero",
+      "scope": "archived verification or structural/dependency check"
+    },
+    {
+      "name": "staged_verify_part2b",
+      "passed": true,
+      "expected_exit": "zero",
+      "scope": "archived verification or structural/dependency check"
+    },
+    {
+      "name": "staged_verify_part3",
+      "passed": true,
+      "expected_exit": "zero",
+      "scope": "archived verification or structural/dependency check"
+    },
+    {
+      "name": "staged_verify_all",
+      "passed": true,
+      "expected_exit": "zero",
+      "scope": "archived verification or structural/dependency check"
+    },
+    {
+      "name": "reject_unsupported_recompute",
+      "passed": true,
+      "expected_exit": "nonzero",
+      "scope": "archived verification or structural/dependency check"
+    },
+    {
+      "name": "independent_release",
+      "passed": true,
+      "expected_exit": "zero",
+      "scope": "archived verification or structural/dependency check"
+    },
+    {
+      "name": "parse_R_modules",
+      "passed": true,
+      "expected_exit": "zero",
+      "scope": "archived verification or structural/dependency check"
+    },
+    {
+      "name": "Python_archive_syntax",
+      "passed": true,
+      "scope": "compile only; historical code not executed"
+    },
+    {
+      "name": "relocated_review_all",
+      "passed": true,
+      "expected_exit": "zero",
+      "scope": "review regeneration"
+    },
+    {
+      "name": "relocated_independent",
+      "passed": true,
+      "expected_exit": "zero",
+      "scope": "archived verification or structural/dependency check"
+    },
+    {
+      "name": "final_extended_independent_checks_relocated",
+      "passed": true,
+      "scope": "Final verifier including source-code hashes and event/velocity accounting; no new scientific calculations"
+    }
+  ],
+  "limitations": "Installed jsonlite/digest reused as external libraries; no clean dependency install or full raw-input recomputation. Relocation uses a second package path and an unrelated working directory."
+}

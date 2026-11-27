@@ -1,0 +1,7 @@
+a<-commandArgs(FALSE);p<-sub('^--file=','',a[grepl('^--file=',a)]);root<-normalizePath(file.path(dirname(p),'../..'),winslash='/');w<-normalizePath(file.path(root,'../..'),winslash='/')
+.libPaths(c(file.path(w,'classical_evaluation_reproduction/R_library'),.libPaths()))
+i<-1:500;x<-cbind(sin(i),cos(i*.3),sqrt(i/500));y<-cbind(cos(i*.2),sin(i*.4),i/500)
+cat('Starting deterministic nontranslation 500-row Euclidean fixture',as.character(Sys.time()),'\n');flush.console()
+t<-system.time(d<-T4transport::wasserstein(x,y,p=1)$distance)
+jsonlite::write_json(list(distance=d,elapsed_seconds=t[['elapsed']],n=500),file.path(root,'output/part3/validation/nontranslation_fixture.json'),auto_unbox=TRUE,pretty=TRUE)
+cat('Nontranslation Euclidean fixture distance',d,'elapsed',t[['elapsed']],'seconds\n')

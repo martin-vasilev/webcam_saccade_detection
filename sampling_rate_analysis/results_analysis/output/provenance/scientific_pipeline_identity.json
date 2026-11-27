@@ -1,0 +1,14 @@
+{
+  "version": "scientific_pipeline_002",
+  "date": "2026-11-26",
+  "pipeline_status": "PARTIAL: full scientific code paths connected; full detector replay and all exact transport comparisons not rerun",
+  "modes": [
+    "recompute",
+    "review",
+    "verify"
+  ],
+  "scientific_recomputation_locally_tested": true,
+  "public_participant_data_bundled": false,
+  "publication_clearance": false,
+  "base_commit": "2d2b7d5827c481f3b82296cc5be1f1d2e5a89ef9"
+}

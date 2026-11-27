@@ -1,0 +1,3 @@
+# Scientific source/configuration manifests pin exact file bytes.
+# Preserve existing line endings; do not normalise archived text on add/checkout.
+* -text

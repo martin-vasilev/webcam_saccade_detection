@@ -1,0 +1,331 @@
+{
+  "passed": true,
+  "review_pairs": 13,
+  "supplementary_CNN_pairs": 6,
+  "scope": "All 19 review/CNN PNGs visually inspected in four contact sheets; PNG DPI and vector single-page PDF structural checks; no scientific values changed",
+  "figures": [
+    {
+      "figure": "01_EK03_parameter_smoothing",
+      "path": "output/review/figures/01_EK03_parameter_smoothing.png",
+      "png_sha256": "8af42f5836ca82a30e33ad36cc752e6b1c2d9d382275360c66fe1ec9446b531c",
+      "pdf_sha256": "041e32689153864c2082ccdcdb3b67b4ee3ebf7834db08e0142a5736d1974aac",
+      "pixels": [
+        3000,
+        2250
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "01_IDT_parameter_smoothing",
+      "path": "output/review/figures/01_IDT_parameter_smoothing.png",
+      "png_sha256": "11a3e3e7fd123db89ebbea3af9e99c94acb1c4f058f74ca53c44f7af18b8e9b5",
+      "pdf_sha256": "cb00a1b120ad93b693f7cd93ee496cb1b47976dea4aac6c6d034e18f3a77bf2c",
+      "pixels": [
+        3000,
+        2250
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "01_IVT_parameter_smoothing",
+      "path": "output/review/figures/01_IVT_parameter_smoothing.png",
+      "png_sha256": "82f787e93bf36bd788224f412c1268a559b598a006e9ee4b6fe0cf7e9f550312",
+      "pdf_sha256": "aad6483d603611e2402ebc3947abd89e931288ab4815d30a6baae6f990524fd4",
+      "pixels": [
+        3000,
+        2250
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "02_IHMM_preprocessing",
+      "path": "output/review/figures/02_IHMM_preprocessing.png",
+      "png_sha256": "3f5fdaeaaffa33db0f0868e1b4e16eba0398b1d3be7eef1eb67cb4f5fdf56024",
+      "pdf_sha256": "cef132ce34d8b84fb10f78311ca4c4f311d64077d6fdea53409c67d388ffa47b",
+      "pixels": [
+        3000,
+        1350
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "03_CNN_five_preprocessing",
+      "path": "output/review/figures/03_CNN_five_preprocessing.png",
+      "png_sha256": "8fcf5e6d1272ca0b9455b666f7f2de7008ed6c8593efcde78c95ffbf7d4ddaa2",
+      "pdf_sha256": "35082bcf24f9fe253b53bda67063b978249ab9ca29f06ad3574011e271b7daf4",
+      "pixels": [
+        3000,
+        1350
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "04_common_SG523",
+      "path": "output/review/figures/04_common_SG523.png",
+      "png_sha256": "bbefac2b49af24e5ce5a75d0108c38049a5522f745f5f586b39eef5c0772db64",
+      "pdf_sha256": "262362d96b198ff6af38a261ba4ca42c6c6ec52ace26c2b69d2ce1bef3820e6c",
+      "pixels": [
+        4200,
+        2100
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "primary_fixation_counts",
+      "path": "output/review/figures/primary_fixation_counts.png",
+      "png_sha256": "809a9476e3c5ef8c7bace5a0071937f711d35065a73d73a3084f66cdb4505756",
+      "pdf_sha256": "313adb333d92568e935138363262df340b94da0628bf339d00cdec1accf99822",
+      "pixels": [
+        4200,
+        2100
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "primary_fixation_duration",
+      "path": "output/review/figures/primary_fixation_duration.png",
+      "png_sha256": "2ae911abb5b66010a0b0f9a4e796be6db00a004314ec7ed0b1073bdaa98683fb",
+      "pdf_sha256": "984f417f1d4fc33d0fedf6e1afa0668d0595902a24aa2f493b4d68f7ee5a2cf0",
+      "pixels": [
+        4200,
+        2100
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "primary_saccade_average_velocity",
+      "path": "output/review/figures/primary_saccade_average_velocity.png",
+      "png_sha256": "3154a9485716b95cec1971e83b411e1315afa936c979271df600856edc83993b",
+      "pdf_sha256": "90a6c4633dd107c816e0bb7618919feabf8b1846e6f392383741380f326746f8",
+      "pixels": [
+        4200,
+        2100
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "primary_saccade_counts",
+      "path": "output/review/figures/primary_saccade_counts.png",
+      "png_sha256": "dcf9cc1a3e031e55e0a95eafdd3a69b3444330a1c3812dcffe75b4b10a986a63",
+      "pdf_sha256": "e69824f07caa030af3a4abfda9ab4614211f8c11d378ba80f5d7945c063a8e14",
+      "pixels": [
+        4200,
+        2100
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "primary_saccade_duration",
+      "path": "output/review/figures/primary_saccade_duration.png",
+      "png_sha256": "bc727936baf8ce8bd42b1188af534d86089880d411843c869dd7b12eaa03a47b",
+      "pdf_sha256": "3c28b96d18d405a90309ff141df88e83be1f34f232f8e325c354fc937249d714",
+      "pixels": [
+        4200,
+        2100
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "primary_saccade_peak_velocity",
+      "path": "output/review/figures/primary_saccade_peak_velocity.png",
+      "png_sha256": "1d9f8bd58f8c6c97bfa37c25d59c3aad71a2d1c57d56d9f291bb05b588973560",
+      "pdf_sha256": "b06a3ec915c18744ce9099f7221cf6fe63e73481f5ee083ea9a7f285e95cf464",
+      "pixels": [
+        4200,
+        2100
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "sample_level_heldout_by_method",
+      "path": "output/review/figures/sample_level_heldout_by_method.png",
+      "png_sha256": "28ac7388cef7e6615d11a7e2f03646adc4513bafebec99a41a91f9a5837adf5c",
+      "pdf_sha256": "c8589b5242bf77ae49923a4520350145b1b75e2fa07a96e74515769c4bce5662",
+      "pixels": [
+        3900,
+        1950
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "CNN_sensitivity_fixation_counts",
+      "path": "output/supplementary/CNN_sensitivity_fixation_counts.png",
+      "png_sha256": "730f67fa248590e7e378e57e89eca82a91f2b50af2e47b8a6a185f96ef32cfcf",
+      "pdf_sha256": "8c4b30c1503f52d2c57c48e8b626dad71dfece525d119472b1b045c3095f48e3",
+      "pixels": [
+        4200,
+        2100
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "CNN_sensitivity_fixation_duration",
+      "path": "output/supplementary/CNN_sensitivity_fixation_duration.png",
+      "png_sha256": "b319074fade1e56b81b2bd20aec80582021c5fd3cd4520f1f14c53d776106622",
+      "pdf_sha256": "9151e41a92370476b50f26e000ec7e63944fea1bfc3557c58efb626d31898af3",
+      "pixels": [
+        4200,
+        2100
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "CNN_sensitivity_saccade_average_velocity",
+      "path": "output/supplementary/CNN_sensitivity_saccade_average_velocity.png",
+      "png_sha256": "6b0aeba3e20efdb053bd439c6d0dd7a4fcceadc6b30b9a4cba7218322c76426e",
+      "pdf_sha256": "8f7819c1550e973b64277c419d700d4f4ea342a7c2e08bb2b828b0304e6e306f",
+      "pixels": [
+        4200,
+        2100
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "CNN_sensitivity_saccade_counts",
+      "path": "output/supplementary/CNN_sensitivity_saccade_counts.png",
+      "png_sha256": "ee0c70cef19b31bda88343c0cc3a22612aadd44fff824208cd79a44c8489eb3f",
+      "pdf_sha256": "93425af81c5dcfa869e939787943228f1653e7a07ef58ad5ebb32b0300d41a10",
+      "pixels": [
+        4200,
+        2100
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "CNN_sensitivity_saccade_duration",
+      "path": "output/supplementary/CNN_sensitivity_saccade_duration.png",
+      "png_sha256": "b1e6bc0f4ce6c89ddd5d03e8074e5841ea4fbcec6ea36927592f5ba4413e01bb",
+      "pdf_sha256": "e5513feabe13749d2e4deff09df1922cf798945bcb2dc3cd34a4f52e82d345c2",
+      "pixels": [
+        4200,
+        2100
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    },
+    {
+      "figure": "CNN_sensitivity_saccade_peak_velocity",
+      "path": "output/supplementary/CNN_sensitivity_saccade_peak_velocity.png",
+      "png_sha256": "f79dd03afa2d4454525e4a1ad762d61ee4df5f8261f681bf47e77a25d0c0c4a1",
+      "pdf_sha256": "3b8cacf82272b01fbab59b91da4eb7bbe8083a905d045b3ce303550c9d910553",
+      "pixels": [
+        4200,
+        2100
+      ],
+      "dpi": [
+        299.9994,
+        299.9994
+      ],
+      "pdf_single_page": true,
+      "pdf_no_embedded_raster": true,
+      "contact_sheet_inspected": true
+    }
+  ]
+}

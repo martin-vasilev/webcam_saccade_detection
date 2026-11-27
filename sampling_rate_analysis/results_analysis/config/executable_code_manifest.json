@@ -1,0 +1,135 @@
+[
+  {
+    "path": "R/executable/historical/original_wasserstein_functions.R",
+    "source_relative": "classical_evaluation_reproduction/source_extracts/original_wasserstein_functions.R",
+    "source_sha256": "ba8c8ad27c53ae41fae670f258efc2584c262357797ced4db449a51ea4b63fc9",
+    "release_sha256": "ba8c8ad27c53ae41fae670f258efc2584c262357797ced4db449a51ea4b63fc9",
+    "change": "none; historical helper bundled, no participant observations"
+  },
+  {
+    "path": "R/executable/historical/original_rmd_reference_events.R",
+    "source_relative": "classical_evaluation_reproduction/source_extracts/original_rmd_reference_events.R",
+    "source_sha256": "8c25deb3edf5c0e00d5a864f4beb3b1ac0d57a675e06965ea7edcae14e085331",
+    "release_sha256": "8c25deb3edf5c0e00d5a864f4beb3b1ac0d57a675e06965ea7edcae14e085331",
+    "change": "none; historical helper bundled, no participant observations"
+  },
+  {
+    "path": "R/executable/historical/original_get_xy.R",
+    "source_relative": "classical_detection_reproduction/source_extracts/original_get_xy.R",
+    "source_sha256": "b545925cc2e4232d8cd4347a3c4904862a01f4bb00a0073a58f3a2ecf665e62c",
+    "release_sha256": "b545925cc2e4232d8cd4347a3c4904862a01f4bb00a0073a58f3a2ecf665e62c",
+    "change": "none; historical helper bundled, no participant observations"
+  },
+  {
+    "path": "R/executable/historical/original_detection_expressions.R",
+    "source_relative": "classical_detection_reproduction/source_extracts/original_detection_expressions.R",
+    "source_sha256": "742f6c204d6756c8d9d37d9c1859185bd5304764be4d24c35af8b370a84b15a9",
+    "release_sha256": "742f6c204d6756c8d9d37d9c1859185bd5304764be4d24c35af8b370a84b15a9",
+    "change": "none; historical helper bundled, no participant observations"
+  },
+  {
+    "path": "R/executable/part2/inputs.R",
+    "source_relative": "sampling_rate_analysis/martin_results_extension_001/R/part2/inputs.R",
+    "source_sha256": "d3bf8ad5f04f2085ba39c34e26eaed240eedeb7b82924879e4679f3527b718ef",
+    "release_sha256": "ed3a167aa2f97a2092937e463e4708cc970d5182e5c87a269f8b1e8e66641171",
+    "change": "none (text/line-ending normalisation only)"
+  },
+  {
+    "path": "R/executable/part2/selection.R",
+    "source_relative": "sampling_rate_analysis/martin_results_extension_001/R/part2/selection.R",
+    "source_sha256": "4d7a36af9c92c252741a5a8d1a603b0daf5690717fb8241f588d940c22653b1a",
+    "release_sha256": "d23c94d55e5572eb961f115deb1f4afd0129b2875d6238b2ddf18eb7517ac69e",
+    "change": "none (text/line-ending normalisation only)"
+  },
+  {
+    "path": "R/executable/part2/evaluation.R",
+    "source_relative": "sampling_rate_analysis/martin_results_extension_001/R/part2/evaluation.R",
+    "source_sha256": "6652601fff12222c1405488cdda6be3b658e474cfed87ed3936be7de3489dbe3",
+    "release_sha256": "a9bf29b60ef4a7c4d0259ae7e10d01f4e50361345c5561e56daa7f810665526c",
+    "change": "none (text/line-ending normalisation only)"
+  },
+  {
+    "path": "R/executable/part2b/workflow.R",
+    "source_relative": "sampling_rate_analysis/martin_results_extension_001/R/part2b/workflow.R",
+    "source_sha256": "777b4567962ab4eea9c0270f8ef1d198301b08e50f4f63620a6b2654ff3c6a55",
+    "release_sha256": "0de697b22414b4cc94251cf986e7c7ba548c933bb5066dc902905cdf4d5969ec",
+    "change": "none (text/line-ending normalisation only)"
+  },
+  {
+    "path": "R/executable/part3/events.R",
+    "source_relative": "sampling_rate_analysis/martin_results_extension_001/R/part3/events.R",
+    "source_sha256": "0ba4fa2847858bdcd2d8893da2b65e7607ade38d3ab894fb2e54995180bd740b",
+    "release_sha256": "c70118ce47f0fbb10e637278bfa77f08d15b543556a40c2cde0c3c7b9a49544a",
+    "change": "none (text/line-ending normalisation only)"
+  },
+  {
+    "path": "R/executable/part3/velocities.R",
+    "source_relative": "sampling_rate_analysis/martin_results_extension_001/R/part3/velocities.R",
+    "source_sha256": "dc2b5307e2180f7ed77479df3472e0ecf4e7de7e782fbed4c4a41213df58f0c4",
+    "release_sha256": "482d4e52fbd5c22d6d937460ea4a6147cb4829d65f52229f085969b3460ac9ab",
+    "change": "none (text/line-ending normalisation only)"
+  },
+  {
+    "path": "R/executable/part3/transport.R",
+    "source_relative": "sampling_rate_analysis/martin_results_extension_001/R/part3/transport.R",
+    "source_sha256": "d64d1d1210fec197b316aa831b3afc859d5564eb143466935407cf98bb9c1566",
+    "release_sha256": "f000314adbb1219e1014bd093cdaae1e8d47498449eebc7870d033fcd6603124",
+    "change": "environment-only library lookup plus explicit computation-subset guard; scientific operations/supports unchanged"
+  },
+  {
+    "path": "R/executable/part3/figures.R",
+    "source_relative": "sampling_rate_analysis/martin_results_extension_001/R/part3/figures.R",
+    "source_sha256": "809b56ca24b77bfee9ecda6fdb79681678ad8977d4aad17fb53fecc409a1fbbd",
+    "release_sha256": "48631315c7d728da9b17a96258a5c2169d35265e7449526e7a8443962e3abc67",
+    "change": "none (text/line-ending normalisation only)"
+  },
+  {
+    "path": "python/native_inputs.py",
+    "source_relative": "sampling_rate_analysis/martin_results_extension_001/validation/part3/prepare_inputs.py",
+    "source_sha256": "db4508cf46f17dd04db2d8d349056dbe59ff9b11f62ac9d0989d56ed289f0a21",
+    "release_sha256": "db4508cf46f17dd04db2d8d349056dbe59ff9b11f62ac9d0989d56ed289f0a21",
+    "change": "none"
+  },
+  {
+    "path": "R/executable/part2b/calculate.R",
+    "source_relative": "sampling_rate_analysis/martin_results_extension_001/R/part2b/workflow.R",
+    "source_sha256": "777b4567962ab4eea9c0270f8ef1d198301b08e50f4f63620a6b2654ff3c6a55",
+    "release_sha256": "a924a9c064f4379299fe02df7f94160044849d2c01962c055006a721371f183f",
+    "change": "exact calculation-block extraction; original finalisation/commit dispatcher excluded"
+  },
+  {
+    "path": "python/independent_events_transport.py",
+    "source_relative": "sampling_rate_analysis/martin_results_extension_001/validation/part3/verify_full_v1.py",
+    "source_sha256": "0f6116b278af42d75fae05a8230c95cd01f909edc712bf855eb8434d66a3499b",
+    "release_sha256": "0f6116b278af42d75fae05a8230c95cd01f909edc712bf855eb8434d66a3499b",
+    "change": "none; --pretransport validates all events, reference, velocities"
+  },
+  {
+    "path": "python/independent_selection.py",
+    "source_relative": "sampling_rate_analysis/martin_results_extension_001/validation/part2/verify.py",
+    "source_sha256": "82837765958fe7b61734482b141f341312c576e94a5e683bd6b1dc9cf77693b3",
+    "release_sha256": "9326e7dbd95f6d76d09e3962991a9918b5471278d7a7cfbbf4e052eef688ddbc",
+    "change": "exact original scientific-verification prefix; old plotting-ledger checks excluded"
+  },
+  {
+    "path": "python/independent_transport.py",
+    "source_relative": "sampling_rate_analysis/martin_results_extension_001/validation/part3/verify_full_v1.py",
+    "source_sha256": "0f6116b278af42d75fae05a8230c95cd01f909edc712bf855eb8434d66a3499b",
+    "release_sha256": "33c4cb0459faa52692abceb6d1b168f90ffc7365c52235c0dd0f7491fd14af4d",
+    "change": "exact independent transport block extraction; input setup only"
+  },
+  {
+    "path": "python/event_sensitivities.py",
+    "source_relative": "sampling_rate_analysis/martin_results_extension_001/validation/part3/finalize.py",
+    "source_sha256": "fb0ffa44bfb7e6031e3994b4aae2dd26e11ccec461481993e2dca5420d711b97",
+    "release_sha256": "24bdd8a055d73ff07d2f705e48d208cd32cb7bb2aa8e5dd1db720c3365ecc5cf",
+    "change": "exact scientific sensitivity/exposure block extraction; author report text and visual-pass finalisation excluded"
+  },
+  {
+    "path": "python/scientific_metrics.py",
+    "source_relative": "sampling_rate_analysis/downstream_original_vs_30hz_001/scripts/analyse.py",
+    "source_sha256": "1993cf6b3f215fc75708335453cc48f4bb9527db3a173b2879a7b6543c2be48f",
+    "release_sha256": "daefe368ffcc809b0eeb1e51f7651f1e80c50e851863c38e80e1adeec25fe0fc",
+    "change": "exact AST function-source extraction: mcc, counts, digest_ids; imports only"
+  }
+]

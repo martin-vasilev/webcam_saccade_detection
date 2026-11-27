@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "outer_folds": 160,
+  "candidate_pairs": 86880,
+  "heldout_calls": 22700,
+  "pooled_rows": 144
+}

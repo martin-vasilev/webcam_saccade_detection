@@ -1,0 +1,161 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "check": "grid_MCC_formula",
+      "passed": true,
+      "rows": 640
+    },
+    {
+      "check": "grid_participant_counts",
+      "passed": true,
+      "groups": 640
+    },
+    {
+      "check": "hmm_MCC_formula",
+      "passed": true,
+      "rows": 16
+    },
+    {
+      "check": "hmm_participant_counts",
+      "passed": true,
+      "groups": 16
+    },
+    {
+      "check": "selected_MCC_formula",
+      "passed": true,
+      "rows": 12
+    },
+    {
+      "check": "selected_participant_counts",
+      "passed": true,
+      "groups": 12
+    },
+    {
+      "check": "hmm_selected_MCC_formula",
+      "passed": true,
+      "rows": 4
+    },
+    {
+      "check": "hmm_selected_participant_counts",
+      "passed": true,
+      "groups": 4
+    },
+    {
+      "check": "grid_labels_thresholds_and_frozen_support",
+      "passed": true,
+      "configurations": 320
+    },
+    {
+      "check": "CNN_CNN_raw_fixation_original_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_raw_saccade_original_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_mean_fixation_original_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_mean_saccade_original_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_median_fixation_original_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_median_saccade_original_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_sg_p3_n7_fixation_original_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_sg_p3_n7_saccade_original_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_sg_p5_n23_fixation_original_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_sg_p5_n23_saccade_original_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_raw_fixation_rate30_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_raw_saccade_rate30_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_mean_fixation_rate30_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_mean_saccade_rate30_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_median_fixation_rate30_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_median_saccade_rate30_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_sg_p3_n7_fixation_rate30_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_sg_p3_n7_saccade_rate30_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_sg_p5_n23_fixation_rate30_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "CNN_CNN_sg_p5_n23_saccade_rate30_MCC_formula",
+      "passed": true,
+      "rows": 1
+    },
+    {
+      "check": "actual_plot_input_ledger",
+      "passed": true,
+      "points": 712,
+      "figures": 7
+    },
+    {
+      "check": "all_consumed_scientific_and_context_inputs_unchanged",
+      "passed": true,
+      "files": 41
+    }
+  ]
+}

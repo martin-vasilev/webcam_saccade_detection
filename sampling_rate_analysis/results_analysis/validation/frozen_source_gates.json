@@ -1,0 +1,26 @@
+[
+  {
+    "stage": "part1",
+    "passed": true,
+    "output_manifest_sha256": "e397d5a06c468cfd2f1afad4177a55db7d9a2a12a3ec1336ef16cb553c660d9f",
+    "verified_outputs": 33
+  },
+  {
+    "stage": "part2",
+    "passed": true,
+    "output_manifest_sha256": "8f7c1cd22709b4d2c5e925c6fba2a245aab7664f5cac8e27bd4d5cf150c06a32",
+    "verified_outputs": 38
+  },
+  {
+    "stage": "part2b",
+    "passed": true,
+    "output_manifest_sha256": "a6ec6a503a311377d349924659004af92a4aaf54dcfc93d2c7e79e0ab987d869",
+    "verified_outputs": 15
+  },
+  {
+    "stage": "part3",
+    "passed": true,
+    "output_manifest_sha256": "d0a03a97f307d914a331e98c52e51dc07738a09a42e2f979627cd2454198af18",
+    "verified_outputs": 142
+  }
+]
